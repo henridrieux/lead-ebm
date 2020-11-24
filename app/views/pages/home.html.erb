@@ -27,40 +27,24 @@
       </div>
     </div>
   </div>
-</div>
-<div>
-  <div class="container">
-    <div class="">
-      <h2>Nos derniers L.E.A.D.</h2>
-      <!-- Ajouter nos deriers scraps -->
-      <%# Company.all.order(updated_at: :desc ).limit(3).each do |company| %>
-     <!--  <div class="col-4">
-        <%= render partial: 'companys/company_card', locals: {coder: coder} %>
-      </div> -->
-    <%# end %>
-      <div class="">
-      </div>
-    </div>
-</div>
-
-<div class="container">
-  <div class="">
+  <div class="home-arguments">
     <h2>Laissez-nous faire la collecte de données pour vous.</h2>
     <p>Recevez quotidienement données fiables avec un minimum de ressources et une flexibilité maximale.</p>
     <span><%= link_to "Essayez maintenant", root_path, class: "btn btn-danger rounded-pill btn-lg" %></span>
-
+  </div>
   <div class="home-arguments">
     <h2>Recevez des leads clairs et détaillés </h2>
     <div class="card-home">
       <%= image_tag "https://res.cloudinary.com/dnpdonlro/image/upload/v1606227604/Capture_d_e%CC%81cran_2020-11-24_a%CC%80_15.19.50_wpxqgr.png", alt: "alttext", class: "leads-report" %>
     </div>
   </div>
-
-  <div class="home-arguments">
-    <h2>Les derniers abonnements souscripts: </h2>
-  </div>
+    <div class="home-arguments">
+      <h2>Nos derniers L.E.A.D. souscrits</h2>
+      <!-- Ajouter nos deriers scraps -->
+      <%# Company.all.order(updated_at: :desc ).limit(3).each do |company| %>
+     <!--  <div class="col-4">
+        <%#= render partial: 'companys/company_card', locals: {coder: coder} %>
+      </div> -->
+    <%# end %>
+    </div>
 </div>
-
-
-
-
