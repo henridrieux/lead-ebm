@@ -1,9 +1,9 @@
-class CreateEventsCategories < ActiveRecord::Migration[6.0]
+class CreateEventCategories < ActiveRecord::Migration[6.0]
   def change
-    create_table :events_categories do |t|
+    create_table :event_categories do |t|
+      t.string :title
       t.references :category, null: false, foreign_key: true
       t.references :event, null: false, foreign_key: true
-      t.string :title
 
       t.timestamps
     end
