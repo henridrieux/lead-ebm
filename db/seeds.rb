@@ -55,17 +55,21 @@ Event.create!(
 )
 
 puts "creating events_categories..."
+puts Event.count
+puts Category.count
 
-EventCategory.create!(
-  category_id: Category.find_by(name: "Avocat"),
-  event_id: Event.find_by(title: "Les créations de société"),
-  title: "Avocat - Les créations de société"
+event4_1 = EventCategory.new(
+  title: "Avocat - Les créations de société",
 )
+event4_1.category = Category.find_by(name: "Avocat")
+event4_1.event = Event.find_by(title: "Les créations de société")
+event4_1.save
 
-EventCategory.create!(
-  category_id: Category.find_by(name: "Notaire"),
-  event_id: Event.find_by(title: "Les sociétés qui recrutent"),
-  title: "Notaire - Les sociétés qui recrutent"
+event4_2 = EventCategory.new(
+  title: "Notaire - Les sociétés qui recrutent",
 )
+  event4_2.category_id = Category.find_by(name: "Notaire"),
+  event4_2.event = Event.find_by(title: "Les sociétés qui recrutent"),
+  event4_2.save
 
 
