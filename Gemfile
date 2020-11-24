@@ -33,6 +33,7 @@ gem 'devise'
 gem "rails_refactor"
 gem 'pundit'
 
+
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
