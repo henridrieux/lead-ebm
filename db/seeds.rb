@@ -37,20 +37,20 @@ puts "creating events..."
 Event.destroy_all
 Event.create!(
   title: "Les créations de société",
-  description: "Identifier les nouvelles créations d'entreprise"
-  # frequency: "Quotidienne",
+  description: "Identifier les nouvelles créations d'entreprise",
+  frequency: "Quotidienne",
   query: "SELECT *"
 )
 Event.create!(
   title: "Les sociétés qui recrutent",
-  description: "Identifier les sociétés qui se développent"
-  # frequency: "Quotidienne",
+  description: "Identifier les sociétés qui se développent",
+  frequency: "Quotidienne",
   query: "SELECT *"
 )
 Event.create!(
   title: "Les sociétés qui déménagent",
-  description: "Identifier les sociétés qui ont déménagé recemment"
-  # frequency: "Mensuelle",
+  description: "Identifier les sociétés qui ont déménagé recemment",
+  frequency: "Mensuelle",
   query: "SELECT *"
 )
 
