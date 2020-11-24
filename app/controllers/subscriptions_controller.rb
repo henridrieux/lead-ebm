@@ -1,7 +1,6 @@
 class SubscriptionsController < ApplicationController
   def index
     @subscriptions = policy_scope(Subscription).order(created_at: :desc)
-    authorize @subscription
   end
 
   def show

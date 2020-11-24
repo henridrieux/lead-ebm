@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   def index
-    @categories = Category.All
+    @categories = policy_scope(Category).order(created_at: :desc)
   end
 
   def show

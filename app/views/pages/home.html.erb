@@ -3,24 +3,24 @@
     <h1>Prenez une longueur d'avance <br>avec <strong>L.E.A.D !</strong></h1>
     <p>Optimisez vos chances de conversion auprès de vos
     prospects juridiques <br> en les contactant au meilleur moment</p>
-    <a class="btn btn-ghost btn-white" href="#">Découvrez les professions couvertes</a>
+    <%= link_to "Découvrez notre panel", categories_path , class: "btn btn-ghost btn-white"%>
   </div>
 </div>
 <div class="container">
-  <div class="home-arguments py-5">
+  <div class="home-arguments">
     <h2>Pourquoi choisir L.E.A.D. ?</h2>
-    <div class="home-cards flex-between py-3">
-      <div class="card-home">
+    <div class="home-cards flex-between">
+      <div class="card-home card-home-arguments">
         <%= image_tag "https://source.unsplash.com/random/400x400", alt: "alttext", class: "card-home-img" %>
         <h4><i class="fas fa-balance-scale"></i> Notre expertise sectorielle</h4>
         <p>Notre connaissance pointue du secteur de la legal tech nous permet de constuire les requetes les plus pertinentes afin de vous servir les meilleurs leads possibles.</p>
       </div>
-      <div class="card-home">
+      <div class="card-home card-home-arguments">
         <%= image_tag "https://source.unsplash.com/random/400x400", alt: "alttext", class: "card-home-img" %>
         <h4><i class="fas fa-cogs"></i> Notre expertise technique</h4>
         <p>Nos outils puissants et ciblés permettent de récupérer l'information sur un panel de sites pertinents, puis de la reprocesser pour vous servir des leads clairs.</p>
       </div>
-      <div class="card-home">
+      <div class="card-home card-home-arguments">
         <%= image_tag "https://source.unsplash.com/random/400x400", alt: "alttext", class: "card-home-img" %>
         <h4><i class="fas fa-list-ol"></i> Notre facilité d'intégration</h4>
         <p>Sans aucun développement, recevez tous les matins, directement dans vos outils internes (Slack,..) vos leads du jour. Chaque jour, des nouvelles opportunités pour vos commerciaux.</p>
@@ -28,6 +28,7 @@
     </div>
   </div>
 </div>
+
 <div>
   <div class="container">
     <div class="">
@@ -37,17 +38,21 @@
     </div>
 </div>
 
+
 <div class="container">
   <div class="">
     <h2>Laissez-nous faire la collecte de données pour vous.</h2>
     <p>Recevez quotidienement données fiables avec un minimum de ressources et une flexibilité maximale.</p>
     <span><%= link_to "Essayez maintenant", root_path, class: "btn btn-danger rounded-pill btn-lg" %></span>
 
-  <div class="home-lead-report-example py-5">
-    <h2>Recevez des listes de leads claires et détaillées </h2>
+  <div class="home-arguments">
+    <h2>Recevez des leads clairs et détaillés </h2>
+    <div class="card-home">
+      <%= image_tag "https://res.cloudinary.com/dnpdonlro/image/upload/v1606227604/Capture_d_e%CC%81cran_2020-11-24_a%CC%80_15.19.50_wpxqgr.png", alt: "alttext", class: "leads-report" %>
+    </div>
   </div>
 
-  <div class="home-latest-subscriptions py-5">
+  <div class="home-arguments">
     <h2>Les derniers abonnements souscripts: </h2>
   </div>
 </div>
