@@ -1,4 +1,4 @@
-class EventsCategoriesController < ApplicationController
+class EventCategoriesController < ApplicationController
   def index
     @events_categories = Events_category.All
   end
