@@ -6,15 +6,23 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require "open-uri"
+
+
 CAT_LIST = ["Avocat", "Huissier", "Notaire", "Administrateur judiciaire", "Commissaire-priseur"]
 FREQUENCE_LIST = ["Quotidienne", "Hebdomadaire", "Mensuelle"]
 
 puts "creating categories..."
-if Category.all.count == 0
-  Category.create!(
+# if Category.all.count == 0
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606231560/Environ-30-avocats-quittent-robedix-carriere_0_yejg1n.jpg')
+  avocat = Category.new(
     name: "Avocat",
-    description: "L'avocat représente et défend devant les tribunaux ou les cours des particuliers, des entreprises ou des collectivités. Il peut s'agir d'affaires civiles ( divorces, successions, litiges...) ou pénales (contraventions, délits, crimes...). Il peut être également sollicité par les entreprises en tant que conseil."
+    description: "L'avocat représente et défend devant les tribunaux ou les cours des particuliers, des entreprises ou des collectivités. Il peut s'agir d'affaires civiles ( divorces, successions, litiges...) ou pénales (contraventions, délits, crimes...). Il peut être également sollicité par les entreprises en tant que conseil.",
   )
+  avocat.photo.attach(io: file, filename: 'avocat.jpg')
+  avocat.save
+  puts "#{avocat.name} created"
+
   Category.create!(
     name: "Notaire",
     description: "Le notaire authentifie au nom de l'Etat des actes et des contrats et les conserve. Il intervient dans plusieurs domaines : droit de la famille, droit de l’immobilier et du patrimoine. Le conseil aux entreprises devient de plus en plus important."
@@ -31,7 +39,7 @@ if Category.all.count == 0
     name: "Commissaire-priseur",
     description: "L’administrateur judiciaire intervient lorsqu’une entreprise rencontre des difficultés. Il établit un diagnostic et préserve les droits de l'entreprise. Il étudie des solutions de continuation ou de cession de l'entreprise."
   )
-end
+# end
 
 puts "creating events..."
 Event.destroy_all
