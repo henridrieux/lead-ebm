@@ -82,16 +82,6 @@ ActiveRecord::Schema.define(version: 2020_11_24_152632) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "events_categories", force: :cascade do |t|
-    t.bigint "category_id", null: false
-    t.bigint "event_id", null: false
-    t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_events_categories_on_category_id"
-    t.index ["event_id"], name: "index_events_categories_on_event_id"
-  end
-
   create_table "recruitments", force: :cascade do |t|
     t.bigint "category_id", null: false
     t.string "employer"
@@ -135,8 +125,6 @@ ActiveRecord::Schema.define(version: 2020_11_24_152632) do
   add_foreign_key "companies", "categories"
   add_foreign_key "event_categories", "categories"
   add_foreign_key "event_categories", "events"
-  add_foreign_key "events_categories", "categories"
-  add_foreign_key "events_categories", "events"
   add_foreign_key "recruitments", "categories"
   add_foreign_key "subscriptions", "event_categories"
   add_foreign_key "subscriptions", "users"
