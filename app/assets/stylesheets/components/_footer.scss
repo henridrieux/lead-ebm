@@ -1,0 +1,23 @@
+.footer {
+  height: 150px;
+  background-color: $dark-blue;
+  text-align: center;
+  padding: 3rem;
+  li {
+    color: white;
+    list-style: none;
+    display: inline-block;
+    font-size: 30px;
+    margin: 10px;
+  }
+  p {
+    text-decoration: none;
+  }
+  a {
+    text-decoration: none;
+  }
+}
+
+.content-wrapper {
+  min-height: calc(100vh - 80px - 80px);
+}
