@@ -1,6 +1,6 @@
 class EventCategoriesController < ApplicationController
   def index
-    @events_categories = Events_category.All
+    @events_categories = Events_category.all
   end
 
   def show

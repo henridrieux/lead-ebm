@@ -1,19 +1,4 @@
 <div class="container">
-  <h1>Categories#index</h1>
-  <p>Find me in app/views/categories/index.html.erb</p>
-
-  <% @categories.each do |category| %>
-    <ul>
-      <li><%= category.name %></li>
-      <li><%= category.description %></li>
-    </ul>
-  <% end %>
-
-</div>
-<%# = link_to "Show Subscription", event_category_subscriptions_path %>
-
-
-<div class="container">
   <h2>Rechercher et sélectionner la profession qui vous intéresse<h2>
 </div>
 
@@ -37,17 +22,19 @@
 <div class="category-card">
   <div class="category-card-image" style="background-image: url('')"></div>
     <div class="category-card-title">
-      <h4><%#= category.name %>Notaire</h4>
+      <h4><% @categories.each do |category| %></h4>
+      <h4><%= category.name %></h4>
+       <div class="category-card-description">
+      <p> <%= category.description %></p>
     </div>
-    <div class="category-card-description">
-      <p>En droit, l'avocat est un juriste dont les fonctions traditionnelles sont de conseiller, représenter, d'assister et de défendre ses clients, personnes physiques ou morale.</p>
+      <% end %>
     </div>
 
- <!--    CATEGORBY NOMBRE EVENT -->
+
+ <!--    CATEGORY NOMBRE EVENT -->
 
     <div class="">
     </div>
-
   </div>
 </div>
 
