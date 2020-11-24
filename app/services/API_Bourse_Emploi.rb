@@ -1,8 +1,7 @@
 # Or wrap things up in your own class
 #
-require "JSON"
-
-require "uri"
+require "json"
+require "open-uri"
 require "net/http"
 
 url = URI("https://bourse-emplois.notaires.fr/api/offre/search?page=1&pageSize=90&sort=DESC&sortField=DATE_ACTUALISATION")
