@@ -9,14 +9,18 @@
 }
 .home-arguments {
   margin: 1.5rem 0;
+  .home-cards {
+    display: flex;
+    justify-content: space-between;
+  }
   h2 {
     margin: 1rem 0;
   }
 }
 
 .card-home-arguments {
-  width: 300px;
-  height: 450px;
+  max-width: 500px;
+  margin-right: 1rem;
   img {
     height: 150px;
   object-fit: cover;
