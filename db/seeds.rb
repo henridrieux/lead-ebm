@@ -14,7 +14,7 @@ FREQUENCE_LIST = ["Quotidienne", "Hebdomadaire", "Mensuelle"]
 
 puts "creating categories..."
 # if Category.all.count == 0
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606231560/Environ-30-avocats-quittent-robedix-carriere_0_yejg1n.jpg')
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606231560/avocat.jpg')
   avocat = Category.new(
     name: "Avocat",
     description: "L'avocat représente et défend devant les tribunaux ou les cours des particuliers, des entreprises ou des collectivités. Il peut s'agir d'affaires civiles ( divorces, successions, litiges...) ou pénales (contraventions, délits, crimes...). Il peut être également sollicité par les entreprises en tant que conseil.",
@@ -23,21 +23,51 @@ puts "creating categories..."
   avocat.save
   puts "#{avocat.name} created"
 
-  Category.create!(
+
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241120/notaire.jpg')
+
+  notaire = Category.new(
     name: "Notaire",
     description: "Le notaire authentifie au nom de l'Etat des actes et des contrats et les conserve. Il intervient dans plusieurs domaines : droit de la famille, droit de l’immobilier et du patrimoine. Le conseil aux entreprises devient de plus en plus important."
-  )
-  Category.create!(
-    name: "Huissier",
+    )
+  notaire.photo.attach(io: file, filename: 'notaire.jpg')
+  notaire.save
+  puts "#{notaire.name} created"
+
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241289/huissier.jpg')
+
+  huissier = Category.new(
+    name: "huissier",
     description: "Constater les faits en tant que preuve, informer les intéressés des décisions prises et vérifier leur application sont les principales missions de l'huissier de justice / l'huissière de justice. Après avoir acheté une charge, il/elle est nommé(e) par le garde des Sceaux."
-  )
-  Category.create!(
+    )
+  huissier.photo.attach(io: file, filename: 'huissier.jpg')
+  huissier.save
+  puts "#{huissier.name} created"
+
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241705/administrateur-trice-judiciaire_zzybi1.jpg')
+
+   administrateur_judiciaire = Category.new(
     name: "Administrateur judiciaire",
     description: "L’administrateur judiciaire intervient lorsqu’une entreprise rencontre des difficultés. Il établit un diagnostic et préserve les droits de l'entreprise. Il étudie des solutions de continuation ou de cession de l'entreprise."
-  )
-  Category.create!(
+    )
+  administrateur_judiciaire.photo.attach(io: file, filename: 'Administrateur-judiciaire.jpg')
+  administrateur_judiciaire.save
+  puts "#{administrateur_judiciaire.name} created"
+
+ file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241766/Commissaire-priseur.jpg')
+
+   commissaire_priseur = Category.new(
     name: "Commissaire-priseur",
     description: "L’administrateur judiciaire intervient lorsqu’une entreprise rencontre des difficultés. Il établit un diagnostic et préserve les droits de l'entreprise. Il étudie des solutions de continuation ou de cession de l'entreprise."
+    )
+  commissaire_priseur.photo.attach(io: file, filename: 'Commissaire-priseur.jpg')
+  commissaire_priseur.save
+  puts "#{commissaire_priseur.name} created"
+
+
+  Category.create!(
+    name: "Commissaire-priseur",
+    description: "Le commissaire-priseur propose aux enchères publiques des objets d’art, du mobilier ou des articles divers. Soit mis en vente par des particuliers ou des entreprises, soit provenant de saisies judiciaires. Il opère dans une salle ou hôtel des ventes."
   )
 # end
 
