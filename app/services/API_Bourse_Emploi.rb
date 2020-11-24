@@ -1,10 +1,10 @@
-class APIBourseEmploi < ApplicationController
+class APIBourseEmploi
 # Or wrap things up in your own class
 require "json"
 require "open-uri"
 require "net/http"
 
-  def API_Bourse
+
   url = URI("https://bourse-emplois.notaires.fr/api/offre/search?page=1&pageSize=90&sort=DESC&sortField=DATE_ACTUALISATION")
 
   https = Net::HTTP.new(url.host, url.port)
@@ -27,9 +27,27 @@ require "net/http"
     new_id_array << v["id"]
   end
 
-  return new_id_array
+  new_id_array.each do |id|
+
+   url2 = URI("https://bourse-emplois.notaires.fr/api/offre/preview/#{id}")
+
+https = Net::HTTP.new(url2.host, url2.port)
+https.use_ssl = true
+
+request = Net::HTTP::Get.new(url2)
+request["Cookie"] = "_ga=GA1.3.1335572239.1606137983; _gid=GA1.3.89168093.1606137983; tartaucitron=!analytics=true!recaptcha=true; Cookie_1=value"
+
+response2 = https.request(request)
+return_array2 = response2.read_body
+result2 = JSON.parse(return_array2)
+# puts result2
+
+final_array = []
+  result2.each do |v|
+    final_array << v
   end
+puts final_array
+  end
+
+
 end
-# new_id_array.each do |id|
-# puts "https://bourse-emplois.notaires.fr/api/offre/preview/#{id}"
-# end
