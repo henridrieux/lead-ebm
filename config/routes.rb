@@ -1,14 +1,4 @@
 Rails.application.routes.draw do
-  get 'event_categories/index'
-  get 'event_categories/show'
-  get 'events/index'
-  get 'events/show'
-  get 'categories/index'
-  get 'categories/show'
-  get 'recruitments/index'
-  get 'recruitments/show'
-  get 'companies/index'
-  get 'companies/show'
   devise_for :users
   root to: 'pages#home'
   get "/dashboard", to: 'pages#dashboard'
