@@ -1,31 +1,36 @@
 
-<!-- search-form-control -->
 
+<!-- search-form-control -->
 <div class="container">
-  <%= simple_form_for :query, url: categories_path, method: :get do |f| %>
-  <div class="row">
-    <div class="">
-      <input class="string required" placeholder="Essayer 'Notaire','avocat', 'recrutement'..." type="text" name="query" id="query" value="<%= params[:query] %>"/>
-        <button name="button" type="submit" class="rounded-pill">
-          <i class="fas fa-search"></i>Chercher
-        </button>
-    </div>
+  <div class="search-bar flex-center card-style">
+    <%= simple_form_for :query, url: categories_path, method: :get do |f| %>
+      <div class="">
+        <input class="string required" placeholder="Essayer 'Notaire','avocat', 'recrutement'..." type="text" name="query" id="query" value="<%= params[:query] %>"/>
+          <button name="button" type="submit" class="rounded-pill">
+            <i class="fas fa-search"></i>Chercher
+          </button>
+      </div>
+    <% end %>
   </div>
-  <% end %>
 </div>
 
-<!-- CATRGORIES CARDS  -->
+<!-- CATEGORIES CARDS  -->
 
-<div class="category-card">
-  <div class="category-card-image" style="background-image: url('')"></div>
-    <div class="category-card-title">
-      <h4><% @categories.each do |category| %></h4>
-      <h4><%= category.name %></h4>
-       <div class="category-card-description">
-      <p> <%= category.description %></p>
-    </div>
-      <% end %>
-    </div>
+<div class="container">
+  <div class="row category-cards">
+    <% @categories.each do |category| %>
+      <div class="col-5 category-card card-style m-3">
+        <div class="category-card-image" style="background-image: url('')"></div>
+        <div class="category-card-title">
+            <h4><%= category.name %></h4>
+            <div class="category-card-description">
+              <p> <%= category.description %></p>
+            </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 
  <!--    CATEGORY NOMBRE EVENT -->
@@ -33,5 +38,4 @@
     <div class="">
     </div>
   </div>
-</div>
 
