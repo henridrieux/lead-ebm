@@ -1,19 +1,19 @@
 class SubscriptionsController < ApplicationController
   def index
-    @subscriptions = Subscription.All
-    authorize @user
+    @subscriptions = policy_scope(Subscription).order(created_at: :desc)
+    authorize @subscription
   end
 
   def show
     @subscription = Subscription.find(params[:id])
-    authorize @user
+    authorize @subscription
   end
 
   def new
     @subscription = Subscription.new
     @events_category = Events_category.find(params[:events_category_id])
     @subscription.events_category = @events_category
-    authorize @user
+    authorize @subscription
   end
 
   def create

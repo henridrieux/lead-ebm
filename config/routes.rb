@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'events_categories/index'
-  get 'events_categories/show'
+  get 'event_categories/index'
+  get 'event_categories/show'
   get 'events/index'
   get 'events/show'
   get 'categories/index'
@@ -17,7 +17,7 @@ resources :companies, only: [:index, :show]
 resources :recruitments, only: [:index, :show]
 resources :categories, only: [:index, :show]
 resources :events, only: [:index, :show]
-resources :events_categories, only: [:index, :show] do
+resources :event_categories, only: [:index, :show] do
   resources :subscriptions
 end
 

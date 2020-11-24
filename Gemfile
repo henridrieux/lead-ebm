@@ -31,6 +31,8 @@ gem 'dotenv-rails'
 gem 'cloudinary', '~> 1.16.0'
 
 gem 'devise'
+gem "rails_refactor"
+gem 'pundit'
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
