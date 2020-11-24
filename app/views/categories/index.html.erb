@@ -1,9 +1,53 @@
-<h1>Categories#index</h1>
-<p>Find me in app/views/categories/index.html.erb</p>
+<div class="container">
+  <h1>Categories#index</h1>
+  <p>Find me in app/views/categories/index.html.erb</p>
 
-<% @categories.each do |category| %>
-<ul>
-<li><%= category.name %></li>
-<li><%= category.description %></li>
-</ul>
-<% end %>
+  <% @categories.each do |category| %>
+    <ul>
+      <li><%= category.name %></li>
+      <li><%= category.description %></li>
+    </ul>
+  <% end %>
+
+</div>
+<%# = link_to "Show Subscription", event_category_subscriptions_path %>
+
+
+<div class="container">
+  <h2>Rechercher et sélectionner la profession qui vous intéresse<h2>
+</div>
+
+<!-- search-form-control -->
+
+<div class="container">
+  <%= simple_form_for :query, url: categories_path, method: :get do |f| %>
+  <div class="row">
+    <div class="">
+      <input class="string required" placeholder="Essayer 'Notaire','avocat', 'recrutement'..." type="text" name="query" id="query" value="<%= params[:query] %>"/>
+        <button name="button" type="submit" class="rounded-pill">
+          <i class="fas fa-search"></i>Chercher
+        </button>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<!-- CATRGORIES CARDS  -->
+
+<div class="category-card">
+  <div class="category-card-image" style="background-image: url('')"></div>
+    <div class="category-card-title">
+      <h4><%#= category.name %>Notaire</h4>
+    </div>
+    <div class="category-card-description">
+      <p>En droit, l'avocat est un juriste dont les fonctions traditionnelles sont de conseiller, représenter, d'assister et de défendre ses clients, personnes physiques ou morale.</p>
+    </div>
+
+ <!--    CATEGORBY NOMBRE EVENT -->
+
+    <div class="">
+    </div>
+
+  </div>
+</div>
+
