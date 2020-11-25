@@ -2,10 +2,23 @@
   h4 {
     margin: 1rem 0;
   }
+  margin-bottom: 1rem;
 }
 
 .category-card-image {
   height: 200px;
   width: 100%;
   background-size: cover;
+}
+
+.category-card-link {
+  a {
+    text-decoration: none;
+    color: #ec524b;
+    opacity: 0.8;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
 }
