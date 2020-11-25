@@ -17,5 +17,6 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.find(params[:id])
     @event_categories = EventCategory.all
+    @events = Event.all
   end
 end

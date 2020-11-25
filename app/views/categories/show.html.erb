@@ -2,7 +2,7 @@
 
 <div class="container">
   <h1> <%=@category.name%> </h1>
-  <div class="" style="background-image: url('<%= cl_image_path category.photo.key, height: 300, width: 400, crop: :fill %>')"></div>
+  <div class="" style="background-image: url('<%= cl_image_path @category.photo.key, height: 300, width: 400, crop: :fill %>')"></div>
 </div>
 
 
@@ -12,7 +12,8 @@
   <p>Fiez-vous à des données fraîches et précises grâce à nos recherches exclusives en temps réel sur la profession de <%=@category.name%>.
   Agissez immédiatement en fonction des nouvelles informations, avec des alertes de vente et des notifications de changement de poste par exemple.</p>
   <div>
-    Ajouter le nombre d'event @tristan
+    <!-- Ajouter le nombre d'event @tristan -->
+    <%= @category.event_categories.count %>
   </div>
 </div>
 
@@ -23,13 +24,13 @@
 <div class="container">
   <div class="">
   <% @events.each do |event| %>
-    <h2> @tristan <%#=@event.name%> </h2>
+    <h2> <%= event.title%> </h2>
 
-    <p> @ tristan nombre de lead par semaine ?  <%#=@event.name.count%> </p>
+    <p> @ tristan nombre de lead par semaine ?  <%#= event.title.count%> </p>
 
     @ tristan <%#= render partial: 'event_categories/event_categories_card', locals: {event_category: @event_category} %>
 
-    @ tristant <%#= link_to "S'abonner", dashboard_path , class: ""%>
+    <%= link_to "S'abonner", dashboard_path(current_user) , class: ""%>
     <% end %>
   </div>
 </div>
@@ -38,7 +39,7 @@
 <!-- RETOUR A L'INDEX -->
 
 <div class="container">
-    <%= link_to "Les autres categories", _back_path , class: ""%>
+    <%= link_to "Les autres categories", categories_path , class: ""%>
 </div>
 
 
