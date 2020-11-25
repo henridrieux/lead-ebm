@@ -20,7 +20,7 @@
 
 <!-- CATEGORIES CARDS  -->
 <div class="container">
-  <div class="row category-cards">
+  <div class="row row-cols-1 row-cols-md-2">
     <% @categories.each do |category| %>
        <%= render partial: 'category_card', locals: {category: category} %>
     <% end %>
