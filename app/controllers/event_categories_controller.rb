@@ -1,9 +1,9 @@
 class EventCategoriesController < ApplicationController
   def index
-    @events_categories = Events_category.all
+    @event_categories = EventCategory.all
   end
 
   def show
-    @events_category = Events_category.find(params[:id])
+    @event_categories = EventCategory.all
   end
 end
