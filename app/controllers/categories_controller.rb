@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
-  after_action :verify_authorized, except: :show, unless: :skip_pundit?
+  after_action :verify_authorized, except: [:show, :index], unless: :skip_pundit?
+
   def index
     @categories = policy_scope(Category).order(created_at: :desc)
     if params[:query].present?
