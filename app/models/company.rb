@@ -5,4 +5,5 @@ class Company < ApplicationRecord
   validates :SIREN, presence: true
   validates :naf_code, presence: true
   validates :rcs_inscription, presence: true
+  validates :manager_birth_year, presence: true
 end
