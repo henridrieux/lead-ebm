@@ -1,0 +1,31 @@
+.tabs-zone {
+  display: flex;
+  justify-content: center;
+
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  margin-left: 3rem;
+}
+
+.tabs .tab-underlined {
+  width: 200px;
+  margin-right: 1rem;
+  padding: 1rem;
+  opacity: .6;
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 4px solid transparent;
+}
+
+.tabs .tab-underlined.active {
+  opacity: 1;
+  border-top: .5px solid $dark-blue;
+  border-right: .5px solid $dark-blue;
+  border-left: .5px solid $dark-blue;
+  border-bottom: 3px solid $light-gray;
+  background-color: $light-gray;
+}
+

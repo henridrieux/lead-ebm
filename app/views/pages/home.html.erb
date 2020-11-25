@@ -9,20 +9,29 @@
 <div class="container">
   <div class="home-arguments">
     <h2>Pourquoi choisir L.E.A.D. ?</h2>
-    <div class="home-cards">
-      <div class="card-style card-home-arguments">
+    <div class="row row-cols-1 row-cols-md-3">
+      <div class="col card-style card-home-arguments">
         <%= image_tag "https://source.unsplash.com/random/400x400", alt: "alttext", class: "card-home-img" %>
-        <h4><i class="fas fa-balance-scale"></i> Notre expertise sectorielle</h4>
+        <h4 class="flex-between">
+            <i class="fas fa-balance-scale"></i>
+            <span>Notre expertise sectorielle</span>
+        </h4>
         <p>Notre connaissance pointue du secteur de la legal tech nous permet de constuire les requetes les plus pertinentes afin de vous servir les meilleurs leads possibles.</p>
       </div>
-      <div class="card-style card-home-arguments">
+      <div class="col card-style card-home-arguments">
         <%= image_tag "https://source.unsplash.com/random/400x400", alt: "alttext", class: "card-home-img" %>
-        <h4><i class="fas fa-cogs"></i> Notre expertise technique</h4>
+        <h4 class="flex-between">
+            <i class="fas fa-cogs"></i>
+            <span>Notre expertise technique</span>
+        </h4>
         <p>Nos outils puissants et ciblés permettent de récupérer l'information sur un panel de sites pertinents, puis de la reprocesser pour vous servir des leads clairs.</p>
       </div>
-      <div class="card-style card-home-arguments">
+      <div class="col card-style card-home-arguments">
         <%= image_tag "https://source.unsplash.com/random/400x400", alt: "alttext", class: "card-home-img" %>
-        <h4><i class="fas fa-list-ol"></i> Notre facilité d'intégration</h4>
+        <h4 class="flex-between">
+            <i class="fas fa-list-ol"></i>
+            <span>Notre facilité d'intégration</span>
+        </h4>
         <p>Sans aucun développement, recevez tous les matins, directement dans vos outils internes (Slack,..) vos leads du jour. Chaque jour, des nouvelles opportunités pour vos commerciaux.</p>
       </div>
     </div>
@@ -30,14 +39,44 @@
 
   <div class="home-arguments">
     <h2>Laissez-nous faire la collecte de données pour vous.</h2>
-    <p>Recevez quotidienement données fiables avec un minimum de ressources et une flexibilité maximale.</p>
-    <span><%= link_to "Essayez maintenant", categories_path, class: "btn btn-ghost" %></span>
+    <div class="row row-cols-1">
+      <div class="col card-style card-home-arguments flex-between">
+        <div>
+          <p class="m-0">Recevez quotidienement données fiables avec un minimum de ressources et une flexibilité maximale.</p>
+        </div>
+        <%= link_to "Essayez maintenant", categories_path, class: "btn btn-ghost" %>
+      </div>
+    </div>
   </div>
 
   <div class="home-arguments">
     <h2>Recevez des leads clairs et détaillés </h2>
-    <div class="card-style">
-      <%= image_tag "https://res.cloudinary.com/dnpdonlro/image/upload/v1606227604/Capture_d_e%CC%81cran_2020-11-24_a%CC%80_15.19.50_wpxqgr.png", alt: "alttext", class: "leads-report" %>
+    <div class="row row-cols-1">
+      <div class="col card-style">
+        <%= image_tag "https://res.cloudinary.com/dnpdonlro/image/upload/v1606227604/Capture_d_e%CC%81cran_2020-11-24_a%CC%80_15.19.50_wpxqgr.png", alt: "alttext", class: "leads-report" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-arguments">
+    <h2>Ils ont pris les leads : </h2>
+    <div class="row row-cols-1 row-cols-md-2">
+      <div class="col-2 card-style">
+        <div class="card-testitomy flex-center">
+          <%= image_tag "https://res.cloudinary.com/dnpdonlro/image/upload/v1605793441/unknown_user_smsl6v.jpg", class: "avatar-bordered" %>
+          <span>first_name</span>
+        </div>
+        <p><em>"témoignage Lorem, ipsum dolor sit amet, consectetur adipisicing elit. Tempore pariatur exercitationem reiciendis minima quidem magni
+        voluptatibus optio veniam officia, eos recusandae, animi voluptatem laborum odio in excepturi corporis, tenetur est."</em></p>
+      </div>
+      <div class="col-6 card-style">
+        <div class="card-testitomy flex-center">
+          <%= image_tag "https://res.cloudinary.com/dnpdonlro/image/upload/v1605793441/unknown_user_smsl6v.jpg", class: "avatar-bordered" %>
+          <span>first_name</span>
+        </div>
+        <p>"témoignage Lorem, ipsum dolor sit amet, consectetur adipisicing elit. Tempore pariatur exercitationem reiciendis minima quidem magni
+        voluptatibus optio veniam officia, eos recusandae, animi voluptatem laborum odio in excepturi corporis, tenetur est."</p>
+      </div>
     </div>
   </div>
 
