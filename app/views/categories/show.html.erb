@@ -1,5 +1,52 @@
-<h1>Categories#show</h1>
-<p>Find me in app/views/categories/show.html.erb</p>
+<!-- AFFICHER TITRE PLUS IMAGE DE LA CATEGORY -->
+
+<div class="container">
+  <h1> <%=@category.name%> </h1>
+  <div class="" style="background-image: url('<%= cl_image_path category.photo.key, height: 300, width: 400, crop: :fill %>')"></div>
+</div>
 
 
- <%= render partial: 'event_categories/event_categories_card', locals: {event_category: @event_category} %>
+<!-- PRESENTATION DE LA CATEGORY -->
+
+<div class="container">
+  <p>Fiez-vous à des données fraîches et précises grâce à nos recherches exclusives en temps réel sur la profession de <%=@category.name%>.
+  Agissez immédiatement en fonction des nouvelles informations, avec des alertes de vente et des notifications de changement de poste par exemple.</p>
+  <div>
+    Ajouter le nombre d'event @tristan
+  </div>
+</div>
+
+<!-- EVENTS DE LA CATEGORY -->
+
+@pierre repartir de Figma en modifiant le texte de présentation de l'event par le dernier lead ?
+
+<div class="container">
+  <div class="">
+  <% @events.each do |event| %>
+    <h2> @tristan <%#=@event.name%> </h2>
+
+    <p> @ tristan nombre de lead par semaine ?  <%#=@event.name.count%> </p>
+
+    @ tristan <%#= render partial: 'event_categories/event_categories_card', locals: {event_category: @event_category} %>
+
+    @ tristant <%#= link_to "S'abonner", dashboard_path , class: ""%>
+    <% end %>
+  </div>
+</div>
+
+
+<!-- RETOUR A L'INDEX -->
+
+<div class="container">
+    <%= link_to "Les autres categories", _back_path , class: ""%>
+</div>
+
+
+
+
+
+
+
+
+
+
