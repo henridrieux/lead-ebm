@@ -41,7 +41,7 @@ puts "creating categories..."
   file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241289/huissier.jpg')
 
   huissier = Category.new(
-    name: "huissier",
+    name: "Huissier",
     description: "Constater les faits en tant que preuve, informer les intéressés des décisions prises et vérifier leur application sont les principales missions de l'huissier de justice / l'huissière de justice. Après avoir acheté une charge, il/elle est nommé(e) par le garde des Sceaux."
     )
   huissier.photo.attach(io: file, filename: 'huissier.jpg')
@@ -62,11 +62,22 @@ puts "creating categories..."
 
    commissaire_priseur = Category.new(
     name: "Commissaire-priseur",
-    description: "L’administrateur judiciaire intervient lorsqu’une entreprise rencontre des difficultés. Il établit un diagnostic et préserve les droits de l'entreprise. Il étudie des solutions de continuation ou de cession de l'entreprise."
+    description: "Le commissaire-priseur dirige la vente publique aux enchères de biens meubles, la prisée étant l’estimation d’une chose destinée à la vente. La vente aux enchères publiques permet l’établissement du juste prix par la confrontation transparente entre l’offre et la demande."
     )
   commissaire_priseur.photo.attach(io: file, filename: 'Commissaire-priseur.jpg')
   commissaire_priseur.save
   puts "#{commissaire_priseur.name} created"
+
+  file = URI.open('hhttps://res.cloudinary.com/dpco9ylg1/image/upload/v1606317696/responsable-comptable_mvdrt6.jpg')
+
+   comptable = Category.new(
+    name: "Comptable",
+    description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise et plus globalement sa santé financière. ... Dans le cadre d'une grande entreprise, le comptable occupe généralement un poste spécialisé en tant que chargé de comptes clients, fournisseurs ou de la paie, ou bien encore auprès du contrôleur de gestion."
+    )
+  comptable.photo.attach(io: file, filename: 'comptable.jpg')
+  comptable.save
+  puts "#{comptable.name} created"
+
 
 # end
 
@@ -99,8 +110,15 @@ event4_1 = EventCategory.new(
   title: "Avocat - Les créations de société",
 )
 event4_1.category = Category.find_by(name: "Avocat")
-event4_1.event = Event.find_by(title: "Les créations de société")
+event4_1.event =   Event.find_by(title: "Les créations de société")
 event4_1.save
+
+event4_7 = EventCategory.new(
+  title: "Avocat - Les reprises de société",
+)
+event4_7.category = Category.find_by(name: "Avocat")
+event4_7.event =   Event.find_by(title: "Les reprises de société")
+event4_7.save
 
 event4_2 = EventCategory.new(
   title: "Notaire - Les sociétés qui recrutent",
@@ -108,6 +126,55 @@ event4_2 = EventCategory.new(
   event4_2.category_id = Category.find_by(name: "Notaire"),
   event4_2.event = Event.find_by(title: "Les sociétés qui recrutent"),
   event4_2.save
+
+event4_3 = EventCategory.new(
+  title: "Notaire - Les créations d'étude",
+)
+  event4_3.category_id = Category.find_by(name: "Notaire"),
+  event4_3.event = Event.find_by(title: "Les créations d'étude"),
+  event4_3.save
+
+event4_4 = EventCategory.new(
+  title: "Notaire - Reprise d'une étude",
+)
+  event4_4.category_id = Category.find_by(name: "Notaire"),
+  event4_4.event = Event.find_by(title: "Reprise d'une étude"),
+  event4_4.save
+
+event4_5 = EventCategory.new(
+  title: "Notaire - Les études qui recrutent",
+)
+  event4_5.category_id = Category.find_by(name: "Notaire"),
+  event4_5.event = Event.find_by(title: "Les études qui recrutent"),
+  event4_5.save
+
+event4_6 = EventCategory.new(
+  title: "Comptable - La création de cabinet",
+)
+  event4_6.category_id = Category.find_by(name: "Comptable"),
+  event4_6.event = Event.find_by(title: "La création de cabinet"),
+  event4_6.save
+
+event4_7 = EventCategory.new(
+  title: "Comptable - Le recrutement",
+)
+  event4_7.category_id = Category.find_by(name: "Comptable"),
+  event4_7.event = Event.find_by(title: "Le recrutement"),
+  event4_7.save
+
+event4_8 = EventCategory.new(
+  title: "Comptable - La reprise d'un cabient d'expertise",
+)
+  event4_8.category_id = Category.find_by(name: "Comptable"),
+  event4_8.event = Event.find_by(title: "La reprise d'un cabient d'expertise"),
+  event4_8.save
+
+event4_9 = EventCategory.new(
+  title: "Administrateur judiciaire - Le recrutement",
+)
+  event4_9.category_id = Category.find_by(name: "Administrateur judiciaire"),
+  event4_9.event = Event.find_by(title: "Le recrutement"),
+  event4_9.save
 
 
 data = APIBourseEmploi.new.bourse_emploi
