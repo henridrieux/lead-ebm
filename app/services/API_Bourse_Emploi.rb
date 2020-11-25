@@ -4,7 +4,7 @@ require "json"
 require "open-uri"
 require "net/http"
 
-  def method_name
+  def bourse_emploi
     url = URI("https://bourse-emplois.notaires.fr/api/offre/search?page=1&pageSize=90&sort=DESC&sortField=DATE_ACTUALISATION")
 
     https = Net::HTTP.new(url.host, url.port)
@@ -26,9 +26,17 @@ require "net/http"
     result["content"].each do |v|
       new_id_array << v["id"]
     end
-
+    final_array = []
     new_id_array.each do |id|
-      url2 = URI("https://bourse-emplois.notaires.fr/api/offre/preview/#{id}")
+      recruit = transform_json(id)
+      # puts result2
+        final_array << recruit
+    end
+     return final_array
+  end
+
+  def transform_json(id)
+    url2 = URI("https://bourse-emplois.notaires.fr/api/offre/preview/#{id}")
       https = Net::HTTP.new(url2.host, url2.port)
       https.use_ssl = true
       request = Net::HTTP::Get.new(url2)
@@ -36,12 +44,7 @@ require "net/http"
       response2 = https.request(request)
       return_array2 = response2.read_body
       result2 = JSON.parse(return_array2)
-      # puts result2
-      final_array = []
-      result2.each do |v|
-        final_array << v
-      end
-      return final_array
-    end
+      return result2
+
   end
 end

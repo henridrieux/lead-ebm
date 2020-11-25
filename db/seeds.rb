@@ -9,6 +9,9 @@
 require "open-uri"
 
 
+
+
+
 CAT_LIST = ["Avocat", "Huissier", "Notaire", "Administrateur judiciaire", "Commissaire-priseur"]
 FREQUENCE_LIST = ["Quotidienne", "Hebdomadaire", "Mensuelle"]
 
@@ -112,3 +115,24 @@ event4_2 = EventCategory.new(
   event4_2.save
 
 
+data = APIBourseEmploi.new.bourse_emploi
+data.first(3).each do |recruitment|
+  puts recruitment["zipCode"]
+  puts recruitment["officeName"]
+  puts recruitment["principal"]
+  puts recruitment["datePublication"]
+
+   input = Recruitment.new(
+    zip_code: recruitment["zipCode"].to_i,
+    employer: recruitment["officeName"],
+    job_title: recruitment["principal"],
+    contract_type: recruitment["contractType"]
+    #publication_date: recruitment["datePublication"]
+    # employer_mail: recruitment["mail"],
+    # job_description: recruitment["description"],
+    # employer_name: recruitment["label"],
+    # employer_phone: recruitment["phone"],
+  )
+   input.category = Category.find_by(name: "Notaire")
+input.save
+end
