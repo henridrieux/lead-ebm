@@ -1,9 +1,8 @@
-# class APIBourseEmploi
-# # Or wrap things up in your own class
+class APITest
+# Or wrap things up in your own class
 # require "json"
 # require "open-uri"
 # require "net/http"
-
 
 #     url = URI("https://bourse-emplois.notaires.fr/api/offre/search?page=1&pageSize=90&sort=DESC&sortField=DATE_ACTUALISATION")
 
@@ -31,10 +30,8 @@
 #     # @new_id_array.each do |item|
 #     # puts item["id"]
 
-
-
 #     # puts "https://bourse-emplois.notaires.fr/api/offre/preview/#{id}"
 #     # end
 
-# end
+end
 
