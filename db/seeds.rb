@@ -68,7 +68,7 @@ puts "creating categories..."
   commissaire_priseur.save
   puts "#{commissaire_priseur.name} created"
 
-  file = URI.open('hhttps://res.cloudinary.com/dpco9ylg1/image/upload/v1606317696/responsable-comptable_mvdrt6.jpg')
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606317696/responsable-comptable_mvdrt6.jpg')
 
    comptable = Category.new(
     name: "Comptable",
@@ -98,6 +98,24 @@ Event.create!(
 Event.create!(
   title: "Les sociétés qui déménagent",
   description: "Identifier les sociétés qui ont déménagé recemment",
+  frequency: "Mensuelle",
+  query: "SELECT *"
+)
+Event.create!(
+  title: "Les sociétés qui fusionnent",
+  description: "Identifier les sociétés qui ont fusionné récemment",
+  frequency: "Mensuelle",
+  query: "SELECT *"
+)
+Event.create!(
+  title: "Les sociétés qui créent leur site internet",
+  description: "Identifier les sociétés qui créent leur site internet",
+  frequency: "Quotidienne",
+  query: "SELECT *"
+)
+Event.create!(
+  title: "Les sociétés qui ont ouvert un deuxième siège social",
+  description: "Identifier les sociétés  qui ont ouvert un deuxième siège social",
   frequency: "Mensuelle",
   query: "SELECT *"
 )
