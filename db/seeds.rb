@@ -65,11 +65,6 @@ puts "creating categories..."
   commissaire_priseur.save
   puts "#{commissaire_priseur.name} created"
 
-
-  Category.create!(
-    name: "Commissaire-priseur",
-    description: "Le commissaire-priseur propose aux enchères publiques des objets d’art, du mobilier ou des articles divers. Soit mis en vente par des particuliers ou des entreprises, soit provenant de saisies judiciaires. Il opère dans une salle ou hôtel des ventes."
-  )
 # end
 
 puts "creating events..."
