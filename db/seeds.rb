@@ -95,39 +95,71 @@ puts "creating events_categories..."
 puts Event.count
 puts Category.count
 
-event4_1 = EventCategory.new(
-  title: "Avocat - Les créations de société",
-)
-event4_1.category = Category.find_by(name: "Avocat")
-event4_1.event = Event.find_by(title: "Les créations de société")
-event4_1.save
+# event4_1 = EventCategory.new(
+#   title: "Avocat - Les créations de société",
+# )
+# event4_1.category = Category.find_by(name: "Avocat")
+# event4_1.event = Event.find_by(title: "Les créations de société")
+# event4_1.save
 
-event4_2 = EventCategory.new(
-  title: "Notaire - Les sociétés qui recrutent",
-)
-  event4_2.category_id = Category.find_by(name: "Notaire"),
-  event4_2.event = Event.find_by(title: "Les sociétés qui recrutent"),
-  event4_2.save
+# event4_2 = EventCategory.new(
+#   title: "Notaire - Les sociétés qui recrutent",
+# )
+#   event4_2.category_id = Category.find_by(name: "Notaire"),
+#   event4_2.event = Event.find_by(title: "Les sociétés qui recrutent"),
+#   event4_2.save
+
+# data = APIBourseEmploi.new.bourse_emploi
+# data.first(3).each do |recruitment|
+#   puts recruitment["zipCode"]
+#   puts recruitment["officeName"]
+#   puts recruitment["principal"]
+#   puts recruitment["datePublication"]
+
+#    input = Recruitment.new(
+#     zip_code: recruitment["zipCode"].to_i,
+#     employer: recruitment["officeName"],
+#     job_title: recruitment["principal"],
+#     # contract_type: recruitment["contractType"]
+#     # publication_date: recruitment["datePublication"]
+#     # employer_email: recruitment["mail"],
+#     # job_description: recruitment["description"],
+#     # employer_name: recruitment["label"],
+#     # employer_phone: recruitment["phone"],
+#   )
+#    input.category = Category.find_by(name: "Notaire")
+# input.save
+# end
 
 
-data = APIBourseEmploi.new.bourse_emploi
-data.first(3).each do |recruitment|
-  puts recruitment["zipCode"]
-  puts recruitment["officeName"]
-  puts recruitment["principal"]
-  puts recruitment["datePublication"]
+data2 = APIPapers.new.papers
+puts data2
 
-   input = Recruitment.new(
-    zip_code: recruitment["zipCode"].to_i,
-    employer: recruitment["officeName"],
-    job_title: recruitment["principal"],
-    contract_type: recruitment["contractType"]
-    #publication_date: recruitment["datePublication"]
-    # employer_mail: recruitment["mail"],
-    # job_description: recruitment["description"],
-    # employer_name: recruitment["label"],
-    # employer_phone: recruitment["phone"],
+data2.first(20).each do |company|
+  puts company["siren"]
+  puts company["siege"]["siret"]
+  puts company["nom_entreprise"]
+
+
+
+   input2 = Company.new(
+    SIREN: company["siren"].to_i,
+    SIRET: company["siege"]["siret"].to_i,
+    company_name: company["nom_entreprise"],
+    creation_date: company["date_immatriculation_rcs"],
+    registered_capital: company["capital"].to_i,
+    address: company["siege"]["adresse_ligne_1"],
+    zip_code: company["siege"]["code_postal"],
+    #city: company["siege"]["ville"],
+    legal_structure: company["forme_juridique"],
+    #manager_name: company["representants"].first["nom_complet"],
+    #manager_birth_year: company["representants"].first["date_de_naissance_formate"].last(4).to_i
+    #head_count: company["effectif"],
+    head_count: company["effectif"],
+    naf_code: company["siege"]["code_naf"],
+    #activities: company["publications_bodacc"]
   )
-   input.category = Category.find_by(name: "Notaire")
-input.save
+   input2.category = Category.find_by(name: "Notaire")
+input2.save
+p input2
 end
