@@ -112,10 +112,6 @@ event4_2 = EventCategory.new(
 
 data = APIBourseEmploi.new.bourse_emploi
 data.first(3).each do |recruitment|
-  puts recruitment["zipCode"]
-  puts recruitment["officeName"]
-  puts recruitment["principal"]
-  puts recruitment["datePublication"]
 
    input = Recruitment.new(
     zip_code: recruitment["zipCode"].to_i,
