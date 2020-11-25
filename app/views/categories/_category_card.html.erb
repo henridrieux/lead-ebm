@@ -1,14 +1,19 @@
-<div class="col category-card card-style">
-  <% if category.photo.attached? %>
-    <div class="category-card-image" style="background-image: url('<%= cl_image_path category.photo.key, crop: :fill %>')"></div>
-  <% end %>
-  <h4><%= category.name %></h4>
-  <div class="category-card-title">
-      <div class="category-card-description">
-        <p> <%= category.description %></p>
+<div class="col">
+  <div class="category-card card-style">
+    <% if category.photo.attached? %>
+      <div class="category-card-image" style="background-image: url('<%= cl_image_path category.photo.key, crop: :fill %>')"></div>
+    <% end %>
+    <h4><%= category.name %></h4>
+    <div class="category-card-description">
+      <p> <%= category.description %></p>
+    </div>
+    <% if category.event_categories.count > 0 %>
+      <div class="category-card-link">
         <%= link_to category_path(category) do %>
-          <%= category.event_categories.count %> Events
-      <% end %>
+          <%= category.event_categories.count %> abonnements disponibles
+          <i class="fas fa-arrow-right"></i>
+        <% end %>
       </div>
+    <% end %>
   </div>
 </div>

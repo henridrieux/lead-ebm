@@ -1,0 +1,13 @@
+.search-bar {
+
+  .input-box {
+    width: 100%;
+    flex-grow: 1;
+    font-size: 1rem;
+    border: none;
+  }
+}
+
+.card-style .search-bar {
+  padding: 1rem;
+}
