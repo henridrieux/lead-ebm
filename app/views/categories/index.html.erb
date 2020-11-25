@@ -7,13 +7,12 @@
 <!-- search-form-control -->
 <div class="container">
   <div class="search-bar flex-center card-style">
-    <%= simple_form_for :query, url: categories_path, method: :get do |f| %>
+    </div><%= simple_form_for :query, url: categories_path, method: :get do |f| %>
       <div class="">
         <input class="string required" placeholder="Essayer 'notaire','avocat', 'recrutement'..." type="text" name="query" id="query" value="<%= params[:query] %>"/>
           <button name="button" type="submit" class="rounded-pill">
-            <i class="fas fa-search"></i>Chercher
+            <i class="fas fa-search"></i> Chercher
           </button>
-      </div>
     <% end %>
   </div>
 </div>
