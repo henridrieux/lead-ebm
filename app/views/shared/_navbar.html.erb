@@ -23,14 +23,20 @@
           <%= link_to "Dashboard", "/dashboard", class: "nav-link" %>
         </li>
         <li class="nav-item dropdown">
-          <%= image_tag "https://res.cloudinary.com/dnpdonlro/image/upload/v1605793441/unknown_user_smsl6v.jpg", class: "avatar-bordered dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% if current_user.photo.attached? %>
+            <%= cl_image_tag current_user.photo.key , height: 40, weight: 40,
+            class: "avatar-bordered dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% else %>
+            <%= image_tag "https://res.cloudinary.com/dnpdonlro/image/upload/v1605793441/unknown_user_smsl6v.jpg", height: 40, weight: 40,
+            class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% end %>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <% if !current_user.first_name.nil? %>
               <span class="dropdown-item">
                 <em>Bonjour <%= current_user.first_name %></em>
               </span>
             <% end %>
-            <%= link_to "Editer mon profil", "#", class: "dropdown-item" %>
+            <%= link_to "Editer mon profil", edit_user_registration_path(current_user), class: "dropdown-item" %>
             <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>
         </li>
