@@ -1,4 +1,4 @@
-<div class="dash-top">
+<div class="header-top">
   <div class="container">
     <h1>Notre panel</h1>
     <p>L.E.A.D. vous aide à identifier les prospects idéaux et à les contacter lorsque le moment est venu. </p>
@@ -19,7 +19,6 @@
 <!-- CATEGORIES CARDS  -->
 <div class="container mt-3">
   <div class="row row-cols-1 row-cols-md-2">
-
     <% @categories.each do |category| %>
        <%= render partial: 'category_card', locals: {category: category} %>
     <% end %>
