@@ -19,20 +19,10 @@
 </div>
 
 <!-- CATEGORIES CARDS  -->
-
 <div class="container">
   <div class="row category-cards">
     <% @categories.each do |category| %>
-      <div class="col-5 category-card card-style m-3">
-        <div class="category-card-image" style="background-image: url('<%= cl_image_path category.photo.key, height: 300, width: 400, crop: :fill %>')"></div>
-        <div class="category-card-title">
-            <h4><%= category.name %></h4>
-            <div class="category-card-description">
-              <p> <%= category.description %></p>
-              <p> <%= link_to 'En savoir plus', category_path(category) %>
-            </div>
-        </div>
-      </div>
+       <%= render partial: 'category_card', locals: {category: category} %>
     <% end %>
   </div>
 </div>

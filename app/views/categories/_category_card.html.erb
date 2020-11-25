@@ -1,4 +1,13 @@
-<div class="card-category">
-
-
+<div class="col-5 category-card card-style m-3">
+  <div></div>
+  <% if category.photo.attached? %>
+    <div class="category-card-image" style="background-image: url('<%= cl_image_path category.photo.key, height: 300, width: 400, crop: :fit %>')"></div>
+  <% end %>
+  <div class="category-card-title">
+      <h4><%= category.name %></h4>
+      <div class="category-card-description">
+        <p> <%= category.description %></p>
+        <p> <%= link_to 'En savoir plus', category_path(category) %>
+      </div>
+  </div>
 </div>

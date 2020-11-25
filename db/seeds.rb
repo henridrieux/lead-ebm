@@ -20,8 +20,9 @@ puts "creating categories..."
     description: "L'avocat représente et défend devant les tribunaux ou les cours des particuliers, des entreprises ou des collectivités. Il peut s'agir d'affaires civiles ( divorces, successions, litiges...) ou pénales (contraventions, délits, crimes...). Il peut être également sollicité par les entreprises en tant que conseil.",
   )
   avocat.photo.attach(io: file, filename: 'avocat.jpg')
-  avocat.save
+  avocat.save!
   puts "#{avocat.name} created"
+  puts avocat.photo.attached?
 
 
   file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241120/notaire.jpg')
