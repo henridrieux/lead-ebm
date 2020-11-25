@@ -1,10 +1,15 @@
+ <!-- TITRE   -->
 
+<div class="container">
+  <h1>Utilisez les données pour conclure plus d'offres</h1>
+  <p>L.E.A.D. vous aide à identifier les prospects idéaux et à les contacter lorsque le moment est venu.</p>
+</div>
 <!-- search-form-control -->
 <div class="container">
   <div class="search-bar flex-center card-style">
     <%= simple_form_for :query, url: categories_path, method: :get do |f| %>
       <div class="">
-        <input class="string required" placeholder="Essayer 'Notaire','avocat', 'recrutement'..." type="text" name="query" id="query" value="<%= params[:query] %>"/>
+        <input class="string required" placeholder="Essayer 'notaire','avocat', 'recrutement'..." type="text" name="query" id="query" value="<%= params[:query] %>"/>
           <button name="button" type="submit" class="rounded-pill">
             <i class="fas fa-search"></i>Chercher
           </button>
