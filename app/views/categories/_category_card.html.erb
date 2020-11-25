@@ -6,7 +6,9 @@
   <div class="category-card-title">
       <div class="category-card-description">
         <p> <%= category.description %></p>
-        <p> <%= link_to '@category.events_category.count', category_path(category) %>
+        <%= link_to category_path(category) do %>
+          <%= category.event_categories.count %> Events
+      <% end %>
       </div>
   </div>
 </div>
