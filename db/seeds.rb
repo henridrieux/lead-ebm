@@ -75,8 +75,8 @@ puts "creating categories..."
     description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise et plus globalement sa santé financière. ... Dans le cadre d'une grande entreprise, le comptable occupe généralement un poste spécialisé en tant que chargé de comptes clients, fournisseurs ou de la paie, ou bien encore auprès du contrôleur de gestion."
     )
   comptable.photo.attach(io: file, filename: 'comptable.jpg')
-  comptable_priseur.save
-  puts "#{comptable_priseur.name} created"
+  comptable.save
+  puts "#{comptable.name} created"
 
 
 # end
