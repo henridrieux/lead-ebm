@@ -12,8 +12,8 @@
   <p>Fiez-vous à des données fraîches et précises grâce à nos recherches exclusives en temps réel sur la profession de <%=@category.name%>.
   Agissez immédiatement en fonction des nouvelles informations, avec des alertes de vente et des notifications de changement de poste par exemple.</p>
   <div>
-    <!-- Ajouter le nombre d'event @tristan -->
-    <%= @category.event_categories.count %>
+    <p>Ajouter le nombre d'event @tristan</p>
+        <%= @category.event_categories.count %>
   </div>
 </div>
 
@@ -25,10 +25,9 @@
   <div class="">
   <% @events.each do |event| %>
     <h2> <%= event.title%> </h2>
+    <p> <%= @events.count %> </p>
 
-    <p> @ tristan nombre de lead par semaine ?  <%#= event.title.count%> </p>
-
-    @ tristan <%#= render partial: 'event_categories/event_categories_card', locals: {event_category: @event_category} %>
+    <%#= render partial: 'event_categories/event_categories_card', locals: {event_category: @event_category} %>
 
     <%= link_to "S'abonner", dashboard_path(current_user) , class: ""%>
     <% end %>
