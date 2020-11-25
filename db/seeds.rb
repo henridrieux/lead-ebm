@@ -95,41 +95,41 @@ puts "creating events_categories..."
 puts Event.count
 puts Category.count
 
-# event4_1 = EventCategory.new(
-#   title: "Avocat - Les créations de société",
-# )
-# event4_1.category = Category.find_by(name: "Avocat")
-# event4_1.event = Event.find_by(title: "Les créations de société")
-# event4_1.save
+event4_1 = EventCategory.new(
+  title: "Avocat - Les créations de société",
+)
+event4_1.category = Category.find_by(name: "Avocat")
+event4_1.event = Event.find_by(title: "Les créations de société")
+event4_1.save
 
-# event4_2 = EventCategory.new(
-#   title: "Notaire - Les sociétés qui recrutent",
-# )
-#   event4_2.category_id = Category.find_by(name: "Notaire"),
-#   event4_2.event = Event.find_by(title: "Les sociétés qui recrutent"),
-#   event4_2.save
+event4_2 = EventCategory.new(
+  title: "Notaire - Les sociétés qui recrutent",
+)
+  event4_2.category_id = Category.find_by(name: "Notaire"),
+  event4_2.event = Event.find_by(title: "Les sociétés qui recrutent"),
+  event4_2.save
 
-# data = APIBourseEmploi.new.bourse_emploi
-# data.first(3).each do |recruitment|
-#   puts recruitment["zipCode"]
-#   puts recruitment["officeName"]
-#   puts recruitment["principal"]
-#   puts recruitment["datePublication"]
+data = APIBourseEmploi.new.bourse_emploi
+data.first(3).each do |recruitment|
+  puts recruitment["zipCode"]
+  puts recruitment["officeName"]
+  puts recruitment["principal"]
+  puts recruitment["datePublication"]
 
-#    input = Recruitment.new(
-#     zip_code: recruitment["zipCode"].to_i,
-#     employer: recruitment["officeName"],
-#     job_title: recruitment["principal"],
-#     # contract_type: recruitment["contractType"]
-#     # publication_date: recruitment["datePublication"]
-#     # employer_email: recruitment["mail"],
-#     # job_description: recruitment["description"],
-#     # employer_name: recruitment["label"],
-#     # employer_phone: recruitment["phone"],
-#   )
-#    input.category = Category.find_by(name: "Notaire")
-# input.save
-# end
+   input = Recruitment.new(
+    zip_code: recruitment["zipCode"].to_i,
+    employer: recruitment["officeName"],
+    job_title: recruitment["principal"],
+    # contract_type: recruitment["contractType"]
+    # publication_date: recruitment["datePublication"]
+    # employer_email: recruitment["mail"],
+    # job_description: recruitment["description"],
+    # employer_name: recruitment["label"],
+    # employer_phone: recruitment["phone"],
+  )
+   input.category = Category.find_by(name: "Notaire")
+input.save
+end
 
 
 data2 = APIPapers.new.papers
