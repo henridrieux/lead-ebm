@@ -68,16 +68,23 @@ unless Category.find_by(name: "Commissaire-priseur")
   puts "#{new_cat.name} created"
 end
 
-unless Category.find_by(name: "Commissaire-priseur")
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606317696/responsable-comptable_mvdrt6.jpg')
-  new_cat = Category.new(
-  name: "Comptable",
-  description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise et plus globalement sa santé financière. Dans une grande entreprise, il occupe un poste en tant que chargé de comptes clients, fournisseurs ou de la paie."
-  )
-  new_cat.photo.attach(io: file, filename: 'comptable.jpg')
-  new_cat.save
-  puts "#{new_cat.name} created"
-end
+   commissaire_priseur = Category.new(
+    name: "Commissaire-priseur",
+    description: "Le commissaire-priseur dirige la vente publique aux enchères de biens meubles, la prisée étant l’estimation d’une chose destinée à la vente. La vente aux enchères publiques permet l’établissement du juste prix par la confrontation transparente entre l’offre et la demande."
+    )
+  commissaire_priseur.photo.attach(io: file, filename: 'Commissaire-priseur.jpg')
+  commissaire_priseur.save
+  puts "#{commissaire_priseur.name} created"
+
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606404077/comptable.jpg')
+
+   comptable = Category.new(
+    name: "Comptable",
+    description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise et plus globalement sa santé financière. Dans une grande entreprise, il occupe un poste en tant que chargé de comptes clients, fournisseurs ou de la paie."
+    )
+  comptable.photo.attach(io: file, filename: 'comptable.jpg')
+  comptable.save
+  puts "#{comptable.name} created"
 
 # end
 puts "creating events..."
