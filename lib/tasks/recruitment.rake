@@ -50,7 +50,7 @@ namespace :recruitment do
       end
     end
 
-    run_bourse_emploi(6)
+    run_bourse_emploi(30)
 
   end
 

@@ -1,7 +1,18 @@
+
 <h1> <%= @event_category.title %></h1>
 
-
+<div class="container">
 <% @recruitments.each do |recruitment| %>
-<%= recruitment.employer %>
-<%= recruitment.job_title %>
+  <div class="card-style">
+    <%= recruitment.publication_date%> -
+    <%= recruitment.employer %> -
+    Code postal : <%= recruitment.zip_code %>
+    <%= recruitment.employer_phone %>
+    <%= recruitment.employer_email %>
+    <br>
+    <%= recruitment.job_title %>
+    <%= recruitment.contract_type %>
+    <%#= recruitment.job_description %>
+  </div>
 <% end %>
+</div>
