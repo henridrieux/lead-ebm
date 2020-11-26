@@ -13,101 +13,105 @@ FREQUENCE_LIST = ["Quotidienne", "Hebdomadaire", "Mensuelle"]
 
 puts "creating categories..."
 # if Category.all.count == 0
+unless Category.find_by(name: "Avocat")
   file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606231560/avocat.jpg')
-  avocat = Category.new(
+  new_cat = Category.new(
     name: "Avocat",
     description: "L'avocat représente et défend devant les tribunaux ou les cours des particuliers, des entreprises ou des collectivités. Il peut s'agir d'affaires civiles ( divorces, successions, litiges...) ou pénales (contraventions, délits, crimes...). Il peut être également sollicité par les entreprises en tant que conseil.",
   )
-  avocat.photo.attach(io: file, filename: 'avocat.jpg')
-  avocat.save!
-  puts "#{avocat.name} created"
-  puts avocat.photo.attached?
+  new_cat.photo.attach(io: file, filename: 'avocat.jpg')
+  new_cat.save!
+  puts "#{new_cat.name} created"
+end
 
+unless Category.find_by(name: "Notaire")
   file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401988/5edf7c0886688_20_logo_notaire-4167128_upo2is.jpg')
-
-  notaire = Category.new(
+  new_cat = Category.new(
     name: "Notaire",
     description: "Le notaire authentifie au nom de l'Etat des actes et des contrats et les conserve. Il intervient dans plusieurs domaines : droit de la famille, droit de l’immobilier et du patrimoine. Le conseil aux entreprises devient de plus en plus important."
     )
-  notaire.photo.attach(io: file, filename: 'notaire.jpg')
-  notaire.save
-  puts "#{notaire.name} created"
+  new_cat.photo.attach(io: file, filename: 'notaire.jpg')
+  new_cat.save
+  puts "#{new_cat.name} created"
+end
 
+unless Category.find_by(name: "Huissier")
   file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401921/REFlex_090924CM02_0009_1_akxt9p.jpg')
-
-  huissier = Category.new(
+  new_cat = Category.new(
     name: "Huissier",
     description: "Constater les faits en tant que preuve, informer les intéressés des décisions prises et vérifier leur application sont les principales missions de l'huissier de justice / l'huissière de justice. Après avoir acheté une charge, il/elle est nommé(e) par le garde des Sceaux."
     )
-  huissier.photo.attach(io: file, filename: 'huissier.jpg')
-  huissier.save
-  puts "#{huissier.name} created"
+  new_cat.photo.attach(io: file, filename: 'huissier.jpg')
+  new_cat.save
+  puts "#{new_cat.name} created"
+end
 
+unless Category.find_by(name: "Administrateur judiciaire")
   file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241705/administrateur-trice-judiciaire_zzybi1.jpg')
-
-   administrateur_judiciaire = Category.new(
+  new_cat = Category.new(
     name: "Administrateur judiciaire",
     description: "L’administrateur judiciaire intervient lorsqu’une entreprise rencontre des difficultés. Il établit un diagnostic et préserve les droits de l'entreprise. Il étudie des solutions de continuation ou de cession de l'entreprise."
     )
-  administrateur_judiciaire.photo.attach(io: file, filename: 'Administrateur-judiciaire.jpg')
-  administrateur_judiciaire.save
-  puts "#{administrateur_judiciaire.name} created"
+  new_cat.photo.attach(io: file, filename: 'Administrateur-judiciaire.jpg')
+  new_cat.save
+  puts "#{new_cat.name} created"
+end
 
+unless Category.find_by(name: "Commissaire-priseur")
   file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401444/priseur-gd_inll9c.jpg')
+  new_cat = Category.new(
+  name: "Commissaire-priseur",
+  description: "Le commissaire-priseur dirige la vente publique aux enchères de biens meubles, la prisée étant l’estimation d’une chose destinée à la vente. La vente aux enchères publiques permet l’établissement du juste prix par la confrontation transparente entre l’offre et la demande."
+  )
+  new_cat.photo.attach(io: file, filename: 'Commissaire-priseur.jpg')
+  new_cat.save
+  puts "#{new_cat.name} created"
+end
 
-   commissaire_priseur = Category.new(
-    name: "Commissaire-priseur",
-    description: "Le commissaire-priseur dirige la vente publique aux enchères de biens meubles, la prisée étant l’estimation d’une chose destinée à la vente. La vente aux enchères publiques permet l’établissement du juste prix par la confrontation transparente entre l’offre et la demande."
-    )
-  commissaire_priseur.photo.attach(io: file, filename: 'Commissaire-priseur.jpg')
-  commissaire_priseur.save
-  puts "#{commissaire_priseur.name} created"
-
+unless Category.find_by(name: "Commissaire-priseur")
   file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606317696/responsable-comptable_mvdrt6.jpg')
-
-   comptable = Category.new(
-    name: "Comptable",
-    description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise et plus globalement sa santé financière. Dans une grande entreprise, il occupe un poste en tant que chargé de comptes clients, fournisseurs ou de la paie."
-    )
-  comptable.photo.attach(io: file, filename: 'comptable.jpg')
-  comptable.save
-  puts "#{comptable.name} created"
-
+  new_cat = Category.new(
+  name: "Comptable",
+  description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise et plus globalement sa santé financière. Dans une grande entreprise, il occupe un poste en tant que chargé de comptes clients, fournisseurs ou de la paie."
+  )
+  new_cat.photo.attach(io: file, filename: 'comptable.jpg')
+  new_cat.save
+  puts "#{new_cat.name} created"
+end
 
 # end
 puts "creating events..."
-#Event.destroy_all
-Event.create!(
+Event.create(
   title: "Les créations de société",
   description: "Identifier les nouvelles créations d'entreprise",
   frequency: "Quotidienne",
   query: "SELECT *"
 )
-Event.create!(
+Event.create(
   title: "Les sociétés qui recrutent",
   description: "Identifier les sociétés qui se développent",
   frequency: "Quotidienne",
   query: "SELECT *"
 )
-Event.create!(
+Event.create(
   title: "Les sociétés qui déménagent",
   description: "Identifier les sociétés qui ont déménagé recemment",
   frequency: "Mensuelle",
   query: "SELECT *"
 )
-Event.create!(
+Event.create(
   title: "Les sociétés qui fusionnent",
   description: "Identifier les sociétés qui ont fusionné récemment",
   frequency: "Mensuelle",
   query: "SELECT *"
 )
-Event.create!(
+Event.create(
   title: "Les sociétés qui créent leur site internet",
   description: "Identifier les sociétés qui créent leur site internet",
   frequency: "Quotidienne",
   query: "SELECT *"
 )
-Event.create!(
+Event.create(
   title: "Les sociétés qui ont ouvert un deuxième siège social",
   description: "Identifier les sociétés  qui ont ouvert un deuxième siège social",
   frequency: "Mensuelle",
@@ -123,7 +127,6 @@ CAT_LIST.each do |element|
     event: Event.find_by(title: "Les créations de société")
     )
   new_eventcat.save
-  puts new_eventcat
 end
 
 CAT_LIST.each do |element|
@@ -133,7 +136,6 @@ CAT_LIST.each do |element|
     event: Event.find_by(title: "Les sociétés qui recrutent")
     )
   new_eventcat1.save
-  puts new_eventcat1
 end
 
 CAT_LIST.each do |element|
@@ -143,7 +145,6 @@ CAT_LIST.each do |element|
     event: Event.find_by(title: "Les sociétés qui déménagent")
     )
   new_eventcat2.save
-  puts new_eventcat2
 end
 
 CAT_LIST.each do |element|
@@ -153,7 +154,6 @@ CAT_LIST.each do |element|
     event: Event.find_by(title: "Les sociétés qui fusionnent")
     )
   new_eventcat3.save
-  puts new_eventcat3
 end
 
 CAT_LIST.each do |element|
@@ -163,7 +163,6 @@ CAT_LIST.each do |element|
     event: Event.find_by(title: "Les sociétés qui créent leur site internet")
     )
   new_eventcat4.save
-  puts new_eventcat4
 end
 
 CAT_LIST.each do |element|
@@ -173,7 +172,6 @@ CAT_LIST.each do |element|
     event: Event.find_by(title: "Les sociétés qui ont ouvert un deuxième siège social")
     )
   new_eventcat5.save
-  puts new_eventcat5
 end
 
 
