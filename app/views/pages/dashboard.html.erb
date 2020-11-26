@@ -10,21 +10,24 @@
     <ul class="list-inline tabs">
       <li>
         <a href="#" class="tab-underlined active">Mes Abonnements</a>
-         <%# @subscriptions.each do |subscription| %>
-          <%# if subscription.statut == true %>
-          <%#= event_categories.category.name %>
-          <%#= event_category.title %>
-          <%#= subscription.statut %>
-          <%#= subscription.frequency %>
-          <%#= category.event_categories.count %>
-          <%# end %>
-         <%# end %>
+
       </li>
       <li>
         <a href="#" class="tab-underlined">Mes Leads</a>
       </li>
     </ul>
   </div>
+</div>
+<div class="container">
+      <% my_sub = Subscription.where(user: current_user) %>
+       <% my_sub.each do |subscription| %>
+  <div class="card-style mt-3">
+        <%= subscription.event_category.category.name %>
+        <%= subscription.event.title %>
+        <%= subscription.status %>
+        <%#= subscription.frequency %>
+  </div>
+       <% end %>
 </div>
 
 <br>

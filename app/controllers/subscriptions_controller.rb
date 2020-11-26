@@ -8,24 +8,25 @@ class SubscriptionsController < ApplicationController
     authorize @subscription
   end
 
-  def new
-    @subscription = Subscription.new
-    @events_category = Events_category.find(params[:events_category_id])
-    @subscription.events_category = @events_category
-    authorize @subscription
-  end
+  # def new
+  #   @subscription = Subscription.new
+  #   @events_category = Events_category.find(params[:events_category_id])
+  #   @subscription.events_category = @events_category
+  #   authorize @subscription
+  # end
 
   def create
     @subscription = Subscription.new
-    @events_category = Events_category.find(params[:events_category_id])
-    @subscription.events_category = @events_category
+    @event_category = EventCategory.find(params[:event_category_id])
+    @subscription.event_category = @event_category
     @subscription.user = current_user
-
+    @subscription.status = "activé"
+    # @subscription.start_date = Date.now()
     authorize @subscription
     if @subscription.save
       redirect_to "/dashboard"
     else
-      render :new
+      redirect_to category_path(@event_category.category)
     end
   end
 
