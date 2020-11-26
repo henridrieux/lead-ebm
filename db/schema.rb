@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_25_141647) do
+ActiveRecord::Schema.define(version: 2020_11_25_181525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,10 +56,12 @@ ActiveRecord::Schema.define(version: 2020_11_25_141647) do
     t.string "zip_code"
     t.string "address"
     t.string "manager_name"
-    t.integer "head_count"
+    t.string "head_count"
     t.string "rcs_inscription"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "manager_birth_year"
+    t.string "city"
     t.index ["category_id"], name: "index_companies_on_category_id"
   end
 
@@ -95,6 +97,7 @@ ActiveRecord::Schema.define(version: 2020_11_25_141647) do
     t.text "job_description"
     t.string "employer_phone"
     t.string "employer_name"
+    t.string "external_id"
     t.index ["category_id"], name: "index_recruitments_on_category_id"
   end
 

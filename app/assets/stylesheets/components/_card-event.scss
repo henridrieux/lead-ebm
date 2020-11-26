@@ -1,0 +1,17 @@
+.event-category-description {
+  display: flex;
+  align-items: center;
+}
+
+.event-category-title {
+  border-right: .5px solid $light-gray;
+  padding-right: 1rem;
+}
+
+.event-description {
+  padding-left: 1rem;
+  p {
+    margin: 0;
+  }
+}
+

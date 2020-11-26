@@ -124,7 +124,7 @@ event4_1 = EventCategory.new(
   title: "Avocat - Les créations de société",
 )
 event4_1.category = Category.find_by(name: "Avocat")
-event4_1.event =   Event.find_by(title: "Les créations de société")
+event4_1.event =  Event.find_by(title: "Les créations de société")
 event4_1.save
 
 event4_7 = EventCategory.new(
@@ -203,12 +203,13 @@ data.first(3).each do |recruitment|
     zip_code: recruitment["zipCode"].to_i,
     employer: recruitment["officeName"],
     job_title: recruitment["principal"],
-    # contract_type: recruitment["contractType"]
+    contract_type: recruitment["contractType"],
     # publication_date: recruitment["datePublication"]
-    # employer_email: recruitment["mail"],
-    # job_description: recruitment["description"],
-    # employer_name: recruitment["label"],
-    # employer_phone: recruitment["phone"],
+    employer_mail: recruitment["mail"],
+    job_description: recruitment["description"],
+    employer_name: recruitment["label"],
+    employer_phone: recruitment["phone"],
+    external_id: recruitment["id"]
   )
   input.category = Category.find_by(name: "Notaire")
   input.save

@@ -1,35 +1,37 @@
-<!-- AFFICHER TITRE PLUS IMAGE DE LA CATEGORY -->
-
-<div class="container">
-  <h1> <%=@category.name%> </h1>
-  <div class="" style="background-image: url('<%= cl_image_path @category.photo.key, height: 300, width: 400, crop: :fill %>')"></div>
-</div>
-
-
-<!-- PRESENTATION DE LA CATEGORY -->
-
-<div class="container">
-  <p>Fiez-vous à des données fraîches et précises grâce à nos recherches exclusives en temps réel sur la profession de <%=@category.name%>.
-  Agissez immédiatement en fonction des nouvelles informations, avec des alertes de vente et des notifications de changement de poste par exemple.</p>
-  <div>
-    <p>Ajouter le nombre d'event @tristan</p>
-        <%= @category.event_categories.count %>
+<div class="header-top">
+  <div class="container">
+    <div class="category-header card-style flex-center">
+      <div class="category-card-image" style="background-image: url('<%= cl_image_path @category.photo.key, height: 300, width: 400, crop: :fill %>')"></div>
+      <div class="category-description ml-4">
+        <div class="category-head-top-infos">
+          <h1> <%=@category.name%> </h1>
+          <span> (<%= @category.event_categories.count %> évènements disponibles )</span>
+        </div>
+        <p>Fiez-vous à des données fraîches et précises grâce à nos recherches exclusives en temps réel sur la profession de <%=@category.name%>.
+          Agissez immédiatement en fonction des nouvelles informations, avec des alertes de vente et des notifications de changement de poste par exemple.</p>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- EVENTS DE LA CATEGORY -->
 
-@pierre repartir de Figma en modifiant le texte de présentation de l'event par le dernier lead ?
-
 <div class="container">
   <div class="">
   <% @events.each do |event| %>
-    <h2> <%= event.title%> </h2>
-    <p> <%= @events.count %> </p>
-
+    <div class="card-style flex-between mt-3">
+      <div class="event-category-description">
+        <div class="event-category-title">
+          <p><%=@category.name%></p>
+        </div>
+        <div class="event-description">
+          <h3> <%= event.title%> </h3>
+          <p> <%= event.description %> </p>
+        </div>
+      </div>
+      <%= link_to "S'abonner", dashboard_path(current_user) , class: "btn btn-ghost"%>
+    </div>
     <%#= render partial: 'event_categories/event_categories_card', locals: {event_category: @event_category} %>
-
-    <%= link_to "S'abonner", dashboard_path(current_user) , class: ""%>
     <% end %>
   </div>
 </div>
@@ -38,7 +40,9 @@
 <!-- RETOUR A L'INDEX -->
 
 <div class="container">
-    <%= link_to "Les autres categories", categories_path , class: ""%>
+  <div class="card-style my-5">
+      <%= link_to "<<< Retour vers les autres categories du panel", categories_path , class: ""%>
+  </div>
 </div>
 
 
