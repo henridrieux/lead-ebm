@@ -78,7 +78,7 @@ puts "creating categories..."
 # end
 
 puts "creating events..."
-Event.destroy_all
+#Event.destroy_all
 Event.create!(
   title: "Les créations de société",
   description: "Identifier les nouvelles créations d'entreprise",
@@ -205,7 +205,7 @@ data.first(3).each do |recruitment|
     job_title: recruitment["principal"],
     contract_type: recruitment["contractType"],
     # publication_date: recruitment["datePublication"]
-    employer_mail: recruitment["mail"],
+    employer_email: recruitment["mail"],
     job_description: recruitment["description"],
     employer_name: recruitment["label"],
     employer_phone: recruitment["phone"],
@@ -224,6 +224,7 @@ data2.first(20).each do |company|
   puts company["siren"]
   puts company["siege"]["siret"]
   puts company["nom_entreprise"]
+  puts company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
 
   input2 = Company.new(
     SIREN: company["siren"].to_i,
@@ -240,7 +241,7 @@ data2.first(20).each do |company|
     #head_count: company["effectif"],
     head_count: company["effectif"],
     naf_code: company["siege"]["code_naf"],
-    #activities: company["publications_bodacc"]
+    activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
   )
   input2.category = Category.find_by(name: "Notaire")
   input2.save

@@ -44,7 +44,6 @@ require "net/http"
     result2 = JSON.parse(return_array2)
     return result2
     end
-
 end
 
 
