@@ -20,7 +20,7 @@ class SubscriptionsController < ApplicationController
     @event_category = EventCategory.find(params[:event_category_id])
     @subscription.event_category = @event_category
     @subscription.user = current_user
-    @subscription.status = "activé"
+    @subscription.status = "Activé"
     # @subscription.start_date = Date.now()
     authorize @subscription
     if @subscription.save
