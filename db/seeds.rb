@@ -23,7 +23,7 @@ puts "creating categories..."
   puts "#{avocat.name} created"
   puts avocat.photo.attached?
 
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401302/not.jpg')
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401988/5edf7c0886688_20_logo_notaire-4167128_upo2is.jpg')
 
   notaire = Category.new(
     name: "Notaire",
@@ -33,7 +33,7 @@ puts "creating categories..."
   notaire.save
   puts "#{notaire.name} created"
 
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401375/marianne_huissier_nki5gp.jpg')
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401921/REFlex_090924CM02_0009_1_akxt9p.jpg')
 
   huissier = Category.new(
     name: "Huissier",
