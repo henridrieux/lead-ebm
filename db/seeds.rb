@@ -226,8 +226,8 @@ data2.first(20).each do |company|
   puts company["nom_entreprise"]
 
   input2 = Company.new(
-    SIREN: company["siren"].to_i,
-    SIRET: company["siege"]["siret"].to_i,
+    siren: company["siren"].to_i,
+    siret: company["siege"]["siret"].to_i,
     company_name: company["nom_entreprise"],
     creation_date: company["date_immatriculation_rcs"],
     registered_capital: company["capital"].to_i,
