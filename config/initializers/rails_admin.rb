@@ -14,7 +14,7 @@ RailsAdmin.config do |config|
     redirect_to main_app.root_path
   end
 end
-config.included_models = [ "Company", "Recruitment", "Category", "Event", "Subscription", "EventCategory", "User" ]
+config.included_models = [ "Company", "Recruitment", "Category", "Event", "Subscription", "User" ]
 
   ## == CancanCan ==
   # config.authorize_with :cancancan
