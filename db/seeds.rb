@@ -8,10 +8,6 @@
 
 require "open-uri"
 
-
-
-
-
 CAT_LIST = ["Avocat", "Huissier", "Notaire", "Administrateur judiciaire", "Commissaire-priseur"]
 FREQUENCE_LIST = ["Quotidienne", "Hebdomadaire", "Mensuelle"]
 
@@ -194,22 +190,59 @@ event4_9 = EventCategory.new(
   event4_9.event = Event.find_by(title: "Le recrutement"),
   event4_9.save
 
+# -----------API 1 --------------
 
 data = APIBourseEmploi.new.bourse_emploi
 data.first(3).each do |recruitment|
+  puts recruitment["zipCode"]
+  puts recruitment["officeName"]
+  puts recruitment["principal"]
+  puts recruitment["datePublication"]
 
-   input = Recruitment.new(
+  input = Recruitment.new(
     zip_code: recruitment["zipCode"].to_i,
     employer: recruitment["officeName"],
     job_title: recruitment["principal"],
     contract_type: recruitment["contractType"],
-    #publication_date: recruitment["datePublication"]
+    # publication_date: recruitment["datePublication"]
     employer_mail: recruitment["mail"],
     job_description: recruitment["description"],
     employer_name: recruitment["label"],
     employer_phone: recruitment["phone"],
     external_id: recruitment["id"]
   )
-   input.category = Category.find_by(name: "Notaire")
-input.save
+  input.category = Category.find_by(name: "Notaire")
+  input.save
+end
+
+# -----------API 2------------------
+
+data2 = APIPapers.new.papers
+puts data2
+
+data2.first(20).each do |company|
+  puts company["siren"]
+  puts company["siege"]["siret"]
+  puts company["nom_entreprise"]
+
+  input2 = Company.new(
+    SIREN: company["siren"].to_i,
+    SIRET: company["siege"]["siret"].to_i,
+    company_name: company["nom_entreprise"],
+    creation_date: company["date_immatriculation_rcs"],
+    registered_capital: company["capital"].to_i,
+    address: company["siege"]["adresse_ligne_1"],
+    zip_code: company["siege"]["code_postal"],
+    #city: company["siege"]["ville"],
+    legal_structure: company["forme_juridique"],
+    #manager_name: company["representants"].first["nom_complet"],
+    #manager_birth_year: company["representants"].first["date_de_naissance_formate"].last(4).to_i
+    #head_count: company["effectif"],
+    head_count: company["effectif"],
+    naf_code: company["siege"]["code_naf"],
+    #activities: company["publications_bodacc"]
+  )
+  input2.category = Category.find_by(name: "Notaire")
+  input2.save
+  p input2
 end
