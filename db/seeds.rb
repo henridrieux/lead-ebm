@@ -67,7 +67,7 @@ puts "creating categories..."
 
    comptable = Category.new(
     name: "Comptable",
-    description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise et plus globalement sa santé financière. ... Dans le cadre d'une grande entreprise, le comptable occupe généralement un poste spécialisé en tant que chargé de comptes clients, fournisseurs ou de la paie, ou bien encore auprès du contrôleur de gestion."
+    description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise et plus globalement sa santé financière. Dans une grande entreprise, il occupe un poste en tant que chargé de comptes clients, fournisseurs ou de la paie."
     )
   comptable.photo.attach(io: file, filename: 'comptable.jpg')
   comptable.save
