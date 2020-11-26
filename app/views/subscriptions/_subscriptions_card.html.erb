@@ -1,0 +1,16 @@
+<div class="card-style-light mt-3 flex-between">
+  <div class="sub-infos-box ml-2">
+    <div class="sub-info">
+      <%= subscription.event_category.category.name %>
+    </div>
+    <div class="sub-info sub-event">
+      <%= subscription.event.title %>
+    </div>
+      <%#= subscription.frequency %>
+  </div>
+  <div class="sub-status mr-2">
+    <div class="sub-on">
+      <%= subscription.status %>
+    </div>
+  </div>
+</div>

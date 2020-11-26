@@ -1,7 +1,7 @@
 <div class="header-top">
   <div class="container">
     <h1>Mon dashboard</h1>
-    <p>welcome to the lead projects ! </p>
+    <p> La vision directe de mes abonnements et de mes L.E.A.D.s</p>
   </div>
 </div>
 
@@ -19,15 +19,10 @@
   </div>
 </div>
 <div class="container">
-      <% my_sub = Subscription.where(user: current_user) %>
-       <% my_sub.each do |subscription| %>
-  <div class="card-style mt-3">
-        <%= subscription.event_category.category.name %>
-        <%= subscription.event.title %>
-        <%= subscription.status %>
-        <%#= subscription.frequency %>
-  </div>
-       <% end %>
+  <% my_sub = Subscription.where(user: current_user) %>
+  <% my_sub.each do |subscription| %>
+    <%= render partial: 'subscriptions/subscriptions_card', locals: {subscription: subscription} %>
+  <% end %>
 </div>
 
 <br>

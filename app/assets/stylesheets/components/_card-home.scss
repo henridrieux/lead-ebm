@@ -4,6 +4,14 @@
   padding: 20px 24px;
   background-color: white;
 }
+
+.card-style-light {
+  border: .5px solid $dark-blue;
+  border-radius: $border-radius;
+  padding: .5rem;
+  background-color: white;
+}
+
 .home-arguments {
   margin: 2.5rem 0 1rem 0;
   h2 {
