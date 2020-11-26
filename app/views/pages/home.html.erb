@@ -12,7 +12,7 @@
     <div class="row row-cols-1 row-cols-md-3">
       <div class="col">
         <div class="card-style card-home-arguments">
-          <%= image_tag "https://source.unsplash.com/random/400x400", alt: "alttext", class: "card-home-img" %>
+          <%= cl_image_tag("https://res.cloudinary.com/dpco9ylg1/image/upload/v1606399523/Notre%20expertise%20sectorielle.svg", width: 420, height: 420) %>
           <h4 class="flex-between">
               <i class="fas fa-balance-scale"></i>
               <span>Notre expertise sectorielle</span>
@@ -22,7 +22,7 @@
       </div>
       <div class="col">
         <div class="card-style card-home-arguments">
-          <%= image_tag "https://source.unsplash.com/random/400x400", alt: "alttext", class: "card-home-img" %>
+          <%= cl_image_tag("https://res.cloudinary.com/dpco9ylg1/image/upload/v1606399525/Notre%20expertise%20technique.svg", width: 420, height: 420) %>
           <h4 class="flex-between">
               <i class="fas fa-cogs"></i>
               <span>Notre expertise technique</span>
@@ -32,7 +32,8 @@
       </div>
       <div class="col">
         <div class="card-style card-home-arguments">
-          <%= image_tag "https://source.unsplash.com/random/400x400", alt: "alttext", class: "card-home-img" %>
+          <%= cl_image_tag("https://res.cloudinary.com/dpco9ylg1/image/upload/v1606399527/Notre%20facilit%C3%A9%20d%27int%C3%A9gration.svg", width: 420, height: 420) %>
+
           <h4 class="flex-between">
               <i class="fas fa-list-ol"></i>
               <span>Notre facilité d'intégration</span>
