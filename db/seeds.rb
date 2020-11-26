@@ -8,7 +8,7 @@
 
 require "open-uri"
 
-CAT_LIST = ["Avocat", "Huissier", "Notaire", "Administrateur judiciaire", "Commissaire-priseur"]
+CAT_LIST = ["Avocat", "Huissier", "Notaire", "Administrateur judiciaire", "Commissaire-priseur", "Comptable"]
 FREQUENCE_LIST = ["Quotidienne", "Hebdomadaire", "Mensuelle"]
 
 puts "creating categories..."
@@ -75,7 +75,6 @@ puts "creating categories..."
 
 
 # end
-
 puts "creating events..."
 #Event.destroy_all
 Event.create!(
@@ -116,78 +115,67 @@ Event.create!(
 )
 
 puts "creating events_categories..."
-puts Event.count
-puts Category.count
 
-event4_1 = EventCategory.new(
-  title: "Avocat - Les créations de société",
-)
-event4_1.category = Category.find_by(name: "Avocat")
-event4_1.event =  Event.find_by(title: "Les créations de société")
-event4_1.save
+CAT_LIST.each do |element|
+  new_eventcat = EventCategory.new(
+    title: "#{element} - Les créations de société",
+    category: Category.find_by(name: "#{element}"),
+    event: Event.find_by(title: "Les créations de société")
+    )
+  new_eventcat.save
+  puts new_eventcat
+end
 
-event4_7 = EventCategory.new(
-  title: "Avocat - Les reprises de société",
-)
-event4_7.category = Category.find_by(name: "Avocat")
-event4_7.event =   Event.find_by(title: "Les reprises de société")
-event4_7.save
+CAT_LIST.each do |element|
+  new_eventcat1 = EventCategory.new(
+    title: "#{element} - Les sociétés qui recrutent",
+    category: Category.find_by(name: "#{element}"),
+    event: Event.find_by(title: "Les sociétés qui recrutent")
+    )
+  new_eventcat1.save
+  puts new_eventcat1
+end
 
-event4_2 = EventCategory.new(
-  title: "Notaire - Les sociétés qui recrutent",
-)
-  event4_2.category_id = Category.find_by(name: "Notaire"),
-  event4_2.event = Event.find_by(title: "Les sociétés qui recrutent"),
-  event4_2.save
+CAT_LIST.each do |element|
+  new_eventcat2 = EventCategory.new(
+    title: "#{element} - Les sociétés qui déménagent",
+    category: Category.find_by(name: "#{element}"),
+    event: Event.find_by(title: "Les sociétés qui déménagent")
+    )
+  new_eventcat2.save
+  puts new_eventcat2
+end
 
-event4_3 = EventCategory.new(
-  title: "Notaire - Les créations d'étude",
-)
-  event4_3.category_id = Category.find_by(name: "Notaire"),
-  event4_3.event = Event.find_by(title: "Les créations d'étude"),
-  event4_3.save
+CAT_LIST.each do |element|
+  new_eventcat3 = EventCategory.new(
+    title: "#{element} - Les sociétés qui fusionnent",
+    category: Category.find_by(name: "#{element}"),
+    event: Event.find_by(title: "Les sociétés qui fusionnent")
+    )
+  new_eventcat3.save
+  puts new_eventcat3
+end
 
-event4_4 = EventCategory.new(
-  title: "Notaire - Reprise d'une étude",
-)
-  event4_4.category_id = Category.find_by(name: "Notaire"),
-  event4_4.event = Event.find_by(title: "Reprise d'une étude"),
-  event4_4.save
+CAT_LIST.each do |element|
+  new_eventcat4 = EventCategory.new(
+    title: "#{element} - Les sociétés qui créent leur site internet",
+    category: Category.find_by(name: "#{element}"),
+    event: Event.find_by(title: "Les sociétés qui créent leur site internet")
+    )
+  new_eventcat4.save
+  puts new_eventcat4
+end
 
-event4_5 = EventCategory.new(
-  title: "Notaire - Les études qui recrutent",
-)
-  event4_5.category_id = Category.find_by(name: "Notaire"),
-  event4_5.event = Event.find_by(title: "Les études qui recrutent"),
-  event4_5.save
+CAT_LIST.each do |element|
+  new_eventcat5 = EventCategory.new(
+    title: "#{element} - Les sociétés qui ont ouvert un deuxième siège social",
+    category: Category.find_by(name: "#{element}"),
+    event: Event.find_by(title: "Les sociétés qui ont ouvert un deuxième siège social")
+    )
+  new_eventcat5.save
+  puts new_eventcat5
+end
 
-event4_6 = EventCategory.new(
-  title: "Comptable - La création de cabinet",
-)
-  event4_6.category_id = Category.find_by(name: "Comptable"),
-  event4_6.event = Event.find_by(title: "La création de cabinet"),
-  event4_6.save
-
-event4_7 = EventCategory.new(
-  title: "Comptable - Le recrutement",
-)
-  event4_7.category_id = Category.find_by(name: "Comptable"),
-  event4_7.event = Event.find_by(title: "Le recrutement"),
-  event4_7.save
-
-event4_8 = EventCategory.new(
-  title: "Comptable - La reprise d'un cabient d'expertise",
-)
-  event4_8.category_id = Category.find_by(name: "Comptable"),
-  event4_8.event = Event.find_by(title: "La reprise d'un cabient d'expertise"),
-  event4_8.save
-
-event4_9 = EventCategory.new(
-  title: "Administrateur judiciaire - Le recrutement",
-)
-  event4_9.category_id = Category.find_by(name: "Administrateur judiciaire"),
-  event4_9.event = Event.find_by(title: "Le recrutement"),
-  event4_9.save
 
 # -----------API 1 --------------
 
