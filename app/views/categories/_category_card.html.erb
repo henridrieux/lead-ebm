@@ -9,7 +9,7 @@
     </div>
     <% if category.event_categories.count > 0 %>
       <div class="category-card-link">
-        <%= link_to category_path(category) do %>
+        <%= link_to event_category_path(category) do %>
           <%= category.event_categories.count %> abonnements disponibles
           <i class="fas fa-arrow-right"></i>
         <% end %>
