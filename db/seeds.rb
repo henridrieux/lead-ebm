@@ -53,7 +53,7 @@ puts "creating categories..."
   administrateur_judiciaire.save
   puts "#{administrateur_judiciaire.name} created"
 
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401444/priseur-gd_inll9c.jpg')
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401691/x61671fs4soc6p27fyrvpesloo5o.jpg')
 
    commissaire_priseur = Category.new(
     name: "Commissaire-priseur",
