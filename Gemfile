@@ -32,6 +32,7 @@ gem 'cloudinary', '~> 1.16.0'
 gem 'devise'
 gem "rails_refactor"
 gem 'pundit'
+gem 'rails_admin', '~> 2.0'
 
 
 gem 'autoprefixer-rails'
