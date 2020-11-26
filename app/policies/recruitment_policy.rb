@@ -1,4 +1,4 @@
-class EventCategoryPolicy < ApplicationPolicy
+class RecruitmentPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.all
