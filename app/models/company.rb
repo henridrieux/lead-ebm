@@ -4,6 +4,6 @@ class Company < ApplicationRecord
   validates :SIRET, presence: true
   validates :SIREN, presence: true
   validates :naf_code, presence: true
-  validates :rcs_inscription, presence: true
-  validates :manager_birth_year, presence: true
+  #validates :rcs_inscription, presence: true
+  #validates :manager_birth_year, presence: true
 end
