@@ -9,7 +9,7 @@ namespace :recruitment do
         employer: recruitoffer["officeName"],
         job_title: recruitoffer["principal"],
         contract_type: recruitoffer["contractType"],
-        # publication_date: recruitoffer["datePublication"]
+        publication_date: recruitoffer["datePublication"],
         employer_email: recruitoffer["mail"],
         job_description: recruitoffer["description"],
         employer_name: recruitoffer["label"],
@@ -27,7 +27,7 @@ namespace :recruitment do
         employer: recruitoffer["officeName"],
         job_title: recruitoffer["principal"],
         contract_type: recruitoffer["contractType"],
-        # publication_date: recruitoffer["datePublication"]
+        publication_date: recruitoffer["datePublication"],
         employer_email: recruitoffer["mail"],
         job_description: recruitoffer["description"],
         employer_name: recruitoffer["label"],
@@ -38,13 +38,13 @@ namespace :recruitment do
     def run_bourse_emploi(number)
       data = APIBourseEmploi.new.bourse_emploi
       data.first(number).each do |recruitoffer|
-        p recruitoffer["idOffer"]
-        p Recruitment.find_by(external_id: recruitoffer["idOffer"])
+        # p recruitoffer["idOffer"]
+        # p Recruitment.find_by(external_id: recruitoffer["idOffer"])
         if Recruitment.find_by(external_id: recruitoffer["idOffer"])
-          puts "try update 1"
+          # puts "try update 1"
           update_recruitment(recruitoffer)
         else
-          puts "try create 1"
+          # puts "try create 1"
           create_recruitment(recruitoffer)
         end
       end
