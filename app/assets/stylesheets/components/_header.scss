@@ -8,3 +8,14 @@
   background-color: white;
   border-bottom: .5px solid $dark-blue;
 }
+
+.category-head-top-infos {
+  display: flex;
+  align-items: center;
+  h1 {
+    margin-right: 1rem;
+  }
+  span {
+
+  }
+}
