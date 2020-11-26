@@ -9,12 +9,13 @@
   <div class="container">
     <ul class="list-inline tabs">
       <li>
-        <a href="#" class="tab-underlined active">Mes Abonnements</a>
-
+        <a href="#" class="tab-underlined active">
+        Mes Abonnements (<%= current_user.subscriptions.count %>)
+        </a>
       </li>
-      <li>
+<!--       <li>
         <a href="#" class="tab-underlined">Mes Leads</a>
-      </li>
+      </li> -->
     </ul>
   </div>
 </div>

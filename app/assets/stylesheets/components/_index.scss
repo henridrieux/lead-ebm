@@ -35,3 +35,11 @@
   align-items: space-around;
   justify-content: space-around;
 }
+
+.flex-vert {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+

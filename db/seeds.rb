@@ -23,7 +23,7 @@ puts "creating categories..."
   puts "#{avocat.name} created"
   puts avocat.photo.attached?
 
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241120/notaire.jpg')
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401988/5edf7c0886688_20_logo_notaire-4167128_upo2is.jpg')
 
   notaire = Category.new(
     name: "Notaire",
@@ -33,7 +33,7 @@ puts "creating categories..."
   notaire.save
   puts "#{notaire.name} created"
 
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241289/huissier.jpg')
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401921/REFlex_090924CM02_0009_1_akxt9p.jpg')
 
   huissier = Category.new(
     name: "Huissier",
@@ -53,7 +53,7 @@ puts "creating categories..."
   administrateur_judiciaire.save
   puts "#{administrateur_judiciaire.name} created"
 
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241766/Commissaire-priseur.jpg')
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401444/priseur-gd_inll9c.jpg')
 
    commissaire_priseur = Category.new(
     name: "Commissaire-priseur",
@@ -67,7 +67,7 @@ puts "creating categories..."
 
    comptable = Category.new(
     name: "Comptable",
-    description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise et plus globalement sa santé financière. ... Dans le cadre d'une grande entreprise, le comptable occupe généralement un poste spécialisé en tant que chargé de comptes clients, fournisseurs ou de la paie, ou bien encore auprès du contrôleur de gestion."
+    description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise et plus globalement sa santé financière. Dans une grande entreprise, il occupe un poste en tant que chargé de comptes clients, fournisseurs ou de la paie."
     )
   comptable.photo.attach(io: file, filename: 'comptable.jpg')
   comptable.save

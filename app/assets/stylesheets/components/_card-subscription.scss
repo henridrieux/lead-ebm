@@ -1,13 +1,25 @@
 .sub-infos-box {
   display: flex;
   flex-grow: 1;
-  .sub-info {
-    border-right: 0.5px solid black;
-    padding: 1rem;
+}
+.sub-info {
+  border-right: 0.5px solid $gray;
+  padding: 1rem;
+}
+
+.sub-cat, .sub-leads-link {
+  a {
+    text-decoration: none;
+    color: $gray;
   }
-  .sub-event {
-    flex-grow: 1;
-  }
+}
+
+.sub-cat {
+  width: 150px;
+}
+
+.sub-event {
+  flex-grow: 1;
 }
 
 .sub-status {
