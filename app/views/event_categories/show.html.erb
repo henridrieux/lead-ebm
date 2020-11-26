@@ -1,0 +1,7 @@
+<h1> <%= @event_category.title %></h1>
+
+
+<% @recruitments.each do |recruitment| %>
+<%= recruitment.employer %>
+<%= recruitment.job_title %>
+<% end %>
