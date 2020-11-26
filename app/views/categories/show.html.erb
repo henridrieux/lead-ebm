@@ -18,20 +18,8 @@
 
 <div class="container">
   <div class="">
-  <% @event_categories.each do |event_category| %>
-    <div class="card-style flex-between mt-3">
-      <div class="event-category-description">
-        <div class="event-category-title">
-          <p><%=event_category.title%></p>
-        </div>
-        <div class="event-description">
-          <h3> <%#= @event.title%> </h3>
-          <p> <%#= @event.description %> </p>
-        </div>
-      </div>
-      <%= link_to "S'abonner", dashboard_path(current_user) , class: "btn btn-ghost"%>
-    </div>
-    <%#= render partial: 'event_categories/event_categories_card', locals: {event_category: @event_category} %>
+    <% @category.event_categories.each do |event_category| %>
+      <%= render partial: 'event_categories/event_categories_card', locals: {event_category: event_category} %>
     <% end %>
   </div>
 </div>
