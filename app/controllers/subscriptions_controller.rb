@@ -23,7 +23,7 @@ class SubscriptionsController < ApplicationController
 
     authorize @subscription
     if @subscription.save
-      redirect_to "*"
+      redirect_to "/dashboard"
     else
       render :new
     end

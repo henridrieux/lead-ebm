@@ -1,36 +1,29 @@
- <!-- TITRE   -->
-
-<div class="container">
-  <h1>Utilisez les données pour conclure plus d'offres</h1>
-  <p>L.E.A.D. vous aide à identifier les prospects idéaux et à les contacter lorsque le moment est venu.</p>
-</div>
-<!-- search-form-control -->
-<div class="container">
-  <div class="search-bar flex-center card-style">
-    <%= simple_form_for :query, url: categories_path, method: :get do |f| %>
-      <div class="">
-        <input class="string required" placeholder="Essayer 'notaire','avocat', 'recrutement'..." type="text" name="query" id="query" value="<%= params[:query] %>"/>
-          <button name="button" type="submit" class="rounded-pill">
-            <i class="fas fa-search"></i>Chercher
-          </button>
+<div class="dash-top">
+  <div class="container">
+    <h1>Notre panel</h1>
+    <p>L.E.A.D. vous aide à identifier les prospects idéaux et à les contacter lorsque le moment est venu. </p>
+    <div class="row row-cols-1">
+      <div class="col">
+        <%= simple_form_for :query, url: categories_path, method: :get do |f| %>
+          <div class="search-bar card-style flex-between">
+                <input class="input-box" placeholder="Trouver votre cible dans notre panel..." type="text" name="query" id="query" value="<%= params[:query] %>"/>
+                <button name="button" type="submit" class="btn btn-ghost">
+                  <i class="fas fa-search"></i>
+                </button>
+          </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
 </div>
-
 <!-- CATEGORIES CARDS  -->
-<div class="container">
-  <div class="row category-cards">
+<div class="container mt-3">
+  <div class="row row-cols-1 row-cols-md-2">
+
     <% @categories.each do |category| %>
        <%= render partial: 'category_card', locals: {category: category} %>
     <% end %>
   </div>
 </div>
 
-
- <!--    CATEGORY NOMBRE EVENT -->
-
-    <div class="">
-    </div>
-  </div>
 
