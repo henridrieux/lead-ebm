@@ -1,5 +1,5 @@
 class Event < ApplicationRecord
-  has_many :event_categories
+  has_many :event_categories, dependent: :destroy
 
   validates :title, presence: true
   validates :description, presence: true
