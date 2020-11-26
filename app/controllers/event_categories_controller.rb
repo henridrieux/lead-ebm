@@ -5,7 +5,8 @@ class EventCategoriesController < ApplicationController
   end
 
   def show
-    @event_categories = EventCategory.all
-    @category = Category.find(params[:id])
+    @event_category = EventCategory.find(params[:id])
+    @category = @event_category.category
+    @recruitments = Recruitment.where(category: @category)
   end
 end

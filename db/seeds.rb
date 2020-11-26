@@ -123,7 +123,6 @@ CAT_LIST.each do |element|
     event: Event.find_by(title: "Les créations de société")
     )
   new_eventcat.save
-  puts new_eventcat
 end
 
 CAT_LIST.each do |element|
@@ -133,7 +132,6 @@ CAT_LIST.each do |element|
     event: Event.find_by(title: "Les sociétés qui recrutent")
     )
   new_eventcat1.save
-  puts new_eventcat1
 end
 
 CAT_LIST.each do |element|
@@ -143,7 +141,6 @@ CAT_LIST.each do |element|
     event: Event.find_by(title: "Les sociétés qui déménagent")
     )
   new_eventcat2.save
-  puts new_eventcat2
 end
 
 CAT_LIST.each do |element|
@@ -153,7 +150,6 @@ CAT_LIST.each do |element|
     event: Event.find_by(title: "Les sociétés qui fusionnent")
     )
   new_eventcat3.save
-  puts new_eventcat3
 end
 
 CAT_LIST.each do |element|
@@ -163,7 +159,6 @@ CAT_LIST.each do |element|
     event: Event.find_by(title: "Les sociétés qui créent leur site internet")
     )
   new_eventcat4.save
-  puts new_eventcat4
 end
 
 CAT_LIST.each do |element|
@@ -173,7 +168,6 @@ CAT_LIST.each do |element|
     event: Event.find_by(title: "Les sociétés qui ont ouvert un deuxième siège social")
     )
   new_eventcat5.save
-  puts new_eventcat5
 end
 
 
