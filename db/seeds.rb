@@ -23,7 +23,6 @@ puts "creating categories..."
   puts "#{avocat.name} created"
   puts avocat.photo.attached?
 
-
   file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241120/notaire.jpg')
 
   notaire = Category.new(
@@ -54,7 +53,7 @@ puts "creating categories..."
   administrateur_judiciaire.save
   puts "#{administrateur_judiciaire.name} created"
 
- file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241766/Commissaire-priseur.jpg')
+  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241766/Commissaire-priseur.jpg')
 
    commissaire_priseur = Category.new(
     name: "Commissaire-priseur",
@@ -218,12 +217,9 @@ end
 # -----------API 2------------------
 
 data2 = APIPapers.new.papers
-puts data2
 
 data2.first(20).each do |company|
-  puts company["siren"]
-  puts company["siege"]["siret"]
-  puts company["nom_entreprise"]
+
   puts company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
 
   input2 = Company.new(
@@ -245,5 +241,4 @@ data2.first(20).each do |company|
   )
   input2.category = Category.find_by(name: "Notaire")
   input2.save
-  p input2
 end
