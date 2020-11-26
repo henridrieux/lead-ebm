@@ -3,7 +3,6 @@
     margin: 1rem 0;
   }
   margin-bottom: 1rem;
-  height: 460px;
 }
 
 .category-card-image {
@@ -12,7 +11,11 @@
   background-size: cover;
 }
 
-.category-card-link {
+.category-description {
+  height: 150px;
+}
+
+.category-link {
   a {
     text-decoration: none;
     color: $red;
@@ -23,11 +26,4 @@
   }
 }
 
-.category-head-top-infos {
-  display: flex;
-  align-items: center;
-  h1 {
-    margin-right: 1rem;
-  }
-}
 

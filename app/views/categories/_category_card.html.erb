@@ -4,13 +4,14 @@
       <div class="category-card-image" style="background-image: url('<%= cl_image_path category.photo.key, crop: :fill %>')"></div>
     <% end %>
     <h4><%= category.name %></h4>
-    <div class="category-card-description">
-      <p> <%= category.description %></p>
+    <div class="category-description">
+      <p> <small><%= category.description %></small> </p>
     </div>
     <% if category.event_categories.count > 0 %>
-      <div class="category-card-link">
+      <div class="category-link">
         <%= link_to category_path(category) do %>
-          <%= category.event_categories.count %> abonnements disponibles
+          <% nb_cat_abo = category.subscriptions.where(user: current_user).count %>
+          <%= category.event_categories.count - nb_cat_abo %> abonnements disponibles
           <i class="fas fa-arrow-right"></i>
         <% end %>
       </div>
