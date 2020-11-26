@@ -7,5 +7,6 @@ class User < ApplicationRecord
   # validates :last_name, presence: true
   # validates :company_name, presence: true
   has_one_attached :photo
+  has_many :subscriptions
 
 end

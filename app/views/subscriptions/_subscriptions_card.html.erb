@@ -1,12 +1,17 @@
 <div class="card-style-light mt-3 flex-between">
   <div class="sub-infos-box ml-2">
-    <div class="sub-info sub-cat">
+    <div class="sub-info sub-cat flex-vert">
       <%= link_to category_path(subscription.event_category.category) do %>
       <%= subscription.event_category.category.name %>
       <% end %>
     </div>
-    <div class="sub-info sub-event">
+    <div class="sub-info sub-event flex-vert">
       <%= subscription.event.title %>
+    </div>
+    <div class="sub-info sub-leads-link flex-vert">
+      <%= link_to "#" do %>
+      Voir mes L.E.A.D.s
+      <% end %>
     </div>
       <%#= subscription.frequency %>
   </div>
