@@ -9,7 +9,6 @@
 require "open-uri"
 
 CAT_LIST = ["Avocat", "Huissier", "Notaire", "Administrateur judiciaire", "Commissaire-priseur", "Comptable"]
-FREQUENCE_LIST = ["Quotidienne", "Hebdomadaire", "Mensuelle"]
 
 puts "creating categories..."
 # if Category.all.count == 0
@@ -79,127 +78,91 @@ unless Category.find_by(name: "Comptable")
   puts "#{new_cat.name} created"
 end
 
-puts "creating events..."
-Event.create(
+puts "#{Category.count} cats in db "
+
+# ----------- CREATING EVENTS ----------------
+
+event_1 = {
   title: "Les créations de société",
   description: "Identifier les nouvelles créations d'entreprise",
-  frequency: "Quotidienne",
-  query: "SELECT *"
-)
-Event.create(
+  frequency: "Depuis 1 an",
+  query: "creation_date > :limit_date"
+}
+event_2 = {
   title: "Les sociétés qui recrutent",
   description: "Identifier les sociétés qui se développent",
-  frequency: "Quotidienne",
-  query: "SELECT *"
-)
-Event.create(
+  frequency: "Dernières 24h",
+  query: ""
+}
+event_3 = {
   title: "Les sociétés qui déménagent",
   description: "Identifier les sociétés qui ont déménagé recemment",
-  frequency: "Mensuelle",
-  query: "SELECT *"
-)
-Event.create(
+  frequency: "Depuis 6 mois",
+  query: ""
+}
+event_4 = {
   title: "Les sociétés qui fusionnent",
   description: "Identifier les sociétés qui ont fusionné récemment",
-  frequency: "Mensuelle",
-  query: "SELECT *"
-)
-Event.create(
+  frequency: "Depuis 1 an",
+  query: ""
+}
+event_5 = {
   title: "Les sociétés qui créent leur site internet",
   description: "Identifier les sociétés qui créent leur site internet",
-  frequency: "Quotidienne",
-  query: "SELECT *"
-)
-Event.create(
+  frequency: "Depuis 6 mois",
+  query: ""
+}
+event_6 = {
   title: "Les sociétés qui ont ouvert un deuxième siège social",
   description: "Identifier les sociétés  qui ont ouvert un deuxième siège social",
-  frequency: "Mensuelle",
-  query: "SELECT *"
-)
+  frequency: "Depuis 1 an",
+  query: ""
+}
+
+
+def seed_event(event)
+  # if Event.find_by(title: event["title"])
+  #   puts "Event #{event.title} already exist"
+  # else
+    new_event = Event.new(event)
+    new_event.save
+    puts "Event #{new_event.title} created"
+  # end
+end
+
+puts "creating events..."
+
+ALL_EVENTS = [event_1, event_2, event_3, event_4, event_5, event_6]
+ALL_EVENTS.each do |event|
+  seed_event(event)
+end
+
+puts "#{Event.count} events in db "
+
+# ----------- CREATING EVENTCATEGORIES ----------------
 
 puts "creating events_categories..."
 
-CAT_LIST.each do |element|
-  new_eventcat = EventCategory.new(
-    title: "#{element} - Les créations de société",
-    category: Category.find_by(name: "#{element}"),
-    event: Event.find_by(title: "Les créations de société")
-    )
-  new_eventcat.save
-end
-
-CAT_LIST.each do |element|
-  new_eventcat1 = EventCategory.new(
-    title: "#{element} - Les sociétés qui recrutent",
-    category: Category.find_by(name: "#{element}"),
-    event: Event.find_by(title: "Les sociétés qui recrutent")
-    )
-  new_eventcat1.save
-end
-
-CAT_LIST.each do |element|
-  new_eventcat2 = EventCategory.new(
-    title: "#{element} - Les sociétés qui déménagent",
-    category: Category.find_by(name: "#{element}"),
-    event: Event.find_by(title: "Les sociétés qui déménagent")
-    )
-  new_eventcat2.save
-end
-
-CAT_LIST.each do |element|
-  new_eventcat3 = EventCategory.new(
-    title: "#{element} - Les sociétés qui fusionnent",
-    category: Category.find_by(name: "#{element}"),
-    event: Event.find_by(title: "Les sociétés qui fusionnent")
-    )
-  new_eventcat3.save
-end
-
-CAT_LIST.each do |element|
-  new_eventcat4 = EventCategory.new(
-    title: "#{element} - Les sociétés qui créent leur site internet",
-    category: Category.find_by(name: "#{element}"),
-    event: Event.find_by(title: "Les sociétés qui créent leur site internet")
-    )
-  new_eventcat4.save
-end
-
-CAT_LIST.each do |element|
-  new_eventcat5 = EventCategory.new(
-    title: "#{element} - Les sociétés qui ont ouvert un deuxième siège social",
-    category: Category.find_by(name: "#{element}"),
-    event: Event.find_by(title: "Les sociétés qui ont ouvert un deuxième siège social")
-    )
-  new_eventcat5.save
-end
-
-
-# -----------API 2-------------
-
-def run_pappers(number)
-  data2 = APIPapers.new.papers
-  data2.first(number).each do |company|
-
-    puts company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
-
-    input2 = Company.new(
-      siren: company["siren"].to_i,
-      siret: company["siege"]["siret"].to_i,
-      company_name: company["nom_entreprise"],
-      creation_date: company["date_immatriculation_rcs"],
-      registered_capital: company["capital"].to_i,
-      address: company["siege"]["adresse_ligne_1"],
-      zip_code: company["siege"]["code_postal"],
-      #city: company["siege"]["ville"],
-      legal_structure: company["forme_juridique"],
-      #manager_name: company["representants"].first["nom_complet"],
-      #manager_birth_year: company["representants"].first["date_de_naissance_formate"].last(4).to_i
-      #head_count: company["effectif"],
-      head_count: company["effectif"],
-      naf_code: company["siege"]["code_naf"],
-      activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
-    )
-    input2.category = Category.find_by(name: "Notaire")
-    input2.save
+Category.all.each do |cat|
+  Event.all.each do |event|
+    if EventCategory.find_by(event: event.id, category: cat.id)
+      event_cat = EventCategory.find_by(event: event.id, category: cat.id)
+      event_cat.update(
+        title: "#{cat.name} - #{event.title}",
+        )
+    else
+      new_eventcat = EventCategory.new(
+        title: "#{cat.name} - #{event.title}",
+        category: Category.find(cat.id),
+        event: Event.find(event.id)
+        )
+      new_eventcat.save
+    end
   end
 end
+
+puts "#{EventCategory.count} event_categories in db "
+
+# ----------- XXXXXX ----------------
+
+
