@@ -174,8 +174,7 @@ CAT_LIST.each do |element|
 end
 
 
-
-# -----------API 2------------------
+# -----------API 2-------------
 
 def run_pappers(number)
   data2 = APIPapers.new.papers
