@@ -2,7 +2,6 @@ namespace :recruitment do
   desc "récupérer les recrutements sur bourse_emploi et les écrire en base"
   # rails recruitment:fetch_recruitments
   task fetch_recruitments: :environment do
-
     def create_recruitment(recruitoffer)
       input = Recruitment.new(
         zip_code: recruitoffer["zipCode"].to_i,

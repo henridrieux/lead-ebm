@@ -2,7 +2,6 @@ namespace :company do
   desc "récupérer les company sur Papers.com et les écrire en base"
   #rails company:fetch_compagnies
   task fetch_compagnies: :environment do
-
     def create_company(company)
       input2 = Company.new(
         siren: company["siren"].to_i,
@@ -25,10 +24,9 @@ namespace :company do
       cat = "Notaire"
       test = false
       test1 = input2.company_name.match?(/.*avocat.*/i)
-
-       test2 = input2.activities.match?(/.*avocat.*/i) if input2.activities
-       test3 = input2.social_purpose.match?(/.*avocat.*/i) if input2.social_purpose
-       test = test1 || test2 || test3
+      test2 = input2.activities.match?(/.*avocat.*/i) if input2.activities
+      test3 = input2.social_purpose.match?(/.*avocat.*/i) if input2.social_purpose
+      test = test1 || test2 || test3
       if test
         cat = "Avocat"
       end
@@ -59,8 +57,8 @@ namespace :company do
     end
 
     def run_papers(number)
-        data2 = APIPapers.new.papers
-        data2.first(number).each do |company|
+      data2 = APIPapers.new.papers
+      data2.first(number).each do |company|
         p company["siege"]["siret"].to_i
         p Company.find_by(siret: company["siege"]["siret"].to_i)
         if Company.find_by(siret: company["siege"]["siret"].to_i)
@@ -74,7 +72,5 @@ namespace :company do
     end
 
     run_papers(30)
-
   end
-
 end
