@@ -7,12 +7,12 @@ class EventCategoriesController < ApplicationController
 
   def show
     @event_category = EventCategory.find(params[:id])
-    # @category = @event_category.category
-    # sql_query = " \
-    #   recruitments.publication_date: #{Date.today}  \
-    # "
     @recruitments = Recruitment.where(category: @event_category.category)
     @recruitments = @recruitments.where(publication_date: "#{Date.today}")
+    # query = @event_category.event.query
+    query = ""
+    query_params_1 = Date.today - 900
     @companies = Company.where(category: @event_category.category)
+    @companies = @companies.where(query, limit_date: "#{query_params_1}") if @companies
   end
 end

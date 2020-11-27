@@ -1,6 +1,6 @@
 namespace :company do
   desc "récupérer les company sur Papers.com et les écrire en base"
-  #rails company:fetch_compagnies
+  # rails company:fetch_compagnies
   task fetch_compagnies: :environment do
 
     def create_company(company)

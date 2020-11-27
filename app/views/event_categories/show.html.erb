@@ -5,10 +5,19 @@
 </div>
 <br>
 <div class="container">
-  <% if @event_category.event.title == "Les sociétés qui recrutent" %>
-    <% @recruitments.each do |recruitment| %>
-      <%= render partial: 'event_categories/lead_card', locals: {recruitment: recruitment} %>
+  <div class="leads-list">
+    <% if @event_category.event.title == "Les sociétés qui recrutent" %>
+      <% @recruitments.each do |recruitment| %>
+        <%= render partial: 'event_categories/lead_card', locals: {recruitment: recruitment} %>
+      <% end %>
+    <% else %>
+      <% @companies.each do |company| %>
+        <div class="card-style">
+          <%= company.company_name %>
+        </div>
+      <% end %>
     <% end %>
+  </div>
   <% else %>
     <% @companies.each do |company| %>
       <div class="card-lead mt-2">
