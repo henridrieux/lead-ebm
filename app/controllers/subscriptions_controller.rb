@@ -24,8 +24,6 @@ class SubscriptionsController < ApplicationController
     # @subscription.start_date = Date.now()
     authorize @subscription
     if @subscription.save
-      redirect_to "/dashboard"
-    else
       redirect_to category_path(@event_category.category)
     end
   end
@@ -38,5 +36,4 @@ class SubscriptionsController < ApplicationController
 
   def destroy
   end
-
 end
