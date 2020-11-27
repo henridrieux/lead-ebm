@@ -1,0 +1,16 @@
+.split {
+  display: flex;
+}
+
+.side-bar {
+  // width: 300px;
+  border-right: .5px solid $dark-blue;
+  padding-top: 1rem;
+  background-color: white;
+}
+
+.main-page {
+  flex-grow: 1;
+  padding: 3rem;
+  border-top: .5px solid $dark-blue;
+}
