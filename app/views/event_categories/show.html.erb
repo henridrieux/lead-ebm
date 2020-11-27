@@ -12,28 +12,21 @@
       <% end %>
     <% else %>
       <% @companies.each do |company| %>
-        <div class="card-style">
-          <%= company.company_name %>
+        <div class="card-lead mt-2">
+          <div class="card-lead-contact">
+            <div class="card-lead-contact-data">
+              <b><%= company.company_name %> : <%= company.legal_structure %></b>
+            </div>
+            <div class="card-lead-contact-data">
+              <%= company.created_at %>
+            </div>
+          </div>
+          <i class="fas fa-building"></i> <%= company.address %><%= company.city %> <%= company.zip_code %>
+          <br>
+          <i class="fas fa-user-friends"></i><%= company.head_count %>
         </div>
       <% end %>
     <% end %>
   </div>
-  <% else %>
-    <% @companies.each do |company| %>
-      <div class="card-lead mt-2">
-        <div class="card-lead-contact">
-          <div class="card-lead-contact-data">
-            <b><%= company.company_name %> : <%= company.legal_structure %></b>
-          </div>
-          <div class="card-lead-contact-data">
-            <%= company.created_at %>
-          </div>
-        </div>
-        <i class="fas fa-building"></i> <%= company.address %><%= company.city %> <%= company.zip_code %>
-        <br>
-        <i class="fas fa-user-friends"></i><%= company.head_count %>
-      </div>
-    <% end %>
-  <% end %>
 </div>
 
