@@ -5,28 +5,30 @@
   </div>
 </div>
 
-<div class="dash-tabs">
-  <div class="container">
+<div class="split">
+  <div class="side-bar">
     <ul class="list-inline tabs">
       <li>
         <a href="#" class="tab-underlined active">
         Mes Abonnements (<%= current_user.subscriptions.count %>)
         </a>
       </li>
-<!--       <li>
+      <li>
         <a href="#" class="tab-underlined">Mes Leads</a>
-      </li> -->
+      </li>
     </ul>
   </div>
-</div>
-<div class="container">
-  <% my_sub = Subscription.where(user: current_user) %>
-  <% my_sub.each do |subscription| %>
-    <%= render partial: 'subscriptions/subscriptions_card', locals: {subscription: subscription} %>
-  <% end %>
+  <div class="main-page">
+    <% my_sub = Subscription.where(user: current_user) %>
+    <% my_sub.each do |subscription| %>
+      <%= render partial: 'subscriptions/subscriptions_card', locals: {subscription: subscription} %>
+    <% end %>
+  </div>
 </div>
 
-<br>
+
+
+<!-- <br>
 <br>
 
 
@@ -37,4 +39,4 @@
       <i class="fas fa-phone-alt"></i><p>06.80.68.34.23</p>
     </div>
   </div>
-</div>
+</div> -->
