@@ -1,1 +1,13 @@
+.card-lead {
+  background-color: white;
+  box-shadow: 0 0 4px rgba(0,0,0,0.2);
+  border-radius: $border-radius-lg;
+  padding: 1rem;
+  .card-lead-contact {
+    border-bottom: 1px solid $light-gray;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
 

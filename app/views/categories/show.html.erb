@@ -5,7 +5,7 @@
       <div class="category-description ml-4">
         <div class="category-head-top-infos">
           <h1> <%=@category.name%> </h1>
-          <span> (<%= @category.event_categories.count %> évènements disponibles )</span>
+          <span class="category-link"> (<%= @category.event_categories.count - @category.subscriptions.where(user: current_user).count %> évènements disponibles )</span>
         </div>
         <p>Fiez-vous à des données fraîches et précises grâce à nos recherches exclusives en temps réel sur la profession de <%=@category.name%>.
           Agissez immédiatement en fonction des nouvelles informations, avec des alertes de vente et des notifications de changement de poste par exemple.</p>

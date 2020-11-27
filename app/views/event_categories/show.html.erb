@@ -1,18 +1,10 @@
-
-<h1> <%= @event_category.title %></h1>
-
-<div class="container">
-<% @recruitments.each do |recruitment| %>
-  <div class="card-style">
-    <%= recruitment.publication_date%> -
-    <%= recruitment.employer %> -
-    Code postal : <%= recruitment.zip_code %>
-    <%= recruitment.employer_phone %>
-    <%= recruitment.employer_email %>
-    <br>
-    <%= recruitment.job_title %>
-    <%= recruitment.contract_type %>
-    <%#= recruitment.job_description %>
+<div class="header-top">
+  <div class="container">
+    <h1> <%= @event_category.title %></h1>
   </div>
-<% end %>
+</div>
+<div class="container">
+  <% @recruitments.each do |recruitment| %>
+    <%= render partial: 'event_categories/lead_card', locals: {recruitment: recruitment} %>
+  <% end %>
 </div>

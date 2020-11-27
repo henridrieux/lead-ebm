@@ -3,7 +3,9 @@
     <% if category.photo.attached? %>
       <div class="category-card-image" style="background-image: url('<%= cl_image_path category.photo.key, crop: :fill %>')"></div>
     <% end %>
-    <h4><%= category.name %></h4>
+    <%= link_to category_path(category) do %>
+      <h4><%= category.name %></h4>
+    <% end %>
     <div class="category-description">
       <p> <small><%= category.description %></small> </p>
     </div>
