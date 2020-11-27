@@ -4,5 +4,5 @@ class Event < ApplicationRecord
   validates :title, presence: true, uniqueness: true
   validates :description, presence: true
   # validates :frequency, presence: true
-  validates :query, presence: true
+  # validates :query, presence: true
 end

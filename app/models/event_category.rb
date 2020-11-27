@@ -4,5 +4,7 @@ class EventCategory < ApplicationRecord
   has_many :recruitments, through: :categories
   has_many :subscriptions
   validates :title, presence: true
+
+  validates :category, uniqueness: { scope: :event, message: "can't be associated twice to the same event" }
 end
 
