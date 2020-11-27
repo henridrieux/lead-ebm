@@ -1,6 +1,9 @@
 class SubscriptionsController < ApplicationController
+  after_action :verify_authorized, except: [:show, :index], unless: :skip_pundit?
+
   def index
-    @subscriptions = policy_scope(Subscription).order(created_at: :desc)
+    @subscriptions = policy_scope(Subscription.all)
+    # @subscriptions = policy_scope(Subscription).order(created_at: :desc)
   end
 
   def show

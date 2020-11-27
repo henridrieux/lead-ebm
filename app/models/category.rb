@@ -1,8 +1,10 @@
 class Category < ApplicationRecord
   has_many :event_categories
   has_many :subscriptions, through: :event_categories
+  has_many :companies
+  has_many :recruitments
+  has_one_attached :photo
 
   validates :name, presence: true
   validates :description, presence: true
-  has_one_attached :photo
 end

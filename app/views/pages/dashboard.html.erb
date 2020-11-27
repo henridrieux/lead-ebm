@@ -19,10 +19,10 @@
     </ul>
   </div>
   <div class="main-page">
-    <% my_sub = Subscription.where(user: current_user) %>
-    <% my_sub.each do |subscription| %>
-      <%= render partial: 'subscriptions/subscriptions_card', locals: {subscription: subscription} %>
-    <% end %>
+      <% my_sub = Subscription.where(user: current_user) %>
+        <% my_sub.each do |subscription| %>
+          <%= render partial: 'subscriptions/subscriptions_card', locals: {subscription: subscription} %>
+        <% end %>
   </div>
 </div>
 
