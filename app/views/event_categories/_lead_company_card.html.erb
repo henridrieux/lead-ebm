@@ -1,21 +1,28 @@
 <div class="card-lead mt-2">
-  <div class="card-lead-contact flex-between">
-    <div class="flex-vert">
-      <strong><%= company.company_name %></strong>
+  <div class="card-lead-top flex-between">
+    <div class="card-lead-contact flex-vert">
+      <p> <%= lead.company_name %></p>
     </div>
-    <div>
-      <p class="tag-event"><%= event_category.title %></p>
+    <div class="flex-between">
+      <div>
+        <p class="tag-event mr-1"><%= lead.category.name %></p>
+      </div>
+      <div>
+        <p class="tag-event"><%= event_category.event.title %></p>
+      </div>
     </div>
   </div>
   <div class="card-lead-details">
     <div class="card-lead-contact-data">
-      <%= company.creation_date %>
+      <%= lead.creation_date %>
     </div>
     <p>
-      <i class="fas fa-building"></i> <%= company.address %> - <%= company.city %> <%= company.zip_code %>
+      <i class="fas fa-building"></i>
+      <small><%= lead.address %> - <%= lead.city %> <%= lead.zip_code %></small>
     </p>
     <p>
-      <i class="fas fa-user-friends mr-2"> </i><%= company.head_count %> - <%= company.legal_structure %>
+      <i class="fas fa-user-friends mr-2"> </i>
+      <small><%= lead.head_count %> - <%= lead.legal_structure %></small>
     </p>
   </div>
 </div>

@@ -5,6 +5,15 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+    @my_sub = Subscription.includes(:event_category, :category).where(user: current_user)
+    @my_sub_cat = @my_sub.map{ |v| v.category }.uniq
+    @my_sub_event_cat = @my_sub.map{ |v| v.event_category }.uniq
+
+    @my_leads_array = []
+    @my_sub_event_cat.each do |event_category|
+      @my_leads_array << event_category.get_company_leads
+    end
+    raise
   end
 
 end

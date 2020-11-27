@@ -11,8 +11,8 @@
         <%= render partial: 'event_categories/lead_recruit_card', locals: {recruitment: recruitment} %>
       <% end %>
     <% else %>
-      <% @companies.each do |company| %>
-        <%= render partial: 'event_categories/lead_company_card', locals: {company: company, event_category:@event_category } %>
+      <% @leads.each do |lead| %>
+        <%= render partial: 'event_categories/lead_company_card', locals: {lead: lead, event_category:@event_category } %>
       <% end %>
     <% end %>
   </div>

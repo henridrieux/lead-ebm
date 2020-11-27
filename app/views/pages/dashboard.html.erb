@@ -20,31 +20,24 @@
   </div>
   <div class="main-page">
     <div class="abonnement-box">
-      <% my_sub = Subscription.where(user: current_user) %>
-      <% my_sub.each do |subscription| %>
-        <%= render partial: 'subscriptions/subscriptions_card', locals: {subscription: subscription} %>
+      <% @my_sub_cat.each do |category| %>
+        <div class="sub-title">
+          <%= category.name %>
+        </div>
+        <% @my_sub.each do |subscription| %>
+          <% if subscription.category == category %>
+            <%= render partial: 'subscriptions/subscriptions_card', locals: {subscription: subscription} %>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
-    <div class="abonnement-box">
-      <% my_sub = Subscription.where(user: current_user) %>
-      <% my_sub.each do |subscription| %>
-        <%= render partial: 'subscriptions/subscriptions_card', locals: {subscription: subscription} %>
+    <div class="lead-box">
+      <% @my_leads_array.each do |lead_list| %>
+        <% lead_list.each do |lead| %>
+          <%= render partial: 'event_categories/lead_company_card', locals: {lead: lead, event_category: lead_list.first.event_category } %>
+        <% end %>
       <% end %>
     </div>
   </div>
 </div>
 
-
-
-<!-- <br>
-<br>
-
-
-<div class="container">
-  <div class="card-style my-3">
-    <h5>Vous rencontrez des difficultés ? </h5>
-    <div class="d-flex">
-      <i class="fas fa-phone-alt"></i><p>06.80.68.34.23</p>
-    </div>
-  </div>
-</div> -->
