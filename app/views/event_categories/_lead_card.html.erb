@@ -1,11 +1,19 @@
 <div class="card-lead mt-2">
-  <%= recruitment.publication_date%> -
-  <%= recruitment.employer %> -
-  Code postal : <%= recruitment.zip_code %>
-  <%= recruitment.employer_phone %>
-  <%= recruitment.employer_email %>
+  <div class="card-lead-contact">
+    <div class="card-lead-contact-date">
+      <i class="fas fa-calendar-day"></i>  <b><%= recruitment.publication_date%> // </b>
+      <i class="fas fa-user-alt"></i>  <%= recruitment.employer %>
+    </div>
+    <div class="card-lead-contact-data">
+      <i class="fas fa-phone-square-alt"></i><%= recruitment.employer_phone %>
+      <i class="fas fa-envelope-open-text"></i><%= recruitment.employer_email %>
+    </div>
+  </div>
   <br>
-  <%= recruitment.job_title %>
-  <%= recruitment.contract_type %>
+  <i class="fas fa-building"></i>  <%= recruitment.zip_code %>
+  <br>
+  <i class="fas fa-user-md"></i>  <%= recruitment.job_title %>
+  <br>
+  <i class="fas fa-file-contract"></i>  <%= recruitment.contract_type %>
   <%#= recruitment.job_description %>
 </div>
