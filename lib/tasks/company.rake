@@ -33,7 +33,7 @@ namespace :company do
         cat = "Avocat"
       end
 
-    
+
 
       testnotaire = false
       notaire1 = input2.company_name.match?(/.*nota.*/i)
@@ -42,9 +42,9 @@ namespace :company do
       testnotaire = notaire1 || notaire2 || notaire3
 
       if testnotaire
-        cat = "notaire"
+        cat = "Notaire"
       end
-      
+
 
       testcommissaire = false
       commissaire1 = input2.company_name.match?(/.*commissaire.*/i)
@@ -97,7 +97,7 @@ namespace :company do
         end
       end
     end
-    
+
     run_papers(200)
 
   end

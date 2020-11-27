@@ -8,6 +8,9 @@
     <div class="sub-info sub-event flex-vert">
       <%= subscription.event.title %>
     </div>
+    <div class="sub-info sub-freq flex-vert">
+      <%= subscription.event.frequency %>
+    </div>
     <div class="sub-info sub-leads-link flex-vert">
       <%= link_to event_category_path(subscription.event_category) do %>
       Voir mes L.E.A.D.
