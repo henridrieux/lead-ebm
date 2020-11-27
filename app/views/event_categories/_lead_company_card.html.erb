@@ -1,0 +1,21 @@
+<div class="card-lead mt-2">
+  <div class="card-lead-contact flex-between">
+    <div class="flex-vert">
+      <strong><%= company.company_name %></strong>
+    </div>
+    <div>
+      <p class="tag-event"><%= event_category.title %></p>
+    </div>
+  </div>
+  <div class="card-lead-details">
+    <div class="card-lead-contact-data">
+      <%= company.creation_date %>
+    </div>
+    <p>
+      <i class="fas fa-building"></i> <%= company.address %> - <%= company.city %> <%= company.zip_code %>
+    </p>
+    <p>
+      <i class="fas fa-user-friends mr-2"> </i><%= company.head_count %> - <%= company.legal_structure %>
+    </p>
+  </div>
+</div>

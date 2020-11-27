@@ -8,23 +8,11 @@
   <div class="leads-list">
     <% if @event_category.event.title == "Les sociétés qui recrutent" %>
       <% @recruitments.each do |recruitment| %>
-        <%= render partial: 'event_categories/lead_card', locals: {recruitment: recruitment} %>
+        <%= render partial: 'event_categories/lead_recruit_card', locals: {recruitment: recruitment} %>
       <% end %>
     <% else %>
       <% @companies.each do |company| %>
-        <div class="card-lead mt-2">
-          <div class="card-lead-contact">
-            <div class="card-lead-contact-data">
-              <b><%= company.company_name %> : <%= company.legal_structure %></b>
-            </div>
-            <div class="card-lead-contact-data">
-              <%= company.creation_date %>
-            </div>
-          </div>
-          <i class="fas fa-building"></i> <%= company.address %><%= company.city %> <%= company.zip_code %>
-          <br>
-          <i class="fas fa-user-friends"></i><%= company.head_count %>
-        </div>
+        <%= render partial: 'event_categories/lead_company_card', locals: {company: company, event_category:@event_category } %>
       <% end %>
     <% end %>
   </div>
