@@ -34,7 +34,7 @@
     <div class="lead-box">
       <% @my_leads_array.each do |lead_list| %>
         <% lead_list.each do |lead| %>
-          <%= render partial: 'event_categories/lead_company_card', locals: {lead: lead, event_category: lead_list.first.event_category } %>
+          <%= render partial: 'event_categories/lead_company_card', locals: {lead: lead} %>
         <% end %>
       <% end %>
     </div>

@@ -13,7 +13,6 @@ class PagesController < ApplicationController
     @my_sub_event_cat.each do |event_category|
       @my_leads_array << event_category.get_company_leads
     end
-    raise
   end
 
 end
