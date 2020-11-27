@@ -22,16 +22,42 @@ namespace :company do
         naf_code: company["siege"]["code_naf"],
         activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
       )
-      cat = "Notaire"
-      test = false
-      test1 = input2.company_name.match?(/.*avocat.*/i)
+      cat = "Comptable"
+      testavocat = false
+      avocat1 = input2.company_name.match?(/.*avocat.*/i)
+      avocat2 = input2.activities.match?(/.*avocat.*/i) if input2.activities
+      avocat3 = input2.social_purpose.match?(/.*avocat.*/i) if input2.social_purpose
+      testavocat = avocat1 || avocat2 || avocat3
 
-       test2 = input2.activities.match?(/.*avocat.*/i) if input2.activities
-       test3 = input2.social_purpose.match?(/.*avocat.*/i) if input2.social_purpose
-       test = test1 || test2 || test3
-      if test
+      if testavocat
         cat = "Avocat"
       end
+
+      puts "test notaire"
+
+      testnotaire = false
+      notaire1 = input2.company_name.match?(/.*nota.*/i)
+      notaire2 = input2.activities.match?(/.*nota.*/i) if input2.activities
+      notaire3 = input2.social_purpose.match?(/.*nota.*/i) if input2.social_purpose
+      testnotaire = notaire1 || notaire2 || notaire3
+
+      if testnotaire
+        cat = "notaire"
+      end
+
+      puts "test commissaire"
+
+      testcommissaire = false
+      commissaire1 = input2.company_name.match?(/.*commissaire.*/i)
+      commissaire2 = input2.activities.match?(/.*commissaire.*/i) if input2.activities
+      commissaire3 = input2.social_purpose.match?(/.*commissaire.*/i) if input2.social_purpose
+      testcommissaire = commissaire1 || commissaire2 || commissaire3
+
+
+      if testcommissaire
+        cat = "Commissaire-priseur"
+      end
+
       input2.category = Category.find_by(name: cat)
       input2.save
     end
@@ -73,7 +99,7 @@ namespace :company do
       end
     end
 
-    run_papers(30)
+    run_papers(20)
 
   end
 
