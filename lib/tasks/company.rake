@@ -8,6 +8,7 @@ namespace :company do
         siren: company["siren"].to_i,
         siret: company["siege"]["siret"].to_i,
         company_name: company["nom_entreprise"],
+        social_purpose: company["objet_social"],
         creation_date: company["date_immatriculation_rcs"],
         registered_capital: company["capital"].to_i,
         address: company["siege"]["adresse_ligne_1"],
@@ -21,7 +22,17 @@ namespace :company do
         naf_code: company["siege"]["code_naf"],
         activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
       )
-      input2.category = Category.find_by(name: "Notaire")
+      cat = "Notaire"
+      test = false
+      test1 = input2.company_name.match?(/.*avocat.*/i)
+
+       test2 = input2.activities.match?(/.*avocat.*/i) if input2.activities
+       test3 = input2.social_purpose.match?(/.*avocat.*/i) if input2.social_purpose
+       test = test1 || test2 || test3
+      if test
+        cat = "Avocat"
+      end
+      input2.category = Category.find_by(name: cat)
       input2.save
     end
 
@@ -31,6 +42,7 @@ namespace :company do
         siren: company["siren"].to_i,
         siret: company["siege"]["siret"].to_i,
         company_name: company["nom_entreprise"],
+        social_purpose: company["objet_social"],
         creation_date: company["date_immatriculation_rcs"],
         registered_capital: company["capital"].to_i,
         address: company["siege"]["adresse_ligne_1"],
@@ -61,7 +73,7 @@ namespace :company do
       end
     end
 
-    run_papers(6)
+    run_papers(30)
 
   end
 
