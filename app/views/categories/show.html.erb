@@ -18,11 +18,21 @@
 
 <div class="container">
   <div class="">
+     <button class="card-style flex-between mt-3" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Les événements déjà abonnés
+        </button>
     <% @category.event_categories.each do |event_category| %>
-      <%= render partial: 'event_categories/event_categories_card', locals: {event_category: event_category} %>
+      <% if Subscription.find_by(user: current_user, event_category:event_category ) %>
+        <div class="collapse" id="collapseExample">
+          <%= render partial: 'event_categories/event_categories_card', locals: {event_category: event_category} %>
+        </div>
+      <% else %>
+        <%= render partial: 'event_categories/event_categories_card', locals: {event_category: event_category} %>
+      <% end %>
     <% end %>
   </div>
 </div>
+
 
 
 <!-- RETOUR A L'INDEX -->

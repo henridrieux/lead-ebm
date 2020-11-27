@@ -3,14 +3,14 @@
     <div class="event-category-title">
       <span><%=event_category.category.name%></span>
     </div>
-    <div class="event-description">
-      <h3> <%= event_category.event.title%> </h3>
-      <p> <%= event_category.event.description %> </p>
-    </div>
+      <div class="event-description">
+          <h3> <%= event_category.event.title%> </h3>
+          <p> <%= event_category.event.description %> </p>
+      </div>
   </div>
-  <% if Subscription.find_by(user: current_user, event_category:event_category ) %>
-    <%= link_to "Voir mes L.E.A.D.", event_category_path(event_category), class: "btn"%>
-  <% else %>
-    <%= link_to "S'abonner", event_category_subscriptions_path(event_category), method: :post, class: "btn btn-ghost"%>
-  <% end %>
+    <% if Subscription.find_by(user: current_user, event_category:event_category ) %>
+      <%= link_to "Voir mes L.E.A.D.", event_category_path(event_category), class: "btn"%>
+    <% else %>
+      <%= link_to "S'abonner", event_category_subscriptions_path(event_category), method: :post, class: "btn btn-ghost"%>
+    <% end %>
 </div>
