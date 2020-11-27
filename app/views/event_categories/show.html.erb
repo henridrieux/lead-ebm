@@ -3,6 +3,7 @@
     <h1> <%= @event_category.title %></h1>
   </div>
 </div>
+<br>
 <div class="container">
   <% if @event_category.event.title == "Les sociétés qui recrutent" %>
     <% @recruitments.each do |recruitment| %>
@@ -11,7 +12,15 @@
   <% else %>
     <% @companies.each do |company| %>
       <div class="card-style">
-        <%= company.company_name %>
+        <div class="card-lead-contact">
+          <div class="card-lead-contact-data">
+            <b><%= company.company_name %> : <%= company.created_at %></b>
+          </div>
+          <div class="card-lead-contact-data">
+            </i><%= company.manager_name %>
+          </div>
+        </div>
+        <i class="fas fa-building"></i> <%= company.address %><%= company.city %> <%= company.zip_code %>
       </div>
     <% end %>
   <% end %>
