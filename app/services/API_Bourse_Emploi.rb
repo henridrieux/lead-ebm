@@ -1,8 +1,11 @@
+require 'rest-client'
+
 class APIBourseEmploi
 # Or wrap things up in your own class
 require "json"
 require "open-uri"
 require "net/http"
+
 
   def bourse_emploi
     url = URI("https://bourse-emplois.notaires.fr/api/offre/search?page=1&pageSize=90&sort=DESC&sortField=DATE_ACTUALISATION")
@@ -27,7 +30,12 @@ require "net/http"
       recruit = transform_json(id)
       final_array << recruit
     end
+    post_to_slack(final_array)
     return final_array
+  end
+
+  def post_to_slack(final_array)
+    RestClient.post ENV["webhook_url_bourse_emploi"], { "text" => final_array.join(", ") }.to_json, {content_type: :json, accept: :json}
   end
 
   def transform_json(id)
