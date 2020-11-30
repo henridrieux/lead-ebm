@@ -1,7 +1,8 @@
 require 'rest-client'
+require 'HTTParty'
 
 class APIBourseEmploi
-require 'HTTParty'
+
 require "json"
 
   def bourse_emploi

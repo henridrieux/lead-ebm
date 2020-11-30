@@ -1,6 +1,8 @@
+require 'HTTParty'
+
 class APIPapers
 # Or wrap things up in your own class
-require 'HTTParty'
+
 require "json"
 
   def papers
