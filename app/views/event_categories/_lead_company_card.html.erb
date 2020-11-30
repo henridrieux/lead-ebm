@@ -8,7 +8,7 @@
         <p class="tag-event mr-1"><%= lead.category.name %></p>
       </div>
       <div>
-        <p class="tag-event"><%#= event_category.event.title %></p>
+        <p class="tag-event"><%= event.title %></p>
       </div>
     </div>
   </div>
@@ -23,6 +23,16 @@
     <p>
       <i class="fas fa-user-friends mr-2"> </i>
       <small><%= lead.head_count %> - <%= lead.legal_structure %></small>
+    </p>
+    <% if lead.recruitments %>
+      <% lead.recruitments.order(publication_date: :desc).each do |recruitment| %>
+        <p>
+          <i class="fas fa-file-contract mr-2"></i>
+          <small><%= recruitment.job_title %> poste en <%= recruitment.contract_type %></small>
+        </p>
+      <% end %>
+    <% end %>
+    <p>
     </p>
   </div>
 </div>
