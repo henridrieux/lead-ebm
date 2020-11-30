@@ -41,6 +41,8 @@ gem 'simple_form'
 gem 'httparty'
 gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
+gem 'rest-client'
+
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'

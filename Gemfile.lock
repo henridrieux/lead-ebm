@@ -331,6 +331,7 @@ DEPENDENCIES
   rails_admin (~> 2.0)
   rails_refactor
   redis (~> 4.0)
+  rest-client
   sass-rails (>= 6)
   selenium-webdriver
   sidekiq
