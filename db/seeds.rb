@@ -100,15 +100,15 @@ event_3 = {
   title: "Les sociétés qui déménagent",
   description: "Identifier les sociétés qui ont déménagé recemment",
   frequency: "Depuis 6 mois",
-  query: "",
-  query_params: ""
+  query: "creation_date > ?",
+  query_params: "30"
 }
 event_4 = {
   title: "Les sociétés qui fusionnent",
   description: "Identifier les sociétés qui ont fusionné récemment",
   frequency: "Depuis 1 an",
-  query: "",
-  query_params: ""
+  query: "creation_date > ?",
+  query_params: "30"
 }
 event_5 = {
   title: "Les sociétés qui créent leur site internet",
@@ -121,8 +121,8 @@ event_6 = {
   title: "Les sociétés qui ont ouvert un deuxième siège social",
   description: "Identifier les sociétés  qui ont ouvert un deuxième siège social",
   frequency: "Depuis 1 an",
-  query: "",
-  query_params: ""
+  query: "creation_date > ?",
+  query_params: "30"
 }
 
 
