@@ -22,11 +22,33 @@ class EventCategory < ApplicationRecord
       query_params = " \
       #{Date.today - self.event.query_params.to_i } \
       "
-      @leads =  companies ? companies.where(query, query_params) : nil
+      @leads = companies ? companies.where(query, query_params) : nil
     end
     return @leads
   end
 
-
+  def get_json_leads
+    leads = self.get_company_leads
+    json_leads = {
+      category_name: self.category.name,
+      event_title: self.event.title,
+      sending_date: Date.today,
+      leads: [],
+    }
+    leads.each do |lead|
+      json_lead = {
+        company_name: lead.company_name,
+        address: lead.address,
+        city: lead.city,
+        zip_code: lead.zip_code,
+        head_count: lead.head_count,
+        legal_structure: lead.legal_structure,
+        creation_date: lead.creation_date,
+        ongoing_recruitments: lead.recruitments.count
+      }
+      json_leads[:leads] << json_lead
+    end
+    return json_leads
+  end
 end
 

@@ -6,5 +6,4 @@ class Recruitment < ApplicationRecord
   # validates :contract_type, presence: true
   # validates :publication_date, presence: true
   validates :external_id, presence: true, uniqueness: true
-
 end
