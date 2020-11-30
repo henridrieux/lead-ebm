@@ -32,9 +32,12 @@
       <% end %>
     </div>
     <div class="lead-box">
-      <% @my_leads_array.each do |lead_list| %>
-        <% lead_list.each do |lead| %>
-          <%= render partial: 'event_categories/lead_company_card', locals: {lead: lead} %>
+      <% @my_sub_event_cat.each do |event_cat| %>
+        <div class="sub-title">
+          <%= event_cat.title %>
+        </div>
+        <% event_cat.get_company_leads.each do |lead| %>
+            <%= render partial: 'event_categories/lead_company_card', locals: {lead: lead, event: event_cat.event} %>
         <% end %>
       <% end %>
     </div>

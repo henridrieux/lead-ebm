@@ -6,15 +6,16 @@
 <br>
 <div class="container">
   <div class="leads-list">
-    <% if @event_category.event.title == "Les sociétés qui recrutent" %>
+    <% if false %>
       <% @recruitments.each do |recruitment| %>
         <%= render partial: 'event_categories/lead_recruit_card', locals: {recruitment: recruitment} %>
       <% end %>
     <% else %>
       <% @leads.each do |lead| %>
-        <%= render partial: 'event_categories/lead_company_card', locals: {lead: lead, event_category:@event_category } %>
+        <%= render partial: 'event_categories/lead_company_card', locals: {lead: lead, event:@event_category.event } %>
       <% end %>
     <% end %>
   </div>
 </div>
 
+<!-- @event_category.event.title == "Les sociétés qui recrutent" -->

@@ -85,49 +85,57 @@ puts "#{Category.count} cats in db "
 event_1 = {
   title: "Les créations de société",
   description: "Identifier les nouvelles créations d'entreprise",
-  frequency: "Depuis 1 an",
-  query: "creation_date > :limit_date"
+  frequency: "Depuis 3 mois",
+  query: "creation_date > ?",
+  query_params: "300"
 }
 event_2 = {
   title: "Les sociétés qui recrutent",
   description: "Identifier les sociétés qui se développent",
   frequency: "Dernières 24h",
-  query: ""
+  query: "recruitments.id > 0",
+  query_params: ""
 }
 event_3 = {
   title: "Les sociétés qui déménagent",
   description: "Identifier les sociétés qui ont déménagé recemment",
   frequency: "Depuis 6 mois",
-  query: ""
+  query: "",
+  query_params: ""
 }
 event_4 = {
   title: "Les sociétés qui fusionnent",
   description: "Identifier les sociétés qui ont fusionné récemment",
   frequency: "Depuis 1 an",
-  query: ""
+  query: "",
+  query_params: ""
 }
 event_5 = {
   title: "Les sociétés qui créent leur site internet",
   description: "Identifier les sociétés qui créent leur site internet",
   frequency: "Depuis 6 mois",
-  query: ""
+  query: "",
+  query_params: ""
 }
 event_6 = {
   title: "Les sociétés qui ont ouvert un deuxième siège social",
   description: "Identifier les sociétés  qui ont ouvert un deuxième siège social",
   frequency: "Depuis 1 an",
-  query: ""
+  query: "",
+  query_params: ""
 }
 
 
 def seed_event(event)
-  # if Event.find_by(title: event["title"])
-  #   puts "Event #{event.title} already exist"
-  # else
+  if Event.find_by(title: event[:title])
+    ev_to_update = Event.find_by(title: event[:title])
+    ev_to_update.update(event)
+    puts "Event #{ev_to_update.title} updated"
+  else
     new_event = Event.new(event)
     new_event.save
     puts "Event #{new_event.title} created"
-  # end
+  end
 end
 
 puts "creating events..."
