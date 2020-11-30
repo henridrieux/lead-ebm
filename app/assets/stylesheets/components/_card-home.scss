@@ -53,3 +53,18 @@
   }
 
 }
+
+.card-minimum {
+  border: .5px solid $dark-blue;
+  border-radius: $border-radius;
+  padding: 10px 12px;
+  background-color: white;
+  opacity: 1;
+  color: $dark-blue;
+}
+
+.card-minimum:hover {
+  opacity: 0,3;
+  background-color: $light-gray;
+  font-weight: normal;
+}
