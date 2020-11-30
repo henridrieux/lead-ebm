@@ -7,7 +7,7 @@
         <%= simple_form_for :query, url: categories_path, method: :get do |f| %>
           <div class="search-bar card-style-light flex-between">
                 <input class="input-box" placeholder="Trouver votre cible dans notre panel..." type="text" name="query" id="query" value="<%= params[:query] %>"/>
-                <button name="button" type="submit" class="btn btn-ghost">
+                <button name="button" type="submit" class="btn btn-search">
                   <i class="fas fa-search"></i>
                 </button>
           </div>
