@@ -98,7 +98,7 @@ namespace :company do
       end
     end
 
-    run_papers(200)
+    run_papers(10000)
 
   end
 end
