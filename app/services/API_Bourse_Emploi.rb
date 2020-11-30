@@ -34,9 +34,17 @@ require "net/http"
     return final_array
   end
 
-  def post_to_slack(final_array)
-    RestClient.post ENV["webhook_url_bourse_emploi"], { "text" => final_array.join(", ") }.to_json, {content_type: :json, accept: :json}
-  end
+ # def post_to_slack(event_category)
+    #hash = event_category.json_leads
+    #hash[:leads].each do |lead|
+   # RestClient.post "https://hooks.slack.com/services/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",
+                   # {"type" => 'mrkdwn',
+                   # "text" => "*#{hash[:category_name]} - #{hash[:event_title]}*",
+                    #{}"blocks" => lead[:address],
+                    #}.to_json,
+                    #{ content_type: "application/json", accept: :json }
+    #end
+ # end
 
   def transform_json(id)
     url2 = URI("https://bourse-emplois.notaires.fr/api/offre/preview/#{id}")
