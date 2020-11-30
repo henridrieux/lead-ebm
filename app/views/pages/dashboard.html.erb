@@ -12,9 +12,25 @@
         <a href="#" class="tab-underlined active">
         Mes Abonnements (<%= current_user.subscriptions.count %>)
         </a>
+        <ul class="list-inline small-tabs">
+          <% @my_sub_cat.each do |category| %>
+          <li class="sub-title">
+            <a href="#" class="tab-underlined"><%= category.name %></a>
+          </li>
+          <% end %>
+        </ul>
       </li>
       <li>
-        <a href="#" class="tab-underlined">Mes Leads</a>
+        <a href="#" class="tab-underlined">
+        Mes L.E.A.D.
+        </a>
+        <ul class="list-inline small-tabs">
+          <% @my_sub_event.each do |event| %>
+          <li class="sub-title">
+            <a href="#" class="tab-underlined"><%= event.title %></a>
+          </li>
+          <% end %>
+        </ul>
       </li>
     </ul>
   </div>
