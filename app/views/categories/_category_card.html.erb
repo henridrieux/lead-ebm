@@ -13,8 +13,13 @@
       <div class="category-link">
         <%= link_to category_path(category) do %>
           <% nb_cat_abo = category.subscriptions.where(user: current_user).count %>
-          <%= category.event_categories.count - nb_cat_abo %> abonnements disponibles
-          <i class="fas fa-arrow-right"></i>
+          <% if nb_cat_abo == 6 %>
+            Aucun abonnement disponible
+            <i class="fas fa-arrow-right"></i>
+          <% else %>
+            <%= category.event_categories.count - nb_cat_abo %> abonnements disponibles
+            <i class="fas fa-arrow-right"></i>
+          <% end %>
         <% end %>
       </div>
     <% end %>

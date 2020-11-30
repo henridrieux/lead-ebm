@@ -1,12 +1,12 @@
-<div class="header-top">
+<div class="header-top mt-4">
   <div class="container">
-    <h1>Notre panel de professions</h1>
-    <p>L.E.A.D. vous aide à identifier les prospects idéaux et à les contacter lorsque le moment est venu. </p>
+    <h1 class="text-center">Notre panel de professions</h1>
+    <p class="text-center pb-2">L.E.A.D. vous aide à identifier les prospects idéaux et à les contacter lorsque le moment est venu. </p>
     <div class="row row-cols-1">
       <div class="col">
         <%= simple_form_for :query, url: categories_path, method: :get do |f| %>
           <div class="search-bar card-style-light flex-between">
-                <input class="input-box" placeholder="Trouver votre cible dans notre panel..." type="text" name="query" id="query" value="<%= params[:query] %>"/>
+                <input class="input-box" placeholder="Trouver votre cible dans notre panel (notaire, comptable, etc...)" type="text" name="query" id="query" value="<%= params[:query] %>"/>
                 <button name="button" type="submit" class="btn btn-search">
                   <i class="fas fa-search"></i>
                 </button>
@@ -17,12 +17,20 @@
   </div>
 </div>
 <!-- --------CATEGORIES CARDS -------- -->
-<div class="container mt-3">
+<div class="container">
   <div class="row row-cols-1 row-cols-md-2">
     <% @categories.each do |category| %>
        <%= render partial: 'category_card', locals: {category: category} %>
     <% end %>
   </div>
+</div>
+
+<!-- RETOUR A L'INDEX DES CATEGORIES -->
+
+<div class="container">
+  <button class="card-minimum flex-between mt-3 mb-4">
+      <%= link_to "<<< Voir toutes les catégories", categories_path , class:"text-decoration-none" %>
+  </button>
 </div>
 
 

@@ -55,12 +55,13 @@
 }
 
 .card-minimum {
-  border: .5px solid $dark-blue;
   border-radius: $border-radius;
   padding: 10px 12px;
   background-color: white;
   opacity: 1;
   color: $dark-blue;
+  border: none;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
 .card-minimum:hover {
