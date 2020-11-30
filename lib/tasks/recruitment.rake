@@ -59,13 +59,15 @@ namespace :recruitment do
         # p Recruitment.find_by(external_id: recruitoffer["idOffer"])
         if Recruitment.find_by(external_id: recruitoffer["idOffer"])
           update_recruitment(recruitoffer)
+          p "emploi updated"
         else
           create_recruitment(recruitoffer)
+          p "emploi created"
         end
       end
     end
-    
-    run_bourse_emploi(200)
+
+    run_bourse_emploi(50)
 
   end
 end

@@ -1,17 +1,32 @@
 class APIPapers
 # Or wrap things up in your own class
+require 'HTTParty'
 require "json"
-require "open-uri"
-require "net/http"
 
   def papers
-    url = URI("https://api.pappers.fr/v1/recherche?api_token=3e10f34b388926a0e4030180829391e02b3155bef5f069d5&par_page=2000&nom_entreprise&code_naf=69.10Z&departement&code_postal&convention_collective=&categorie_juridique&entreprise_cessee=false&chiffre_affaires_min&chiffre_affaires_max&resultat_min&resultat_max=&date_creation_min=01-09-1980&date_creation_max&tranche_effectif_min=&tranche_effectif_max")
-    https = Net::HTTP.new(url.host, url.port)
-    https.use_ssl = true
-    request = Net::HTTP::Get.new(url)
-    request["Cookie"] = "__cfduid=da64ed270569726ecde8337ce77714a421606301876"
-    response = https.request(request)
-    return_array = response.read_body
+    url = "https://api.pappers.fr/v1/recherche?"
+    body_request = {
+    }
+    @options = {
+      query: {
+        api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
+        par_page: 100,
+        entreprise_cessee: false,
+        nom_entreprise: "",
+        code_naf: "69.10Z",
+        date_creation_min: "01-01-1990"
+      },
+      headers: {
+        pragma: "no-cache",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
+        "Content-Type": "application/json",
+        accept: "*/*",
+        cookie: "__cfduid=da64ed270569726ecde8337ce77714a421606301876"
+      },
+      body: body_request.to_json
+    }
+    response = HTTParty.get(url, @options)
+    return_array = response.body
     result = JSON.parse(return_array)
     new_id_array = []
     new_siege_array = []
@@ -31,15 +46,26 @@ require "net/http"
   end
 
   def transform_json(siret)
-    url = URI("https://api.pappers.fr/v1/entreprise?api_token=3e10f34b388926a0e4030180829391e02b3155bef5f069d5&siret=#{siret}")
-    https = Net::HTTP.new(url.host, url.port)
-    https.use_ssl = true
-    request = Net::HTTP::Get.new(url)
-    request["Cookie"] = "__cfduid=da64ed270569726ecde8337ce77714a421606301876"
-    response2 = https.request(request)
+    url2 = "https://api.pappers.fr/v1/entreprise?"
+    body_request = {
+    }
+    @options = {
+      query: {
+        api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
+        siret: "#{siret}"
+      },
+      headers: {
+        pragma: "no-cache",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
+        "Content-Type": "application/json",
+        accept: "*/*",
+        cookie: "__cfduid=da64ed270569726ecde8337ce77714a421606301876"
+      },
+      body: body_request.to_json
+    }
+    response2 = HTTParty.get(url2, @options)
     return_array2 = response2.read_body
     result2 = JSON.parse(return_array2)
     return result2
   end
 end
-
