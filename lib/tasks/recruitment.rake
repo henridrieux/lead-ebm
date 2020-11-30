@@ -29,6 +29,7 @@ namespace :recruitment do
       input.save
     end
 
+
     def update_recruitment(recruitoffer)
       input = Recruitment.find_by(external_id: recruitoffer["idOffer"])
       input.update(
@@ -69,5 +70,10 @@ namespace :recruitment do
 
     run_bourse_emploi(50)
 
+  # rails recruitment:push_slack
+  #task push_slack: :environment do
+    #EventCategory.first.each do |event_category|
+      #APIBourseEmploi.new.post_to_slack(EventCategory.find(9))
+   # #end
   end
 end

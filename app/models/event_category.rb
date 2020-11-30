@@ -27,7 +27,7 @@ class EventCategory < ApplicationRecord
     return @leads
   end
 
-  def get_json_leads
+  def json_leads
     leads = self.get_company_leads
     json_leads = {
       category_name: self.category.name,
