@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_114213) do
+ActiveRecord::Schema.define(version: 2020_11_30_143223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_114213) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "slack_webhook", default: "https://hooks.slack.com/services/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"
     t.index ["event_category_id"], name: "index_subscriptions_on_event_category_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
