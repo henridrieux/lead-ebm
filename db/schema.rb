@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_27_104433) do
+ActiveRecord::Schema.define(version: 2020_11_30_075002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,7 +99,9 @@ ActiveRecord::Schema.define(version: 2020_11_27_104433) do
     t.string "employer_phone"
     t.string "employer_name"
     t.string "external_id"
+    t.bigint "company_id"
     t.index ["category_id"], name: "index_recruitments_on_category_id"
+    t.index ["company_id"], name: "index_recruitments_on_company_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -134,6 +136,7 @@ ActiveRecord::Schema.define(version: 2020_11_27_104433) do
   add_foreign_key "event_categories", "categories"
   add_foreign_key "event_categories", "events"
   add_foreign_key "recruitments", "categories"
+  add_foreign_key "recruitments", "companies"
   add_foreign_key "subscriptions", "event_categories"
   add_foreign_key "subscriptions", "users"
 end
