@@ -5,7 +5,7 @@ require "open-uri"
 require "net/http"
 
   def papers
-    url = URI("https://api.pappers.fr/v1/recherche?api_token=3e10f34b388926a0e4030180829391e02b3155bef5f069d5&par_page=10000&nom_entreprise&code_naf=69.10Z&departement&code_postal&convention_collective=&categorie_juridique&entreprise_cessee=false&chiffre_affaires_min&chiffre_affaires_max&resultat_min&resultat_max=&date_creation_min=01-09-1980&date_creation_max&tranche_effectif_min=&tranche_effectif_max")
+    url = URI("https://api.pappers.fr/v1/recherche?api_token=3e10f34b388926a0e4030180829391e02b3155bef5f069d5&par_page=5000&nom_entreprise&code_naf=69.10Z&departement&code_postal&convention_collective=&categorie_juridique&entreprise_cessee=false&chiffre_affaires_min&chiffre_affaires_max&resultat_min&resultat_max=&date_creation_min=01-09-1980&date_creation_max&tranche_effectif_min=&tranche_effectif_max")
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
     request = Net::HTTP::Get.new(url)
