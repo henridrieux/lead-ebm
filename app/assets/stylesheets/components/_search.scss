@@ -1,4 +1,8 @@
 .search-bar {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  border: none;
+  margin-top: 4px;
+  border-radius: 50px;
 
   .input-box {
     width: 100%;
@@ -12,4 +16,18 @@
 
 .card-style .search-bar {
   padding: 1rem;
+}
+
+input, textarea {
+  background-color: $light-gray;
+}
+
+.btn-search {
+  color: $red;
+  padding: 8px 24px;
+  border-radius: $border-radius-lg;
+  font-weight: lighter;
+  font-size: 22px;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
 }
