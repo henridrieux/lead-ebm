@@ -5,7 +5,7 @@ class APIBourseEmploi
 
 require "json"
 
-  def bourse_emploi
+  def bourse_emploi(number)
     url = "https://bourse-emplois.notaires.fr/api/offre/search"
     body_request = {
       cityFilter: [],
@@ -31,7 +31,7 @@ require "json"
     @options = {
       query: {
         page: 1,
-        pageSize: 90,
+        pageSize: number,
         sort: "DESC",
         sortField: "DATE_ACTUALISATION"
       },

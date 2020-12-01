@@ -116,12 +116,12 @@ require "json"
   end
 
   def check_category (input)
-    cat = "Comptable"
+    cat = "Notaire"
     prof_test = {
       "Administrateur judiciaire" => "administrateur",
+      "Comptable" => "compta",
       "Commissaire-priseur" => "commissaire",
       "Avocat" => "avocat",
-      "Notaire" => "nota",
       "Huissier" => "huissier"
     }
     prof_test.each do |k,v|
@@ -159,9 +159,9 @@ require "json"
       naf_code: company["siege"]["code_naf"],
       activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
     )
-    # cat = check_category(input2)
-    # input2.category = Category.find_by(name: cat)
-    # input2.save
+    cat = check_category(input2)
+    input2.category = Category.find_by(name: cat)
+    input2.save
   end
 
 end
