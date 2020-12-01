@@ -1,4 +1,4 @@
-require 'HTTParty'
+require 'httparty'
 
 class APIPapers
 # Or wrap things up in your own class
