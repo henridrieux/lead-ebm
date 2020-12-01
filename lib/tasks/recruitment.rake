@@ -68,7 +68,7 @@ namespace :recruitment do
       end
     end
 
-    run_bourse_emploi(50)
+    run_bourse_emploi(200)
 
   # rails recruitment:push_slack
   #task push_slack: :environment do
