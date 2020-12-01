@@ -9,19 +9,32 @@ class EventCategory < ApplicationRecord
   validates :category, uniqueness: { scope: :event, message: "can't be associated twice to the same event" }
 
   def get_company_leads
-    if self.event.title == "Les sociétés qui recrutent"
-      companies = Company.joins(:recruitments)
-      query = self.event.query
-      query = "recruitments.id > 0"
-      query_params = self.event.query_params
-      rec_companies = companies ? companies.where(query, query_params) : nil
-      @leads = rec_companies
-    else
-      companies = Company.includes(:category, :events, :recruitments).where(category: self.category)
       query = self.event.query
       query_params = " \
       #{Date.today - self.event.query_params.to_i } \
       "
+    if self.event.title == "Les sociétés qui recrutent"
+      companies = Company.joins(:recruitments)
+      rec_companies = companies ? companies.where(query, query_params) : nil
+      @leads = rec_companies
+    else
+      companies = Company.includes(:category, :events, :recruitments).where(category: self.category)
+      @leads = companies ? companies.where(query, query_params) : nil
+    end
+    return @leads
+  end
+
+  def get_new_leads
+      query = self.event.query
+      query_params = " \
+      #{Date.today - 1} \
+      "
+    if self.event.title == "Les sociétés qui recrutent"
+      companies = Company.joins(:recruitments)
+      rec_companies = companies ? companies.where(query, query_params) : nil
+      @leads = rec_companies
+    else
+      companies = Company.includes(:category, :events, :recruitments).where(category: self.category)
       @leads = companies ? companies.where(query, query_params) : nil
     end
     return @leads
@@ -32,7 +45,7 @@ class EventCategory < ApplicationRecord
   end
 
   def slack_json_leads
-    leads = self.get_company_leads
+    leads = self.get_new_leads
     slack_leads = []
     leads.each do |lead|
       lead_slack = {

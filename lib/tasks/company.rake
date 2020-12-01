@@ -3,11 +3,11 @@ namespace :company do
   # rails company:fetch_compagnies
   task fetch_compagnies: :environment do
 
-    def run_papers(number)
-      APIPapers.new.papers_all(number)
+    def run_papers(number, date_string)
+      APIPapers.new.papers_all(number, date_string)
     end
 
-    run_papers(200)
+    run_papers(400, "01-09-2020")
   end
 
   # rails company:fetch_one_company
@@ -17,7 +17,7 @@ namespace :company do
       APIPapers.new.papers_one(siret_string)
     end
 
-    run_one_paper("84788762700010")
+    run_one_paper("89061007400019")
   end
 
   # rails company:push_leads_to_slack
@@ -25,7 +25,6 @@ namespace :company do
     cat = Category.find_by(name: "Avocat")
     event = Event.find_by(title: "Les créations de société")
     event_cat = EventCategory.find_by(category: cat, event: event)
-    p event_cat
     NotifySlack.new.perform(event_cat)
    #  EventCategory.first.each do |event_category|
    #    APIBourseEmploi.new.post_to_slack(event_category)

@@ -61,6 +61,16 @@ cat_5 = {
   filename: 'Commissaire-priseur.jpg'
 }
 cat_6 = {
+  name: "Greffier",
+  description: "Le greffier de tribunal de commerce est présent au tribunal pour assurer \
+    les services administratifs, l'accueil des justiciables et des entreprises, et assister \
+    le juge dans la conservation des actes (enrôlement des affaires, assistance à l'audience, \
+    mise en forme des décisions…).",
+  color_code:"#bbaadd",
+  url: 'https://res.cloudinary.com/dnpdonlro/image/upload/v1606836668/extrait-avoir_greffier_nh53gv.jpg',
+  filename: 'greffier.jpg'
+}
+cat_7 = {
   name: "Comptable",
   description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise \
     et plus globalement sa santé financière. Dans une grande entreprise, il occupe un \
@@ -99,7 +109,7 @@ end
 
 puts "creating cats..."
 
-ALL_CATS = [cat_1, cat_2, cat_3, cat_4, cat_5, cat_6]
+ALL_CATS = [cat_1, cat_2, cat_3, cat_4, cat_5, cat_6, cat_7]
 ALL_CATS.each do |cat|
   p cat[:url]
   seed_category(cat)
@@ -114,15 +124,15 @@ event_1 = {
   description: "Identifier les nouvelles créations d'entreprise",
   frequency: "Depuis 3 mois",
   query: "creation_date > ?",
-  query_params: "300",
+  query_params: "100",
   url_icon:"https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/new_company_rwmoj9.png"
 }
 event_2 = {
   title: "Les sociétés qui recrutent",
   description: "Identifier les sociétés qui se développent",
-  frequency: "Dernières 24h",
-  query: "recruitments.id > 0",
-  query_params: "",
+  frequency: "Depuis 1 mois",
+  query: "recruitments.id > 0 AND recruitments.created_at > ?",
+  query_params: "30",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/recruitment_xqufo0.png"
 }
 event_3 = {
@@ -130,7 +140,7 @@ event_3 = {
   description: "Identifier les sociétés qui ont déménagé recemment",
   frequency: "Depuis 2 mois",
   query: "last_moving_date > ?",
-  query_params: "60"
+  query_params: "60",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/moving_x4ylvr.png"
 }
 event_4 = {

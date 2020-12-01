@@ -9,7 +9,7 @@ class CategoriesController < ApplicationController
       "
       @categories = policy_scope(Category.where(sql_query, query: "%#{params[:query]}%"))
     else
-      @categories = policy_scope(Category.all).order(created_at: :desc)
+      @categories = policy_scope(Category.all).order(created_at: :asc)
     end
   end
 
