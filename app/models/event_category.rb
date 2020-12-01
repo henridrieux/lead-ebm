@@ -27,28 +27,54 @@ class EventCategory < ApplicationRecord
     return @leads
   end
 
-  def json_leads
+  def slack_json_leads
     leads = self.get_company_leads
-    json_leads = {
-      category_name: self.category.name,
-      event_title: self.event.title,
-      sending_date: Date.today,
-      leads: [],
-    }
+    slack_leads = []
     leads.each do |lead|
-      json_lead = {
-        company_name: lead.company_name,
-        address: lead.address,
-        city: lead.city,
-        zip_code: lead.zip_code,
-        head_count: lead.head_count,
-        legal_structure: lead.legal_structure,
-        creation_date: lead.creation_date,
-        ongoing_recruitments: lead.recruitments.count
+      lead_slack = {
+        "blocks": [
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": "*#{self.category.name} - #{self.event.title}*"
+            }
+          },
+          {
+            "type": "section",
+            "fields": [
+              {
+                "type": "plain_text",
+                "text": "#{lead.company_name}",
+                "emoji": true
+              },
+              {
+                "type": "plain_text",
+                "text": "#{lead.address} - #{lead.zip_code} #{lead.city}",
+                "emoji": true
+              },
+              {
+                "type": "plain_text",
+                "text": "#{lead.head_count} - #{lead.legal_structure}",
+                "emoji": true
+              },
+              {
+                "type": "plain_text",
+                "text": "#{lead.creation_date}",
+                "emoji": true
+              },
+              {
+                "type": "plain_text",
+                "text": "#{lead.recruitments.count} recrutements en cours",
+                "emoji": true
+              }
+            ]
+          }
+        ]
       }
-      json_leads[:leads] << json_lead
+      slack_leads << lead_slack
     end
-    return json_leads
+    return slack_leads
   end
 end
 
