@@ -1,0 +1,47 @@
+.align-text {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.home-arguments-ctb {
+  text-align: center;
+  background-color: white;
+  height: 120px;
+  padding-top: 12px;
+}
+
+.light-grey{
+  background-color: $light-gray;
+}
+
+.main-box {
+  background-color: $red;
+  text-align: left;
+  color: white;
+  height: 350px;
+  position:relative;
+  margin-bottom: 250px;
+
+  h4 {
+    color:white;
+  }
+  h5 {
+    color: white;
+  }
+  p{
+    color:white;
+    font-weight: lighter;
+  }
+}
+
+.second-box {
+  img{
+  position: absolute;
+  left: 471px;
+  top: -431px;
+  border-radius: 9px;
+  }
+}

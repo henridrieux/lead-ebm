@@ -16,10 +16,9 @@
 
 .btn-ghost-white {
   color: white;
-  border: 2px solid white;
   padding: 8px 24px;
-  border-radius: $border-radius-lg;
-  font-weight: lighter;
+  border-radius: 50px;
+  font-weight: initial;
   opacity: 0.9;
   transition: opacity 0.3s ease;
   background-color: $red;
@@ -41,3 +40,23 @@
 }
 
 button:focus {outline:0;}
+
+.btn-white-white {
+  position: absolute;
+  padding: 8px 24px;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+  background-color: $red;
+  color: white;
+  border: 2px solid $white;
+  border-radius: 50px;
+  font-weight: lighter;
+  transition: opacity 0.3s ease;
+  top: 125px;
+}
+
+.btn-white-white:hover {
+  opacity: 1;
+  color: white;
+  font-weight: normal;
+}
