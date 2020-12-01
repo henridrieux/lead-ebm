@@ -8,25 +8,31 @@
       <% end %>
     </div>
     <div class="btn btn-dash active">
-      <%= link_to "/dashboard" do %>
+      <%= link_to "/dashboard", class: "flex-left" do %>
+      <i class="fas fa-digital-tachograph"></i>
       Overview
       <% end %>
     </div>
     <br>
     <div class="btn btn-dash">
-      <%= link_to "#" do %>
+      <%= link_to "#", class: "flex-left" do %>
+      <i class="fas fa-rss-square"></i>
       Abonnements
       <% end %>
     </div>
     <br>
     <div class="btn btn-dash">
-      <%= link_to "#" do %>
+      <%= link_to "#", class: "flex-left" do %>
+      <i class="fas fa-signal"></i>
       Leads
       <% end %>
     </div>
     <br>
     <div class="btn btn-dash">
-      <%= link_to "Déconnexion", destroy_user_session_path, method: :delete %>
+      <%= link_to destroy_user_session_path, method: :delete, class: "flex-left" do %>
+      <i class="fas fa-sign-out-alt"></i>
+      Déconnexion
+      <% end %>
     </div>
   </div>
   <div class="main-page">

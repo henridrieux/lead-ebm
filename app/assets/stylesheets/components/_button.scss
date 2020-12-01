@@ -68,13 +68,22 @@ button:focus {outline:0;}
   padding: 1rem;
   border-radius:$border-radius-btn;
   font-size: 1.2rem;
+  font-weight: light;
   a {
+    display: flex;
     color: $dark-red;
     text-decoration: none;
+  }
+  i {
+    font-size: 1.5rem;
+    margin-right: 1rem;
   }
   &.active {
     font-weight: bold;
     background-color: $light-red;
+    i {
+      color: $red;
+    }
     a {
       color: $dark-red;
       text-decoration: none;
