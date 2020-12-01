@@ -5,7 +5,7 @@ class APIPapers
 
 require "json"
 
-  def papers_all(number)
+  def papers_all(number, date_string)
     url = "https://api.pappers.fr/v1/recherche?"
     body_request = {
     }
@@ -16,7 +16,7 @@ require "json"
         entreprise_cessee: false,
         nom_entreprise: "",
         code_naf: "69.10Z",
-        date_creation_min: "01-01-1990"
+        date_creation_min: date_string
       },
       headers: {
         pragma: "no-cache",
@@ -31,11 +31,12 @@ require "json"
     result = JSON.parse(return_body)
     @nb_create = 0
     @nb_update = 0
-    nb_request = number.to_f
+    nb_request = result["entreprises"].count
     result["entreprises"].each do |v|
       company = transform_json(v["siege"]["siret"])
       check_company(company)
-      puts "#{((@nb_create + @nb_update) / nb_request)*100}%"
+      nb_treated = @nb_create + @nb_update
+      puts " #{nb_treated} / #{nb_request} - #{((nb_treated / nb_request.to_f)*100).round}%"
     end
     puts "#{@nb_create} créations et #{@nb_update} updates"
   end
@@ -69,6 +70,7 @@ require "json"
     }
     return_body_siret = HTTParty.get(url2, @options).read_body
     result2 = JSON.parse(return_body_siret)
+    # p result2
     return result2
   end
 
@@ -89,7 +91,7 @@ require "json"
       siret: company["siege"]["siret"].to_i,
       company_name: company["nom_entreprise"],
       social_purpose: company["objet_social"],
-      creation_date: company["date_immatriculation_rcs"],
+      creation_date: company["siege"]["date_de_creation"],
       registered_capital: company["capital"].to_i,
       address: company["siege"]["adresse_ligne_1"],
       zip_code: company["siege"]["code_postal"],
@@ -116,12 +118,13 @@ require "json"
   end
 
   def check_category (input)
-    cat = "Comptable"
+    cat = "Notaire"
     prof_test = {
       "Administrateur judiciaire" => "administrateur",
+      "Comptable" => "compta",
       "Commissaire-priseur" => "commissaire",
+      "Greffier" => "greffier",
       "Avocat" => "avocat",
-      "Notaire" => "nota",
       "Huissier" => "huissier"
     }
     prof_test.each do |k,v|
@@ -146,7 +149,7 @@ require "json"
       siret: company["siege"]["siret"].to_i,
       company_name: company["nom_entreprise"],
       social_purpose: company["objet_social"],
-      creation_date: company["date_immatriculation_rcs"],
+      creation_date: company["siege"]["date_de_creation"],
       registered_capital: company["capital"].to_i,
       address: company["siege"]["adresse_ligne_1"],
       zip_code: company["siege"]["code_postal"],
@@ -159,9 +162,9 @@ require "json"
       naf_code: company["siege"]["code_naf"],
       activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
     )
-    # cat = check_category(input2)
-    # input2.category = Category.find_by(name: cat)
-    # input2.save
+    cat = check_category(input2)
+    input2.category = Category.find_by(name: cat)
+    input2.save
   end
 
 end
