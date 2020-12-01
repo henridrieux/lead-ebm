@@ -7,7 +7,7 @@ namespace :company do
       APIPapers.new.papers_all(number)
     end
 
-    run_papers(100)
+    run_papers(200)
   end
 
   # rails company:fetch_one_company
@@ -16,8 +16,8 @@ namespace :company do
     def run_one_paper(siret_string)
       APIPapers.new.papers_one(siret_string)
     end
-    
-    run_one_paper("88069651300014")
+
+    run_one_paper("84788762700010")
   end
 
   # rails company:push_leads_to_slack

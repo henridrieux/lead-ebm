@@ -10,72 +10,99 @@ require "open-uri"
 
 CAT_LIST = ["Avocat", "Huissier", "Notaire", "Administrateur judiciaire", "Commissaire-priseur", "Comptable"]
 
-puts "creating categories..."
-# if Category.all.count == 0
-unless Category.find_by(name: "Avocat")
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606231560/avocat.jpg')
-  new_cat = Category.new(
-    name: "Avocat",
-    description: "L'avocat représente et défend devant les tribunaux ou les cours des particuliers, des entreprises ou des collectivités. Il peut s'agir d'affaires civiles ( divorces, successions, litiges...) ou pénales (contraventions, délits, crimes...). Il peut être également sollicité par les entreprises en tant que conseil.",
-  )
-  new_cat.photo.attach(io: file, filename: 'avocat.jpg')
-  new_cat.save!
-  puts "#{new_cat.name} created"
-end
-
-unless Category.find_by(name: "Notaire")
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401988/5edf7c0886688_20_logo_notaire-4167128_upo2is.jpg')
-  new_cat = Category.new(
-    name: "Notaire",
-    description: "Le notaire authentifie au nom de l'Etat des actes et des contrats et les conserve. Il intervient dans plusieurs domaines : droit de la famille, droit de l’immobilier et du patrimoine. Le conseil aux entreprises devient de plus en plus important."
-    )
-  new_cat.photo.attach(io: file, filename: 'notaire.jpg')
-  new_cat.save
-  puts "#{new_cat.name} created"
-end
-
-unless Category.find_by(name: "Huissier")
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401921/REFlex_090924CM02_0009_1_akxt9p.jpg')
-  new_cat = Category.new(
-    name: "Huissier",
-    description: "Constater les faits en tant que preuve, informer les intéressés des décisions prises et vérifier leur application sont les principales missions de l'huissier de justice / l'huissière de justice. Après avoir acheté une charge, il/elle est nommé(e) par le garde des Sceaux."
-    )
-  new_cat.photo.attach(io: file, filename: 'huissier.jpg')
-  new_cat.save
-  puts "#{new_cat.name} created"
-end
-
-unless Category.find_by(name: "Administrateur judiciaire")
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241705/administrateur-trice-judiciaire_zzybi1.jpg')
-  new_cat = Category.new(
-    name: "Administrateur judiciaire",
-    description: "L’administrateur judiciaire intervient lorsqu’une entreprise rencontre des difficultés. Il établit un diagnostic et préserve les droits de l'entreprise. Il étudie des solutions de continuation ou de cession de l'entreprise."
-    )
-  new_cat.photo.attach(io: file, filename: 'Administrateur-judiciaire.jpg')
-  new_cat.save
-  puts "#{new_cat.name} created"
-end
-
-unless Category.find_by(name: "Commissaire-priseur")
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401444/priseur-gd_inll9c.jpg')
-  new_cat = Category.new(
+cat_1 = {
+  name: "Avocat",
+  description: "L'avocat représente et défend devant les tribunaux ou les cours \
+    des particuliers, des entreprises ou des collectivités. Il peut s'agir d'affaires \
+    civiles ( divorces, successions, litiges...) ou pénales (contraventions, délits, \
+    crimes...). Il peut être également sollicité par les entreprises en tant que conseil.",
+  color_code: "#bbbb77",
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606231560/avocat.jpg',
+  filename: 'avocat.jpg'
+}
+cat_2 = {
+  name: "Notaire",
+  description: "Le notaire authentifie au nom de l'Etat des actes \
+    et des contrats et les conserve. Il intervient dans plusieurs domaines \
+    : droit de la famille, droit de l’immobilier et du patrimoine. Le conseil \
+    aux entreprises devient de plus en plus important.",
+  color_code:"#77bbbb",
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401988/5edf7c0886688_20_logo_notaire-4167128_upo2is.jpg',
+  filename: 'notaire.jpg'
+}
+cat_3 = {
+  name: "Huissier",
+  description: "Constater les faits en tant que preuve, informer les intéressés \
+    des décisions prises et vérifier leur application sont les principales missions \
+    de l'huissier de justice / l'huissière de justice. Après avoir acheté une charge, \
+    il/elle est nommé(e) par le garde des Sceaux.",
+  color_code:"#bb77bb",
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401921/REFlex_090924CM02_0009_1_akxt9p.jpg',
+  filename: 'huissier.jpg'
+}
+cat_4 = {
+  name: "Administrateur judiciaire",
+  description: "L’administrateur judiciaire intervient lorsqu’une entreprise \
+    rencontre des difficultés. Il établit un diagnostic et préserve les droits \
+    de l'entreprise. Il étudie des solutions de continuation ou de cession de \
+    l'entreprise.",
+  color_code:"#ddaabb",
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241705/administrateur-trice-judiciaire_zzybi1.jpg',
+  filename: 'administrateur-judiciaire.jpg'
+}
+cat_5 = {
   name: "Commissaire-priseur",
-  description: "Le commissaire-priseur dirige la vente publique aux enchères de biens meubles, la prisée étant l’estimation d’une chose destinée à la vente. La vente aux enchères publiques permet l’établissement du juste prix par la confrontation transparente entre l’offre et la demande."
-  )
-  new_cat.photo.attach(io: file, filename: 'Commissaire-priseur.jpg')
-  new_cat.save
-  puts "#{new_cat.name} created"
+  description: "Le commissaire-priseur dirige la vente publique aux enchères de biens \
+    meubles, la prisée étant l’estimation d’une chose destinée à la vente. La vente \
+    aux enchères publiques permet l’établissement du juste prix par la confrontation \
+    transparente entre l’offre et la demande.",
+  color_code:"#aaddbb",
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401444/priseur-gd_inll9c.jpg',
+  filename: 'Commissaire-priseur.jpg'
+}
+cat_6 = {
+  name: "Comptable",
+  description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise \
+    et plus globalement sa santé financière. Dans une grande entreprise, il occupe un \
+    poste en tant que chargé de comptes clients, fournisseurs ou de la paie.",
+  color_code:"#ddbbaa",
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606404077/comptable.jpg',
+  filename: 'Comptable.jpg'
+}
+
+def seed_category(cat)
+  if Category.find_by(name: cat[:name])
+    cat_to_update = Category.find_by(name: cat[:name])
+    cat_to_update.update(
+      name: cat[:name],
+      description: cat[:description],
+      color_code: cat[:color_code]
+      )
+    file = URI.open(cat[:url])
+    if cat_to_update.photo.attached?
+      cat_to_update.photo.purge
+    end
+    cat_to_update.photo.attach(io: file, filename: cat[:filename])
+    cat_to_update.save
+    puts "Category #{cat_to_update.name} updated"
+  else
+    new_cat = Category.new(
+      name: cat[:name],
+      description: cat[:description],
+      color_code: cat[:color_code])
+    file = URI.open(cat[:url])
+    new_cat.photo.attach(io: file, filename: cat[:filename])
+    new_cat.save
+    puts "Category #{new_cat.name} created"
+  end
 end
 
-unless Category.find_by(name: "Comptable")
-  file = URI.open('https://res.cloudinary.com/dpco9ylg1/image/upload/v1606404077/comptable.jpg')
-  new_cat = Category.new(
-  name: "Comptable",
-  description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise et plus globalement sa santé financière. Dans une grande entreprise, il occupe un poste en tant que chargé de comptes clients, fournisseurs ou de la paie."
-  )
-  new_cat.photo.attach(io: file, filename: 'Comptable.jpg')
-  new_cat.save
-  puts "#{new_cat.name} created"
+puts "creating cats..."
+
+ALL_CATS = [cat_1, cat_2, cat_3, cat_4, cat_5, cat_6]
+ALL_CATS.each do |cat|
+  p cat[:url]
+  seed_category(cat)
 end
 
 puts "#{Category.count} cats in db "
@@ -99,9 +126,9 @@ event_2 = {
 event_3 = {
   title: "Les sociétés qui déménagent",
   description: "Identifier les sociétés qui ont déménagé recemment",
-  frequency: "Depuis 6 mois",
-  query: "creation_date > ?",
-  query_params: "30"
+  frequency: "Depuis 2 mois",
+  query: "last_moving_date > ?",
+  query_params: "60"
 }
 event_4 = {
   title: "Les sociétés qui fusionnent",
