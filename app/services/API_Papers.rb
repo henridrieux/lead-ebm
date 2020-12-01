@@ -118,14 +118,14 @@ require "json"
   end
 
   def check_category (input)
-    cat = "Notaire"
+    cat = "Comptable"
     prof_test = {
       "Administrateur judiciaire" => "administrateur",
-      "Comptable" => "compta",
       "Commissaire-priseur" => "commissaire",
       "Greffier" => "greffier",
       "Avocat" => "avocat",
-      "Huissier" => "huissier"
+      "Huissier" => "huissier",
+      "Notaire" => "nota"
     }
     prof_test.each do |k,v|
       cat = k if test_category(input, v, k)
