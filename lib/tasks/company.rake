@@ -118,7 +118,7 @@ namespace :company do
     event = Event.find_by(title: "Les créations de société")
     event_cat = EventCategory.find_by(category: cat, event: event)
     p event_cat
-    NotifySlack.new.post_to_slack(event_cat)
+    NotifySlack.new.perform(event_cat)
    #  EventCategory.first.each do |event_category|
    #    APIBourseEmploi.new.post_to_slack(event_category)
    # end
