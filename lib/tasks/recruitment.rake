@@ -70,7 +70,7 @@ namespace :recruitment do
         end
       end
     end
-
+    
     run_bourse_emploi(100)
 
   # rails recruitment:push_slack

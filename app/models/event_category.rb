@@ -54,22 +54,22 @@ class EventCategory < ApplicationRecord
               },
               {
                 "type": "plain_text",
+                "text": "créé le #{lead.creation_date}",
+                "emoji": true
+              },
+              {
+                "type": "plain_text",
                 "text": "#{lead.address} - #{lead.zip_code} #{lead.city}",
                 "emoji": true
               },
               {
                 "type": "plain_text",
-                "text": "#{lead.head_count} - #{lead.legal_structure}",
-                "emoji": true
-              },
-              {
-                "type": "plain_text",
-                "text": "#{lead.creation_date}",
-                "emoji": true
-              },
-              {
-                "type": "plain_text",
                 "text": "#{lead.recruitments.count} recrutements en cours",
+                "emoji": true
+              },
+              {
+                "type": "plain_text",
+                "text": "#{lead.head_count} - #{lead.legal_structure}",
                 "emoji": true
               }
             ]
