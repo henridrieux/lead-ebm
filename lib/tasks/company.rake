@@ -23,6 +23,24 @@ namespace :company do
 
       cat = "Comptable"
 
+      testadministrateur = false
+      admin1 = input2.company_name.match?(/.*administrateur.*/i)
+      admin2 = input2.activities.match?(/.*administrateur.*/i) if input2.activities
+      admin3 = input2.social_purpose.match?(/.*administrateur.*/i) if input2.social_purpose
+      testadministrateur = admin1 || admin2 || admin3
+      if testadministrateur
+        cat = "Administrateur judiciaire"
+      end
+
+      testcommissaire = false
+      commissaire1 = input2.company_name.match?(/.*commissaire.*/i)
+      commissaire2 = input2.activities.match?(/.*commissaire.*/i) if input2.activities
+      commissaire3 = input2.social_purpose.match?(/.*commissaire.*/i) if input2.social_purpose
+      testcommissaire = commissaire1 || commissaire2 || commissaire3
+      if testcommissaire
+        cat = "Commissaire-priseur"
+      end
+
       testavocat = false
       avocat1 = input2.company_name.match?(/.*avocat.*/i)
       avocat2 = input2.activities.match?(/.*avocat.*/i) if input2.activities
@@ -48,24 +66,6 @@ namespace :company do
       testnotaire = huissier1 || huissier2 || huissier3
       if testnotaire
         cat = "Huissier"
-      end
-
-      testadministrateur = false
-      admin1 = input2.company_name.match?(/.*administrateur.*/i)
-      admin2 = input2.activities.match?(/.*administrateur.*/i) if input2.activities
-      admin3 = input2.social_purpose.match?(/.*administrateur.*/i) if input2.social_purpose
-      testadministrateur = admin1 || admin2 || admin3
-      if testadministrateur
-        cat = "Administrateur judiciaire"
-      end
-
-      testcommissaire = false
-      commissaire1 = input2.company_name.match?(/.*commissaire.*/i)
-      commissaire2 = input2.activities.match?(/.*commissaire.*/i) if input2.activities
-      commissaire3 = input2.social_purpose.match?(/.*commissaire.*/i) if input2.social_purpose
-      testcommissaire = commissaire1 || commissaire2 || commissaire3
-      if testcommissaire
-        cat = "Commissaire-priseur"
       end
 
       input2.category = Category.find_by(name: cat)

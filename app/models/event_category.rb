@@ -27,6 +27,10 @@ class EventCategory < ApplicationRecord
     return @leads
   end
 
+  def leads_number
+    self.get_company_leads.count
+  end
+
   def slack_json_leads
     leads = self.get_company_leads
     slack_leads = []
