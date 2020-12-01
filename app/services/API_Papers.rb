@@ -12,7 +12,7 @@ require "json"
     @options = {
       query: {
         api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
-        par_page: 100,
+        par_page: 500,
         entreprise_cessee: false,
         nom_entreprise: "",
         code_naf: "69.10Z",

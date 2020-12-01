@@ -109,7 +109,7 @@ namespace :company do
       end
     end
 
-    run_papers(200)
+    run_papers(500)
   end
 
   # rails company:push_leads_to_slack
