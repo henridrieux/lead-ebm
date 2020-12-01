@@ -87,7 +87,7 @@ event_1 = {
   description: "Identifier les nouvelles créations d'entreprise",
   frequency: "Depuis 3 mois",
   query: "creation_date > ?",
-  query_params: "300"
+  query_params: "600"
 }
 event_2 = {
   title: "Les sociétés qui recrutent",
@@ -114,8 +114,8 @@ event_5 = {
   title: "Les sociétés qui créent leur site internet",
   description: "Identifier les sociétés qui créent leur site internet",
   frequency: "Depuis 6 mois",
-  query: "",
-  query_params: ""
+  query: "creation_date > ?",
+  query_params: "300"
 }
 event_6 = {
   title: "Les sociétés qui ont ouvert un deuxième siège social",
