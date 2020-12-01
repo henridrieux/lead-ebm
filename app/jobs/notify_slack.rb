@@ -4,12 +4,11 @@ require 'json'
 class NotifySlack < ApplicationJob
   include RestClient
 
-  def perform(event_category)
+  def perform(event_category, url = ENV["SLACK_LEAD_INCOMING_WEBHOOK_URL"])
     puts "executing...."
     hash = event_category.slack_json_leads
     hash.each do |lead|
-      p lead
-      RestClient.post(ENV["SLACK_LEAD_INCOMING_WEBHOOK_URL"],
+      RestClient.post(url,
                   lead.to_json,
                   headers = { content_type: "application/json", accept: :json })
     end
