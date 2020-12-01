@@ -1,5 +1,5 @@
 require 'rest-client'
-require 'HTTParty'
+require 'httparty'
 
 class APIBourseEmploi
 
