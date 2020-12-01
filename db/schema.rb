@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2020_12_01_112702) do
 
   # These are extensions that must be enabled in order to support this database
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_12_01_112702) do
     t.integer "manager_birth_year"
     t.string "city"
     t.text "social_purpose"
+    t.date "last_moving_date"
     t.index ["category_id"], name: "index_companies_on_category_id"
   end
 
