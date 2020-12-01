@@ -1,11 +1,10 @@
 require 'rest-client'
 require 'httparty'
+require "json"
 
 class APIBourseEmploiNew
 
-require "json"
-
-  def bourse_emploi
+  def bourse_emploi(number)
     url = "https://bourse-emplois.notaires.fr/api/offre/search"
     body_request = {
       cityFilter: [],
@@ -21,7 +20,7 @@ require "json"
         keyWord: ""
       },
       pageNumber:1,
-      pageSize:90,
+      pageSize:number,
       regionFilter: [],
       resultCount: 0,
       sortMethod: "DESC",
@@ -31,7 +30,7 @@ require "json"
     @options = {
       query: {
         page: 1,
-        pageSize: 90,
+        pageSize: number,
         sort: "DESC",
         sortField: "DATE_ACTUALISATION"
       },
@@ -54,6 +53,10 @@ require "json"
     final_array = []
     new_id_array.each do |id|
       recruit = transform_json(id)
+      recruit["siret"] = papers_all(recruit["officeName"])[0]
+      recruit["siren"] = papers_all(recruit["officeName"])[1]
+      p recruit
+
       final_array << recruit
     end
     return final_array
@@ -77,30 +80,19 @@ require "json"
     response2 = HTTParty.get(url2, @options)
     return_array2 = response2.body
     result2 = JSON.parse(return_array2)
-
-    final_array = []
-    new_id_array.each do |id|
-      recruit = transform_json(id)
-      final_array << recruit
-    end
-
-    list_company = []
-    list_company << result2["officeName"]
-    company_name = list_company[0]
-    p company_name
     # new_company_name = papers_all(company_name)
     return result2
   end
 
   def papers_all(company_name)
-    url2 = "https://api.pappers.fr/v1/entreprise?"
+    url2 = "https://api.pappers.fr/v1/recherche?"
     body_request = {
     }
     @options = {
       query: {
         api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
         code_naf: "69.10Z",
-        nom_entreprise: "#{company_name}"
+        nom_entreprise: company_name.gsub(",", "")
       },
       headers: {
         pragma: "no-cache",
@@ -113,14 +105,11 @@ require "json"
     }
     return_body_siret = HTTParty.get(url2, @options).read_body
     result2 = JSON.parse(return_body_siret)
-    return result2
+    siret = result2["entreprises"][0]["siege"]["siret"]
+    siren = result2["entreprises"][0]["siren"]
+    return [siret, siren]
   end
 end
-
-
-
-
-APIBourseEmploiNew.new().bourse_emploi
 
 
 

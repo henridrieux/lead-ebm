@@ -18,20 +18,28 @@ namespace :recruitment do
       )
       cat = Category.find_by(name: "Notaire")
       input.category = cat
-      # clean employer name
-      office_name = input[:employer].split.select { |v| v == v.upcase && !EXCEPTIONS.include?(v)}.first
-      list_of_zip_code = Company.where(zip_code: recruitoffer["zipCode"], category: cat)
-      if list_of_zip_code.where("company_name like ?", "%#{office_name}%" )
-        company_to_match = list_of_zip_code.where("company_name like ?", "%#{office_name}%" ).first
-        input.company = company_to_match
-        # company_to_match.category = Category.find_by(name: "Notaire")
-        # company_to_match.save
-      elsif list_of_zip_code.count == 1
-        input.company = list_of_zip_code.first
-      end
-      # p input.company_id if input.company
+      input.company = create_company(recruitoffer)
       if input.save
         @nb_create +=1
+      end
+    end
+
+
+    def create_company(recruitoffer)
+      company = Company.find_by(siret: recruitoffer["siret"])
+      if company
+        company
+      else
+        new_company = Company.create!(
+          company_name: recruitoffer["officeName"],
+          siret: recruitoffer["siret"],
+          siren: recruitoffer["siren"],
+          naf_code: "69.10Z",
+          zip_code: recruitoffer["zipCode"],
+          city: recruitoffer["city"],
+          category_id: Category.find_by(name: "Notaire").id,
+        )
+        return new_company
       end
     end
 
@@ -49,20 +57,11 @@ namespace :recruitment do
         employer_name: recruitoffer["label"],
         employer_phone: recruitoffer["phone"]
       )
-      cat = Category.find_by(name: "Notaire")
-      office_name = input[:employer].split.select { |v| v == v.upcase && !EXCEPTIONS.include?(v)}.first
-      list_of_zip_code = Company.where(zip_code: recruitoffer["zipCode"], category: cat)
-      if list_of_zip_code.where("company_name like ?", "%#{office_name}%" )
-        p input.company = list_of_zip_code.where("company_name like ?", "%#{office_name}%" ).first
-      elsif list_of_zip_code.count == 1
-        input.company = list_of_zip_code.first
-      end
-      # p input.company_id if input.company
       input.save
     end
 
     def run_bourse_emploi(number)
-      data = APIBourseEmploi.new.bourse_emploi(number)
+      data = APIBourseEmploiNew.new.bourse_emploi(number)
       @nb_update = 0
       @nb_create = 0
       data.each do |recruitoffer|
@@ -79,6 +78,6 @@ namespace :recruitment do
       puts "#{@nb_create} créations et #{@nb_update} updates"
     end
 
-    run_bourse_emploi(200)
+    run_bourse_emploi(2)
   end
 end
