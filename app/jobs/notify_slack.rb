@@ -7,15 +7,11 @@ class NotifySlack < ApplicationJob
   def post_to_slack(event_category)
     puts "executing...."
     hash = event_category.slack_json_leads
-    p hash
-    p hash[:category_name]
-    p hash[:event_title]
-    # hash[:leads].each do |lead|
-    #   p lead
-    # end
-    RestClient.post("https://hooks.slack.com/services/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",
-                {"text" => "hello"}.to_json,
-                headers = { content_type: "application/json", accept: :json })
+    hash.each do |lead|
+      RestClient.post("https://hooks.slack.com/services/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",
+                  lead.to_json,
+                  headers = { content_type: "application/json", accept: :json })
+    end
   end
 
 end
