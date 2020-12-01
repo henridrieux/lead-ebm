@@ -41,7 +41,7 @@ class EventCategory < ApplicationRecord
             "type": "section",
             "text": {
               "type": "mrkdwn",
-              "text": "*#{self.category.name} - #{self.event.title}*"
+              "text": "*#{self.category.name} - #{self.event.title}*🤑"
             }
           },
           {
@@ -49,27 +49,27 @@ class EventCategory < ApplicationRecord
             "fields": [
               {
                 "type": "plain_text",
-                "text": "#{lead.company_name}",
+                "text": "*#{lead.company_name}*",
                 "emoji": true
               },
               {
                 "type": "plain_text",
-                "text": "créé le #{lead.creation_date}",
+                "text": "📆créé le #{lead.creation_date}",
                 "emoji": true
               },
               {
                 "type": "plain_text",
-                "text": "#{lead.address} - #{lead.zip_code} #{lead.city}",
+                "text": "🏢#{lead.address} - #{lead.zip_code} #{lead.city}",
                 "emoji": true
               },
               {
                 "type": "plain_text",
-                "text": "#{lead.recruitments.count} recrutements en cours",
+                "text": "#{lead.recruitments.count}🤝 recrutements en cours",
                 "emoji": true
               },
               {
                 "type": "plain_text",
-                "text": "#{lead.head_count} - #{lead.legal_structure}",
+                "text": "🧑‍🤝‍🧑#{lead.head_count} - #{lead.legal_structure}",
                 "emoji": true
               }
             ]

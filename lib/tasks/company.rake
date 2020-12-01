@@ -16,7 +16,7 @@ namespace :company do
     def run_one_paper(siret_string)
       APIPapers.new.papers_one(siret_string)
     end
-
+    
     run_one_paper("88069651300014")
   end
 
