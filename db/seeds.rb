@@ -87,42 +87,48 @@ event_1 = {
   description: "Identifier les nouvelles créations d'entreprise",
   frequency: "Depuis 3 mois",
   query: "creation_date > ?",
-  query_params: "600"
+  query_params: "300",
+  url_icon:"https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/new_company_rwmoj9.png"
 }
 event_2 = {
   title: "Les sociétés qui recrutent",
   description: "Identifier les sociétés qui se développent",
   frequency: "Dernières 24h",
   query: "recruitments.id > 0",
-  query_params: ""
+  query_params: "",
+  url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/recruitment_xqufo0.png"
 }
 event_3 = {
   title: "Les sociétés qui déménagent",
   description: "Identifier les sociétés qui ont déménagé recemment",
   frequency: "Depuis 6 mois",
   query: "creation_date > ?",
-  query_params: "30"
+  query_params: "30",
+  url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/moving_x4ylvr.png"
 }
 event_4 = {
   title: "Les sociétés qui fusionnent",
   description: "Identifier les sociétés qui ont fusionné récemment",
   frequency: "Depuis 1 an",
   query: "creation_date > ?",
-  query_params: "30"
+  query_params: "30",
+  url_icon:"https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/fusion_ftodyw.png"
 }
 event_5 = {
   title: "Les sociétés qui créent leur site internet",
   description: "Identifier les sociétés qui créent leur site internet",
   frequency: "Depuis 6 mois",
-  query: "creation_date > ?",
-  query_params: "300"
+  query: "",
+  query_params: "",
+  url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/website_efa8la.png"
 }
 event_6 = {
   title: "Les sociétés qui ont ouvert un deuxième siège social",
   description: "Identifier les sociétés  qui ont ouvert un deuxième siège social",
   frequency: "Depuis 1 an",
   query: "creation_date > ?",
-  query_params: "30"
+  query_params: "30",
+  url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/etablissement_j5ithk.png"
 }
 
 
