@@ -9,15 +9,18 @@
       <%= subscription.event.title %>
     </div>
     <div class="sub-info sub-freq flex-vert">
-      <%= subscription.event.frequency %>
+      <small><%= subscription.event.frequency %></small>
     </div>
     <div class="sub-info sub-leads-link flex-vert text-center">
       <%= link_to event_category_path(subscription.event_category) do %>
-      <%= subscription.event_category.leads_number %>
-      <br> <small>L.E.A.D.</small>
+        <% if subscription.event_category.leads_number == 0 %>
+          -
+        <% else %>
+          <span><%= subscription.event_category.leads_number %></span>
+        <% end %>
+        <br> <small>L.E.A.D.</small>
       <% end %>
     </div>
-      <%#= subscription.frequency %>
   </div>
   <div class="sub-status mr-2">
     <div class="sub-on">

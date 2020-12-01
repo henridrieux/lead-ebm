@@ -43,7 +43,6 @@ namespace :recruitment do
       end
     end
 
-
     def update_recruitment(recruitoffer)
       input = Recruitment.find_by(external_id: recruitoffer["idOffer"])
       input.update(

@@ -3,6 +3,7 @@
   padding: 20px 24px;
   background-color: $light-gray;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  margin-top: 15px;
 }
 
 .card-style-light {
@@ -13,27 +14,22 @@
 }
 
 .home-arguments {
-  margin: 2.5rem 0 1rem 0;
-  h2 {
-    margin: 1rem 0;
-  }
+  margin: 0.5rem 0 0rem 0;
 }
 
 .home-arguments-cta {
   text-align: center;
   background-color: $light-gray;
-  height: 240px;
+  height: 175px;
   padding-top: 20px;
 }
 
 .card-home-arguments {
   img {
-    width: 100%;
-    height: 150px;
+    height: 64px;
     object-fit: cover;
   }
   h4 {
-    margin-top: 1rem;
     width: 100%;
   }
   p {
