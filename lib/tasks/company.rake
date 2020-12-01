@@ -74,6 +74,9 @@ namespace :company do
 
     def update_company(company)
       input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+      address_old = input2[:address]
+      puts "address old"
+      puts address_old
       input2.update(
         siren: company["siren"].to_i,
         siret: company["siege"]["siret"].to_i,
@@ -91,6 +94,21 @@ namespace :company do
         naf_code: company["siege"]["code_naf"],
         activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
       )
+      address_new = company["siege"]["adresse_ligne_1"]
+      puts "address new"
+      puts address_new
+      puts "comparing adress"
+        if address_old != address_new
+          changed_adress = "Address has changed"
+          puts changed_adress
+          last_moving_date = Date.today
+          puts last_moving_date
+        else
+          changed_adress = "Address has not changed"
+          puts changed_adress
+          last_moving_date = Date.today
+          puts last_moving_date
+        end
     end
 
     def run_papers(number)
@@ -105,7 +123,6 @@ namespace :company do
           puts "try create 1"
           create_company(company)
         end
-        p company[:city]
       end
     end
 
