@@ -21,7 +21,10 @@ namespace :recruitment do
       office_name = input[:employer].split.select { |v| v == v.upcase && !EXCEPTIONS.include?(v)}.first
       list_of_zip_code = Company.where(zip_code: recruitoffer["zipCode"])
       if list_of_zip_code.where("company_name like ?", "%#{office_name}%" )
-        p input.company = list_of_zip_code.where("company_name like ?", "%#{office_name}%" ).first
+        company_to_match = list_of_zip_code.where("company_name like ?", "%#{office_name}%" ).first
+        p input.company = company_to_match
+        # company_to_match.category = Category.find_by(name: "Notaire")
+        # company_to_match.save
       # elsif list_of_zip_code.count == 1
       #   p input.company = list_of_zip_code.first
       end
@@ -67,8 +70,8 @@ namespace :recruitment do
         end
       end
     end
-
-    run_bourse_emploi(60)
+    
+    run_bourse_emploi(100)
 
   # rails recruitment:push_slack
   #task push_slack: :environment do

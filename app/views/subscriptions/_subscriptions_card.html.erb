@@ -11,9 +11,10 @@
     <div class="sub-info sub-freq flex-vert">
       <%= subscription.event.frequency %>
     </div>
-    <div class="sub-info sub-leads-link flex-vert">
+    <div class="sub-info sub-leads-link flex-vert text-center">
       <%= link_to event_category_path(subscription.event_category) do %>
-      Voir mes L.E.A.D.
+      <%= subscription.event_category.leads_number %>
+      <br> <small>L.E.A.D.</small>
       <% end %>
     </div>
       <%#= subscription.frequency %>
