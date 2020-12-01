@@ -5,14 +5,14 @@ class APIPapers
 
 require "json"
 
-  def papers
+  def papers_all(number)
     url = "https://api.pappers.fr/v1/recherche?"
     body_request = {
     }
     @options = {
       query: {
         api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
-        par_page: 500,
+        par_page: number,
         entreprise_cessee: false,
         nom_entreprise: "",
         code_naf: "69.10Z",
@@ -27,24 +27,26 @@ require "json"
       },
       body: body_request.to_json
     }
-    response = HTTParty.get(url, @options)
-    return_array = response.body
-    result = JSON.parse(return_array)
-    new_id_array = []
-    new_siege_array = []
+    return_body= HTTParty.get(url, @options).body
+    result = JSON.parse(return_body)
+    @nb_create = 0
+    @nb_update = 0
+    nb_request = number.to_f
     result["entreprises"].each do |v|
-      new_siege_array << v["siege"]
+      company = transform_json(v["siege"]["siret"])
+      check_company(company)
+      puts "#{((@nb_create + @nb_update) / nb_request)*100}%"
     end
-    new_siege_array.each do |v|
-      new_id_array << v["siret"]
-    end
-    final_array = []
-    new_id_array.each_with_index do |siret, index|
-      recruit = transform_json(siret)
-      final_array << recruit
-      puts "nous sommes actuellemnt à #{index.fdiv(new_id_array.length)*100}%"
-    end
-    return final_array
+    puts "#{@nb_create} créations et #{@nb_update} updates"
+  end
+
+  def papers_one(siret)
+    @nb_create = 0
+    @nb_update = 0
+    company = transform_json(siret)
+    check_company(company)
+    puts "#{@nb_create} création et #{@nb_update} update"
+    p Company.find_by(siret: siret.to_i)
   end
 
   def transform_json(siret)
@@ -65,9 +67,101 @@ require "json"
       },
       body: body_request.to_json
     }
-    response2 = HTTParty.get(url2, @options)
-    return_array2 = response2.read_body
-    result2 = JSON.parse(return_array2)
+    return_body_siret = HTTParty.get(url2, @options).read_body
+    result2 = JSON.parse(return_body_siret)
     return result2
   end
+
+  def check_company(company)
+    Company.find_by(siret: company["siege"]["siret"].to_i)
+    if Company.find_by(siret: company["siege"]["siret"].to_i)
+      update_company(company)
+      @nb_update += 1
+    else
+      create_company(company)
+      @nb_create += 1
+    end
+  end
+
+  def create_company(company)
+    input2 = Company.new(
+      siren: company["siren"].to_i,
+      siret: company["siege"]["siret"].to_i,
+      company_name: company["nom_entreprise"],
+      social_purpose: company["objet_social"],
+      creation_date: company["date_immatriculation_rcs"],
+      registered_capital: company["capital"].to_i,
+      address: company["siege"]["adresse_ligne_1"],
+      zip_code: company["siege"]["code_postal"],
+      city: company["siege"]["ville"],
+      legal_structure: company["forme_juridique"],
+      # manager_name: company["representants"].first["nom_complet"],
+      # manager_birth_year: company["representants"].first["date_de_naissance_formate"].last(4).to_i
+      head_count: company["effectif"],
+      naf_code: company["siege"]["code_naf"],
+      activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
+    )
+
+    cat = check_category(input2)
+    input2.category = Category.find_by(name: cat)
+    input2.save
+  end
+
+  def test_category(input, keyword, cat_name)
+    test = false
+    test1 = input.company_name.match?(/.*#{keyword}.*/i)
+    test2 = input.activities.match?(/.*#{keyword}.*/i) if input.activities
+    test3 = input.social_purpose.match?(/.*#{keyword}.*/i) if input.social_purpose
+    test = test1 |  test2 || test3
+  end
+
+  def check_category (input)
+    cat = "Comptable"
+    prof_test = {
+      "Administrateur judiciaire" => "administrateur",
+      "Commissaire-priseur" => "commissaire",
+      "Avocat" => "avocat",
+      "Notaire" => "nota",
+      "Huissier" => "huissier"
+    }
+    prof_test.each do |k,v|
+      cat = k if test_category(input, v, k)
+    end
+    p cat
+    return cat
+  end
+
+  def update_company(company)
+    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    address_old = input2[:address]
+    address_new = company["siege"]["adresse_ligne_1"]
+    if address_old != address_new
+      last_moving_date = Date.today
+      puts "1 address has changed"
+    else
+      last_moving_date = input2[:last_moving_date]
+    end
+    input2.update(
+      siren: company["siren"].to_i,
+      siret: company["siege"]["siret"].to_i,
+      company_name: company["nom_entreprise"],
+      social_purpose: company["objet_social"],
+      creation_date: company["date_immatriculation_rcs"],
+      registered_capital: company["capital"].to_i,
+      address: company["siege"]["adresse_ligne_1"],
+      zip_code: company["siege"]["code_postal"],
+      city: company["siege"]["ville"],
+      last_moving_date: last_moving_date,
+      legal_structure: company["forme_juridique"],
+      # manager_name: company["representants"].first["nom_complet"],
+      # manager_birth_year: company["representants"].first["date_de_naissance_formate"].last(4).to_i
+      head_count: company["effectif"],
+      naf_code: company["siege"]["code_naf"],
+      activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
+    )
+    # cat = check_category(input2)
+    # input2.category = Category.find_by(name: cat)
+    # input2.save
+  end
+
 end
