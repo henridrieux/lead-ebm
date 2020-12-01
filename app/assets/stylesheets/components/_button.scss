@@ -31,7 +31,7 @@
 }
 
 .tag-event {
-  border-radius: 40px;
+  border-radius: $border-radius-btn;
   color: white;
   background-color: $red;
   padding: 0 .5rem;
@@ -49,7 +49,7 @@ button:focus {outline:0;}
   background-color: $red;
   color: white;
   border: 2px solid $white;
-  border-radius: 50px;
+  border-radius: $border-radius-btn;
   font-weight: lighter;
   transition: opacity 0.3s ease;
   top: 125px;
@@ -59,4 +59,23 @@ button:focus {outline:0;}
   opacity: 1;
   color: white;
   font-weight: normal;
+}
+
+.btn-dash {
+  color: $dark-red;
+  padding: 1rem;
+  border-radius:$border-radius-btn;
+  font-size: 1.2rem;
+  a {
+    color: $dark-red;
+    text-decoration: none;
+  }
+  &.active {
+    font-weight: bold;
+    background-color: $light-red;
+    a {
+      color: $dark-red;
+      text-decoration: none;
+    }
+  }
 }

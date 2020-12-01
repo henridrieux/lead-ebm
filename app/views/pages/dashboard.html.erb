@@ -1,61 +1,62 @@
-<div class="header-top">
-  <div class="container">
-    <h1>Mon dashboard</h1>
-    <p> La vision directe de mes abonnements et de mes L.E.A.D.s</p>
-  </div>
-</div>
 
 <div class="split">
   <div class="side-bar">
-    <ul class="list-inline tabs">
-      <li>
-        <a href="#" class="tab-underlined active">
-        Mes Abonnements (<%= current_user.subscriptions.count %>)
-        </a>
-        <ul class="list-inline small-tabs">
-          <% @my_sub_cat.each do |category| %>
-          <li class="sub-title">
-            <a href="#" class="tab-underlined"><%= category.name %></a>
-          </li>
-          <% end %>
-        </ul>
-      </li>
-      <li>
-        <a href="#" class="tab-underlined">
-        Mes L.E.A.D.
-        </a>
-        <ul class="list-inline small-tabs">
-          <% @my_sub_event.each do |event| %>
-          <li class="sub-title">
-            <a href="#" class="tab-underlined"><%= event.title %></a>
-          </li>
-          <% end %>
-        </ul>
-      </li>
-    </ul>
-  </div>
-  <div class="main-page">
-    <div class="abonnement-box">
-      <% @my_sub_cat.each do |category| %>
-        <div class="sub-title">
-          <%= category.name %>
-        </div>
-        <% @my_sub.each do |subscription| %>
-          <% if subscription.category == category %>
-            <%= render partial: 'subscriptions/subscriptions_card', locals: {subscription: subscription} %>
-          <% end %>
-        <% end %>
+    <div class="dash-brand">
+      <%= link_to root_path do %>
+          <%= image_tag "https://res.cloudinary.com/dnpdonlro/image/upload/v1606240877/image_vdcjqk.png" %>
+          <%= image_tag "https://res.cloudinary.com/dnpdonlro/image/upload/v1606240892/image_1_mndd5g.png" %>
       <% end %>
     </div>
-    <div class="lead-box">
-      <% @my_sub_event_cat.each do |event_cat| %>
-        <div class="sub-title">
-          <%= event_cat.title %>
-        </div>
-        <% event_cat.get_company_leads.each do |lead| %>
-            <%= render partial: 'event_categories/lead_company_card', locals: {lead: lead, event: event_cat.event} %>
-        <% end %>
+    <div class="btn btn-dash active">
+      <%= link_to "/dashboard" do %>
+      Overview
       <% end %>
+    </div>
+    <br>
+    <div class="btn btn-dash">
+      <%= link_to "#" do %>
+      Abonnements
+      <% end %>
+    </div>
+    <br>
+    <div class="btn btn-dash">
+      <%= link_to "#" do %>
+      Leads
+      <% end %>
+    </div>
+    <br>
+    <div class="btn btn-dash">
+      <%= link_to "Déconnexion", destroy_user_session_path, method: :delete %>
+    </div>
+  </div>
+  <div class="main-page">
+    <div class="header-top">
+        <h1>Overview</h1>
+        <p> La vision directe de mes abonnements et de mes L.E.A.D.s</p>
+    </div>
+    <div class="d-flex">
+      <div class="abonnement-box">
+        <% @my_sub_cat.each do |category| %>
+          <div class="sub-title">
+            <%= category.name %>
+          </div>
+          <% @my_sub.each do |subscription| %>
+            <% if subscription.category == category %>
+              <%= render partial: 'subscriptions/subscriptions_card', locals: {subscription: subscription} %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="lead-box">
+        <% @my_sub_event_cat.each do |event_cat| %>
+          <div class="sub-title">
+            <%= event_cat.title %>
+          </div>
+          <% event_cat.get_company_leads.each do |lead| %>
+              <%= render partial: 'event_categories/lead_company_card', locals: {lead: lead, event: event_cat.event} %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
