@@ -56,7 +56,6 @@ require "json"
       recruit = transform_json(id)
       final_array << recruit
     end
-    post_to_slack(final_array)
     return final_array
 
   end
