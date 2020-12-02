@@ -14,14 +14,8 @@
 <br>
 <div class="container">
   <div class="leads-list">
-    <% if false %>
-      <% @recruitments.each do |recruitment| %>
-        <%= render partial: 'event_categories/lead_recruit_card_large', locals: {recruitment: recruitment} %>
-      <% end %>
-    <% else %>
-      <% @leads.each do |lead| %>
-        <%= render partial: 'event_categories/lead_company_card_large', locals: {lead: lead, event:@event_category.event } %>
-      <% end %>
+    <% @leads.each do |lead| %>
+      <%= render partial: 'event_categories/lead_company_card_small', locals: {lead: lead, event:@event_category.event } %>
     <% end %>
   </div>
 </div>
