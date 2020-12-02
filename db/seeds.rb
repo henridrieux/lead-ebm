@@ -122,7 +122,7 @@ puts "#{Category.count} cats in db "
 event_1 = {
   title: "Créations de société",
   description: "Identifier les nouvelles créations d'entreprise",
-  color_code: "#6688aa",
+  color_code: "#DAEAFC",
   frequency: "Depuis 3 mois",
   query: "creation_date > ?",
   query_params: "90",
@@ -131,7 +131,7 @@ event_1 = {
 event_2 = {
   title: "Sociétés qui recrutent",
   description: "Identifier les sociétés qui se développent",
-  color_code: "#88aa66",
+  color_code: "#FBEFFF",
   frequency: "Depuis 1 mois",
   query: "recruitments.id > 0 AND recruitments.created_at > ?",
   query_params: "30",
@@ -140,7 +140,7 @@ event_2 = {
 event_3 = {
   title: "Sociétés qui déménagent",
   description: "Identifier les sociétés qui ont déménagé recemment",
-  color_code: "#aa6688",
+  color_code: "#FFF7EC",
   frequency: "Depuis 2 mois",
   query: "last_moving_date > ?",
   query_params: "60",
@@ -158,7 +158,7 @@ event_4 = {
 event_5 = {
   title: "Sociétés qui créent leur site internet",
   description: "Identifier les sociétés qui créent leur site internet",
-  color_code: "#669999",
+  color_code: "#1573E6",
   frequency: "Depuis 6 mois",
   query: "creation_date > ?",
   query_params: "150",
@@ -167,7 +167,7 @@ event_5 = {
 event_6 = {
   title: "Ouvertures d'un nouvel établissement",
   description: "Identifier les sociétés qui ont ouvert un deuxième siège social",
-  color_code: "#999966",
+  color_code: "#B6BAEA",
   frequency: "Depuis 1 an",
   query: "creation_date > ?",
   query_params: "30",
