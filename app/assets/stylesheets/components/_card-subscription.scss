@@ -1,6 +1,6 @@
 .sub-card-style {
   padding: 1rem;
-  border-bottom: 0.5px solid $light-gray;
+  border-bottom: 0.5px solid $middle-gray;
   display: flex;
   align-items: center;
   justify-content: space-betwen;
@@ -16,7 +16,7 @@
     color: $dark-gray;
   }
   .sub-cat-freq {
-    color: $light-gray;
+    color: $middle-gray;
   }
 }
 .sub-cat, .sub-leads-link {
