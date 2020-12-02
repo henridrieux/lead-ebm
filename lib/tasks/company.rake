@@ -29,4 +29,5 @@ namespace :company do
       NotifySlack.new.perform(event_cat)
     end
   end
+
 end
