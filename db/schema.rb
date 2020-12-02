@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_090215) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "slack_webhook", default: "https://hooks.slack.com/services/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"
+    t.text "slack_webhook", default: "https://hooks.slack.com/services/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"
     t.index ["event_category_id"], name: "index_subscriptions_on_event_category_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
