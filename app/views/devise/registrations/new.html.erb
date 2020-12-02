@@ -14,6 +14,7 @@
       <%= f.input :last_name, label: 'Nom de famille', :placeholder => 'Bon' %>
       <%= f.input :company_name, label: 'Nom de votre société', :placeholder => 'Google France' %>
       <%= f.input :photo, as: :file, label: "Votre photo de profil" %>
+      <%= f.input :webhook_slack, label: "Votre webhook slack" %>
       <%= f.input :password,
                   required: true,
                   hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),

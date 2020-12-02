@@ -24,7 +24,7 @@ namespace :company do
   task push_leads_to_slack: :environment do
     # cat = Category.find_by(name: "Avocat")
     # event = Event.find_by(title: "Créations de société")
-    # event_cat = EventCategory.find_by(category: cat, event: event)
+    # EventCategory.where(category: cat, event: event).each do |event_cat|
     EventCategory.all.each do |event_cat|
       NotifySlack.new.perform(event_cat)
     end
