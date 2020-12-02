@@ -1,4 +1,4 @@
-<div class="sub-card-style mt-1">
+<div class="sub-card-style">
   <div class="sub-info sub-cat">
     <div class="sub-cat-name">
       <%= link_to category_path(subscription.event_category.category) do %>
@@ -20,7 +20,7 @@
         <%= subscription.status %>
       </div>
     </div>
-    <div class="sub-info sub-lead-count">
+    <div class="sub-info sub-lead-count no-show">
       <div class="sub-leads-link flex-vert text-center">
         <%= link_to event_category_path(subscription.event_category) do %>
           <% if subscription.event_category.leads_number == 0 %>
