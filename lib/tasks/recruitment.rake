@@ -30,6 +30,7 @@ namespace :recruitment do
       if company
         company
       else
+        # création rapide de la company
         new_company = Company.create!(
           company_name: recruitoffer["officeName"],
           siret: recruitoffer["siret"],
@@ -37,8 +38,10 @@ namespace :recruitment do
           naf_code: "69.10Z",
           zip_code: recruitoffer["zipCode"],
           city: recruitoffer["city"],
-          category_id: Category.find_by(name: "Notaire").id,
+          category_id: Category.find_by(name: "Notaire").id
         )
+        # enrichissement de la company
+        APIPapers.new.papers_one(new_company.siret)
         return new_company
       end
     end
@@ -77,6 +80,6 @@ namespace :recruitment do
       puts "#{@nb_create} créations et #{@nb_update} updates"
     end
 
-    run_bourse_emploi(50)
+    run_bourse_emploi(30)
   end
 end

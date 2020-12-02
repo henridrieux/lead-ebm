@@ -46,7 +46,7 @@ require "json"
     @nb_update = 0
     company = transform_json(siret)
     check_company(company)
-    puts "#{@nb_create} création et #{@nb_update} update"
+    # puts "#{@nb_create} création et #{@nb_update} update"
     p Company.find_by(siret: siret.to_i)
   end
 
@@ -119,6 +119,9 @@ require "json"
 
   def check_category (input)
     cat = "Comptable"
+    if input.category && input.category == Category.find_by(name: "Notaire")
+      cat = "Notaire"
+    end
     prof_test = {
       "Administrateur judiciaire" => "administrateur",
       "Commissaire-priseur" => "commissaire",
@@ -138,7 +141,7 @@ require "json"
     input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
     address_old = input2[:address]
     address_new = company["siege"]["adresse_ligne_1"]
-    if address_old != address_new
+    if address_old != address_new && !address_old.nil?
       last_moving_date = Date.today
       puts "1 address has changed"
     else

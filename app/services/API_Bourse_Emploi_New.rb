@@ -51,12 +51,14 @@ class APIBourseEmploiNew
       new_id_array << v["id"]
     end
     final_array = []
+    count = 0
     new_id_array.each do |id|
       recruit = transform_json(id)
-      recruit["siret"] = papers_all(recruit["officeName"])[0]
-      recruit["siren"] = papers_all(recruit["officeName"])[1]
-      p recruit
-
+      recruit["siret"] = papers_name(recruit["officeName"])[0]
+      recruit["siren"] = papers_name(recruit["officeName"])[1]
+      # p recruit
+      count += 1
+      puts "#{count} / #{result["content"].count}"
       final_array << recruit
     end
     return final_array
@@ -80,11 +82,11 @@ class APIBourseEmploiNew
     response2 = HTTParty.get(url2, @options)
     return_array2 = response2.body
     result2 = JSON.parse(return_array2)
-    # new_company_name = papers_all(company_name)
+    # new_company_name = papers_name(company_name)
     return result2
   end
 
-  def papers_all(company_name)
+  def papers_name(company_name)
     url2 = "https://api.pappers.fr/v1/recherche?"
     body_request = {
     }
