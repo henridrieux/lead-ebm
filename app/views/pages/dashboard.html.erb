@@ -42,10 +42,10 @@
     </div>
     <div class="d-flex">
       <div class="abonnement-box">
+      <div class="sub-title">
+        Abonnements
+      </div>
         <% @my_sub_cat.each do |category| %>
-          <div class="sub-title">
-            <%= category.name %>
-          </div>
           <% @my_sub.each do |subscription| %>
             <% if subscription.category == category %>
               <%= render partial: 'subscriptions/subscriptions_card', locals: {subscription: subscription} %>

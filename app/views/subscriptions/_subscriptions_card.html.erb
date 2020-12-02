@@ -1,30 +1,36 @@
-<div class="card-style-light mt-1 flex-between">
-  <div class="sub-infos-box ml-2">
-    <div class="sub-info sub-cat flex-vert">
+<div class="sub-card-style mt-1">
+  <div class="sub-info sub-cat">
+    <div class="sub-cat-name">
       <%= link_to category_path(subscription.event_category.category) do %>
       <%= subscription.event_category.category.name %>
       <% end %>
     </div>
-    <div class="sub-info sub-event flex-vert">
-      <%= subscription.event.title %>
-    </div>
-    <div class="sub-info sub-freq flex-vert">
+    <div class="sub-cat-freq">
       <small><%= subscription.event.frequency %></small>
     </div>
-    <div class="sub-info sub-leads-link flex-vert text-center">
-      <%= link_to event_category_path(subscription.event_category) do %>
-        <% if subscription.event_category.leads_number == 0 %>
-          -
-        <% else %>
-          <span><%= subscription.event_category.leads_number %></span>
-        <% end %>
-        <br> <small>L.E.A.D.</small>
-      <% end %>
-    </div>
   </div>
-  <div class="sub-status mr-2">
-    <div class="sub-on">
-      <%= subscription.status %>
+  <div class="sub-info sub-tags">
+    <div class="sub-info sub-event">
+      <div class="tag-event" style="background-color: <%= subscription.event.color_code %>">
+        <%= subscription.event.title %>
+      </div>
+    </div>
+    <div class="sub-info sub-status">
+      <div class="tag-event">
+        <%= subscription.status %>
+      </div>
+    </div>
+    <div class="sub-info sub-lead-count">
+      <div class="sub-leads-link flex-vert text-center">
+        <%= link_to event_category_path(subscription.event_category) do %>
+          <% if subscription.event_category.leads_number == 0 %>
+            -
+          <% else %>
+            <span><%= subscription.event_category.leads_number %></span>
+          <% end %>
+          <br> <small>L.E.A.D.</small>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

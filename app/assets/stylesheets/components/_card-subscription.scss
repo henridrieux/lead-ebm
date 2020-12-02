@@ -1,12 +1,24 @@
-.sub-infos-box {
-  display: flex;
-  flex-grow: 1;
-}
-.sub-info {
-  border-right: 0.5px solid $gray;
+.sub-card-style {
   padding: 1rem;
+  border-bottom: 0.5px solid $light-gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-betwen;
 }
 
+.sub-info {
+  margin-right: .5rem;
+}
+
+.sub-cat {
+  flex-grow: 1;
+  .sub-cat-name {
+    color: $dark-gray;
+  }
+  .sub-cat-freq {
+    color: $light-gray;
+  }
+}
 .sub-cat, .sub-leads-link {
   a {
     text-decoration: none;
@@ -14,26 +26,23 @@
   }
 }
 
-.sub-cat {
-  width: 150px;
-}
-
-.sub-event {
-  flex-grow: 1;
-}
-
-.sub-freq {
-  width: 150px;
+.sub-tags {
+  display: flex;
+  align-items: center;
 }
 
 .sub-status {
-  padding: 0 1rem;
-  .sub-on {
-    padding: .5rem 1rem;
-    border-radius: $border-radius;
-    color: white;
-    background-color: $green;
+  .tag-event {
+    color: #6FCF97;
+    background-color: #E3FFEF;
+    opacity: 1;
+    font-weight: normal;
   }
+
+}
+
+.sub-lead-count {
+  font-size: .5rem;
 }
 
 .sub-title {
