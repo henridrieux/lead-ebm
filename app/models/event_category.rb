@@ -24,11 +24,9 @@ class EventCategory < ApplicationRecord
     return @leads
   end
 
-  def get_new_leads
+  def get_company_leads_from_date(date)
       query = self.event.query
-      query_params = " \
-      #{Date.today - 1} \
-      "
+      query_params = "#{date}"
     if self.event.title == "Les sociétés qui recrutent"
       companies = Company.joins(:recruitments)
       rec_companies = companies ? companies.where(query, query_params) : nil
@@ -40,12 +38,18 @@ class EventCategory < ApplicationRecord
     return @leads
   end
 
+  def get_new_leads
+    @new_leads = self.get_company_leads_from_date(Date.today - 1)
+    return @new_leads
+  end
+
   def leads_number
     self.get_company_leads.count
   end
 
   def slack_json_leads
     leads = self.get_new_leads
+    p leads
     slack_leads = []
     leads.each do |lead|
       lead_slack = {
