@@ -6,22 +6,22 @@
     <div class="btn btn-dash over-btn active">
       <%= link_to "/dashboard", class: "flex-left" do %>
       <i class="fas fa-digital-tachograph"></i>
-      Overview
+      Mon tableau de bord
       <% end %>
     </div>
     <br>
     <div class="btn btn-dash abo-btn">
-      <%= link_to "#", class: "flex-left" do %>
+      <%#= link_to "", class: "flex-left" do %>
       <i class="fas fa-rss-square"></i>
       Abonnements
-      <% end %>
+      <%# end %>
     </div>
     <br>
     <div class="btn btn-dash lead-btn">
-      <%= link_to "#", class: "flex-left" do %>
+      <%#= link_to "", class: "flex-left" do %>
       <i class="fas fa-signal"></i>
       L.E.A.D
-      <% end %>
+      <%#end %>
     </div>
     <br>
     <div class="btn btn-dash">
@@ -33,7 +33,7 @@
   </div>
   <div class="main-page">
     <div class="header-top text-center">
-        <h1>Overview</h1>
+        <h1>Tableau de bord</h1>
         <p> La vision directe de mes abonnements et de mes L.E.A.D.</p>
     </div>
     <div class="overview">
@@ -60,7 +60,7 @@
         <% end %>
       </div>
     </div>
-    <div class="abonnement no-show">
+    <div class="abonnement">
       <div class="abonnement-box">
         <div class="box-title">
           Abonnements
@@ -73,6 +73,11 @@
           <% end %>
         <% end %>
       </div>
+    </div>
+    <div class="lead">
+        <div class="box-title">
+          # all Leads
+        </div>
     </div>
   </div>
 </div>

@@ -12,6 +12,11 @@ class NotifySlack < ApplicationJob
                   lead.to_json,
                   headers = { content_type: "application/json", accept: :json })
     end
-
   end
+
+  def welcome(event_category, url)
+    message = event_category.slack_welcome
+    RestClient.post(url,
+                message.to_json,
+                headers = { content_type: "application/json", accept: :json })
 end

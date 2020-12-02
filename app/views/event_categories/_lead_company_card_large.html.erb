@@ -44,7 +44,7 @@
         <% if lead.last_moving_date && event.title == "Sociétés qui déménagent" %>
           <p class="card-event">
             <i class="fas fa-truck-moving mr-1"></i>
-            Changement le <%= lead.last_moving_date.strftime("%d/%m/%Y") %>
+            Déménagement le <%= lead.last_moving_date.strftime("%d/%m/%Y") %>
           </p>
         <% end %>
       </div>

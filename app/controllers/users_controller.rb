@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :company_name, :photo)
+    params.require(:user).permit(:first_name, :last_name, :company_name, :photo, :webhook_slack)
   end
 
   def set_user
