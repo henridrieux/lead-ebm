@@ -19,4 +19,5 @@ class NotifySlack < ApplicationJob
     RestClient.post(url,
                 message.to_json,
                 headers = { content_type: "application/json", accept: :json })
+  end
 end

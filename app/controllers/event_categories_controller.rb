@@ -8,7 +8,6 @@ class EventCategoriesController < ApplicationController
 
   def show
     @event_category = EventCategory.find(params[:id])
-
     @leads = @event_category.get_company_leads
   end
 

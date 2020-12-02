@@ -9,7 +9,9 @@
       </div>
   </div>
     <% if Subscription.find_by(user: current_user, event_category:event_category ) %>
-      <%= link_to "Voir mes L.E.A.D.", event_category_path(event_category), class: "btn"%>
+      <%= link_to event_category_path(event_category), class: "btn" do %>
+      Voir mes L.E.A.D.
+      <% end %>
     <% else %>
       <%= link_to "S'abonner", event_category_subscriptions_path(event_category), method: :post, class: "btn btn-ghost"%>
     <% end %>
