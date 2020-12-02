@@ -3,21 +3,21 @@
   <div class="side-bar">
     <div class="dash-brand">
     </div>
-    <div class="btn btn-dash active">
+    <div class="btn btn-dash over-btn active">
       <%= link_to "/dashboard", class: "flex-left" do %>
       <i class="fas fa-digital-tachograph"></i>
       Overview
       <% end %>
     </div>
     <br>
-    <div class="btn btn-dash">
+    <div class="btn btn-dash abo-btn">
       <%= link_to "#", class: "flex-left" do %>
       <i class="fas fa-rss-square"></i>
       Abonnements
       <% end %>
     </div>
     <br>
-    <div class="btn btn-dash">
+    <div class="btn btn-dash lead-btn">
       <%= link_to "#", class: "flex-left" do %>
       <i class="fas fa-signal"></i>
       L.E.A.D
@@ -56,6 +56,20 @@
         <% @my_sub_event_cat.each do |event_cat| %>
           <% event_cat.get_company_leads_from_date(Date.today-1).first(5).each do |lead| %>
               <%= render partial: 'event_categories/lead_company_card_small', locals: {lead: lead, event: event_cat.event} %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="abonnement no-show">
+      <div class="abonnement-box">
+        <div class="box-title">
+          Abonnements
+        </div>
+        <% @my_sub_cat.each do |category| %>
+          <% @my_sub.each do |subscription| %>
+            <% if subscription.category == category %>
+              <%= render partial: 'subscriptions/subscriptions_card', locals: {subscription: subscription} %>
+            <% end %>
           <% end %>
         <% end %>
       </div>
