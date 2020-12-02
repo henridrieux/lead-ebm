@@ -16,7 +16,7 @@ cat_1 = {
     des particuliers, des entreprises ou des collectivités. Il peut s'agir d'affaires \
     civiles ( divorces, successions, litiges...) ou pénales (contraventions, délits, \
     crimes...). Il peut être également sollicité par les entreprises en tant que conseil.",
-  color_code: "#bbbb77",
+  color_code: "#FDBF3F",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606231560/avocat.jpg',
   filename: 'avocat.jpg'
 }
@@ -26,7 +26,7 @@ cat_2 = {
     et des contrats et les conserve. Il intervient dans plusieurs domaines \
     : droit de la famille, droit de l’immobilier et du patrimoine. Le conseil \
     aux entreprises devient de plus en plus important.",
-  color_code:"#77bbbb",
+  color_code:"#19B8D2",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401988/5edf7c0886688_20_logo_notaire-4167128_upo2is.jpg',
   filename: 'notaire.jpg'
 }
@@ -36,7 +36,7 @@ cat_3 = {
     des décisions prises et vérifier leur application sont les principales missions \
     de l'huissier de justice / l'huissière de justice. Après avoir acheté une charge, \
     il/elle est nommé(e) par le garde des Sceaux.",
-  color_code:"#bb77bb",
+  color_code:"#4E0CB2",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401921/REFlex_090924CM02_0009_1_akxt9p.jpg',
   filename: 'huissier.jpg'
 }
@@ -46,7 +46,7 @@ cat_4 = {
     rencontre des difficultés. Il établit un diagnostic et préserve les droits \
     de l'entreprise. Il étudie des solutions de continuation ou de cession de \
     l'entreprise.",
-  color_code:"#ddaabb",
+  color_code:"#F2D8D7",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606241705/administrateur-trice-judiciaire_zzybi1.jpg',
   filename: 'administrateur-judiciaire.jpg'
 }
@@ -56,7 +56,7 @@ cat_5 = {
     meubles, la prisée étant l’estimation d’une chose destinée à la vente. La vente \
     aux enchères publiques permet l’établissement du juste prix par la confrontation \
     transparente entre l’offre et la demande.",
-  color_code:"#aaddbb",
+  color_code:"#60B96E",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606401444/priseur-gd_inll9c.jpg',
   filename: 'Commissaire-priseur.jpg'
 }
@@ -66,7 +66,7 @@ cat_6 = {
     les services administratifs, l'accueil des justiciables et des entreprises, et assister \
     le juge dans la conservation des actes (enrôlement des affaires, assistance à l'audience, \
     mise en forme des décisions…).",
-  color_code:"#bbaadd",
+  color_code:"#5A1552",
   url: 'https://res.cloudinary.com/dnpdonlro/image/upload/v1606836668/extrait-avoir_greffier_nh53gv.jpg',
   filename: 'greffier.jpg'
 }
@@ -75,7 +75,7 @@ cat_7 = {
   description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise \
     et plus globalement sa santé financière. Dans une grande entreprise, il occupe un \
     poste en tant que chargé de comptes clients, fournisseurs ou de la paie.",
-  color_code:"#ddbbaa",
+  color_code:"#D22C51",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606404077/comptable.jpg',
   filename: 'Comptable.jpg'
 }
