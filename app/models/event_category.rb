@@ -16,7 +16,7 @@ class EventCategory < ApplicationRecord
     if self.event.title == "Sociétés qui recrutent"
       companies = Company.joins(:recruitments)
       rec_companies = companies ? companies.where(query, query_params) : nil
-      @leads = rec_companies
+      @leads = rec_companies.uniq
     else
       companies = Company.includes(:category, :events, :recruitments).where(category: self.category)
       @leads = companies ? companies.where(query, query_params) : nil
