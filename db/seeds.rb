@@ -125,7 +125,7 @@ event_1 = {
   color_code: "#6688aa",
   frequency: "Depuis 3 mois",
   query: "creation_date > ?",
-  query_params: "100",
+  query_params: "90",
   url_icon:"https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/new_company_rwmoj9.png"
 }
 event_2 = {
