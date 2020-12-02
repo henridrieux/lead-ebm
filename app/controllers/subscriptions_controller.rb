@@ -27,6 +27,9 @@ class SubscriptionsController < ApplicationController
     # @subscription.start_date = Date.now()
     authorize @subscription
     if @subscription.save
+      if current_user.webhook_slack
+        NotifySlack.new.welcome(@event_category, current_user.webhook_slack)
+      end
       redirect_to category_path(@event_category.category)
     end
   end

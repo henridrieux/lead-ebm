@@ -99,20 +99,24 @@ class EventCategory < ApplicationRecord
   end
 
   def slack_welcome
+      core_message = "Vous venez de vous abonner à notre évènement : #{self.event.title} \
+pour le métier #{self.category.name}. Vous recevrez vos premiers L.E.A.D. dès demain matin. 🚀"
       new_sub_slack = {
         "blocks": [
           {
             "type": "section",
             "text": {
               "type": "mrkdwn",
-              "text": "*#{self.category.name} - #{self.event.title}*🤑"
+              "text": "*#{self.category.name} => #{self.event.title}*"
             }
           },
           {
             "type": "section",
-            "text": "vous venez de vous abonner à notre évènement #{self.event.title} \
-            pour le métier #{self.category.name}. Vous recevrez les premiers L.E.A.D. \
-            dès demain matin"
+            "text": {
+              "type": "plain_text",
+              "text": "#{core_message}",
+              "emoji": true
+            }
           }
         ]
       }
