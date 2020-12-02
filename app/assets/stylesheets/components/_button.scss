@@ -32,12 +32,13 @@
 }
 
 .tag-event {
-  border-radius: $border-radius-btn;
+  border-radius: $border-radius-sm;
   color: white;
   background-color: $red;
-  padding: 0 .5rem;
+  padding: .2rem .8rem;
   opacity: 0.5;
-  font-size: .7rem;
+  font-size: .8rem;
+  font-weight: lighter;
 }
 
 button:focus {outline:0;}
