@@ -1,19 +1,14 @@
-.split {
-  display: flex;
-  position: absolute;
-  z-index: 2;
-}
 
 .side-bar {
   display: block;
-  min-height: 60vh;
+  min-height: 100vh;
   border-right: .5px solid $light-gray;
   padding: 2rem;
   background-color: white;
 }
 
 .dash-brand {
-  height: 150px;
+  height: 100px;
   img {
     height: 40px;
   }

@@ -1,0 +1,55 @@
+<div class="card-lead">
+  <div class="card-lead-top">
+    <div class="card-lead-contact">
+        <p>
+          <span class="cat-name"> <%= lead.category.name %></span>
+          - <%= lead.company_name.titleize %>
+        </p>
+    </div>
+    <div class="card-lead-event">
+      <div class="tag-event" style="background-color: <%= event.color_code %>">
+        <%= event.title %>
+      </div>
+    </div>
+  </div>
+  <div class="card-lead-details">
+      <p>
+        <i class="fas fa-map-marker-alt mr-1"></i>
+        <%= lead.address %> - <%= lead.city %> <%= lead.zip_code %>
+      </p>
+      <div class="card-lead-event creation">
+        <% if lead.creation_date && event.title == "Créations de société" %>
+          <p>
+             <i class="fas fa-building mr-1"> </i>
+             <%= lead.legal_structure %>
+          </p>
+          <p class="card-event">
+            <i class="fas fa-play mr-1"></i>
+            Créée le <%= lead.creation_date.strftime("%d/%m/%Y") %>
+          </p>
+        <% end %>
+      </div>
+      <div class="card-lead-event moving">
+        <% if lead.last_moving_date && event.title == "Sociétés qui déménagent" %>
+          <p class="card-event">
+            <i class="fas fa-truck-moving mr-1"></i>
+            Changement le <%= lead.last_moving_date.strftime("%d/%m/%Y") %>
+          </p>
+        <% end %>
+      </div>
+      <div class="card-lead-event recruitments">
+          <% if lead.recruitments && event.title == "Sociétés qui recrutent"%>
+             <p>
+               <i class="fas fa-user-friends mr-1"> </i>
+               <%= lead.head_count %>
+            </p>
+            <% lead.recruitments.order(publication_date: :desc).each do |recruitment| %>
+              <p class="card-event">
+                <i class="fas fa-file-contract mr-1"></i>
+                <%= recruitment.job_title %> (<%= recruitment.contract_type %>)
+              </p>
+            <% end %>
+          <% end %>
+      </div>
+  </div>
+</div>
