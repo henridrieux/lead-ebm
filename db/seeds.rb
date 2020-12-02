@@ -120,48 +120,54 @@ puts "#{Category.count} cats in db "
 # ----------- CREATING EVENTS ----------------
 
 event_1 = {
-  title: "Les créations de société",
+  title: "Créations de société",
   description: "Identifier les nouvelles créations d'entreprise",
+  color_code: "#6688aa",
   frequency: "Depuis 3 mois",
   query: "creation_date > ?",
   query_params: "100",
   url_icon:"https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/new_company_rwmoj9.png"
 }
 event_2 = {
-  title: "Les sociétés qui recrutent",
+  title: "Sociétés qui recrutent",
   description: "Identifier les sociétés qui se développent",
+  color_code: "#88aa66",
   frequency: "Depuis 1 mois",
   query: "recruitments.id > 0 AND recruitments.created_at > ?",
   query_params: "30",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/recruitment_xqufo0.png"
 }
 event_3 = {
-  title: "Les sociétés qui déménagent",
+  title: "Sociétés qui déménagent",
   description: "Identifier les sociétés qui ont déménagé recemment",
+  color_code: "#aa6688",
   frequency: "Depuis 2 mois",
   query: "last_moving_date > ?",
   query_params: "60",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/moving_x4ylvr.png"
 }
 event_4 = {
-  title: "Les sociétés qui fusionnent",
+  title: "Sociétés qui fusionnent",
   description: "Identifier les sociétés qui ont fusionné récemment",
+  color_code: "#996699",
   frequency: "Depuis 1 an",
   query: "creation_date > ?",
   query_params: "30",
   url_icon:"https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/fusion_ftodyw.png"
 }
 event_5 = {
-  title: "Les sociétés qui créent leur site internet",
+  title: "Sociétés qui créent leur site internet",
   description: "Identifier les sociétés qui créent leur site internet",
+  color_code: "#669999",
   frequency: "Depuis 6 mois",
-  query: "",
-  query_params: "",
+  query: "creation_date > ?",
+  query_params: "150",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/website_efa8la.png"
 }
 event_6 = {
-  title: "Les sociétés qui ont ouvert un deuxième siège social",
-  description: "Identifier les sociétés  qui ont ouvert un deuxième siège social",
+  title: "Ouvertures d'un nouvel établissement",
+  description: "Identifier les sociétés qui ont ouvert un deuxième siège social",
+  color_code: "#999966",
   frequency: "Depuis 1 an",
   query: "creation_date > ?",
   query_params: "30",

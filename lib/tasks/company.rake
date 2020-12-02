@@ -23,7 +23,7 @@ namespace :company do
   # rails company:push_leads_to_slack
   task push_leads_to_slack: :environment do
     cat = Category.find_by(name: "Avocat")
-    event = Event.find_by(title: "Les créations de société")
+    event = Event.find_by(title: "Créations de société")
     event_cat = EventCategory.find_by(category: cat, event: event)
     NotifySlack.new.perform(event_cat)
    #  EventCategory.first.each do |event_category|
