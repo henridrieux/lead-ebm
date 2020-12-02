@@ -28,6 +28,10 @@
          <i class="fas fa-scroll"> </i>
          SIREN : <%= lead.siren %>
       </p>
+       <p>
+         <i class="fas fa-user-friends mr-1"> </i>
+         <%= lead.head_count %>
+      </p>
       <div class="card-lead-event creation">
         <% if lead.creation_date && event.title == "Créations de société" %>
           <p>
@@ -50,9 +54,8 @@
       </div>
       <div class="card-lead-event recruitments">
           <% if lead.recruitments && event.title == "Sociétés qui recrutent"%>
-             <p>
-               <i class="fas fa-user-friends mr-1"> </i>
-               <%= lead.head_count %>
+            <p class="card-event">
+              <%= lead.recruitments.count %> recrutements en cours :
             </p>
             <% lead.recruitments.order(publication_date: :desc).each do |recruitment| %>
               <p class="card-event">

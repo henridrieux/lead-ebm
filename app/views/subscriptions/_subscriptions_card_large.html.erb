@@ -5,8 +5,17 @@
       <%= subscription.event_category.category.name %>
       <% end %>
     </div>
-    <div class="sub-cat-freq">
-      <small><%= subscription.event.frequency %></small>
+  </div>
+  <div class="sub-info sub-lead-count">
+    <div class="sub-leads-link flex-vert text-center">
+      <%= link_to event_category_path(subscription.event_category) do %>
+        <% if subscription.event_category.leads_number == 0 %>
+          -
+        <% else %>
+          <span><%= subscription.event_category.leads_number %></span>
+        <% end %>
+        L.E.A.D./ <%= subscription.event.frequency %>
+      <% end %>
     </div>
   </div>
   <div class="sub-info sub-tags">
