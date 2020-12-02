@@ -18,12 +18,12 @@
 }
 
 .main-box {
+  position: relative;
   background-color: $red;
   text-align: left;
   color: white;
   height: 350px;
-  position:relative;
-  margin-bottom: 250px;
+  position: relative;
 
   h4 {
     color:white;
@@ -38,11 +38,9 @@
 }
 
 .second-box {
+  margin-top: -166px;
   img{
-  position: absolute;
-  left: 471px;
-  top: -431px;
-  border-radius: 9px;
   box-shadow: rgba(60, 64, 67, 0.3) 1px 1px 3px 1px, rgba(60, 64, 67, 0.15) 1px 2px 7px 3px;
+  border-radius: 5px;
   }
 }

@@ -67,8 +67,6 @@
       <div class="col">
         <h5 class="mb-2 mt-0">Recevez quotidienement des données fiables avec un minimum de ressources</h5>
         <p class="m-0">Qu'il s'agisse d'attirer des clients idéaux avec une portée parfaitement ciblée ou d'être alerté des risques de désabonnement avant qu'ils ne surviennent, notre suite d'outils et d'API vous fournit l'intelligence dont vous avez besoin à chaque étape de l'entonnoir.</p>
-        <br>
-        <%= link_to "Essayez maintenant", categories_path, class: "btn-white-white" %>
       </div>
     </div>
   </div>
@@ -76,7 +74,12 @@
 
 <div class="second-box">
   <div class="col">
-     <%= image_tag "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606827773/leads.png", width: 700, height: 400 %>
+    <div class="d-flex justify-content-around">
+      <div>
+        <%= link_to "Essayez maintenant", categories_path, class: "btn-white-white" %>
+      </div>
+        <%= image_tag "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606827773/leads.png", width: 600, height: 350 %>
+    </div>
   </div>
 </div>
 
