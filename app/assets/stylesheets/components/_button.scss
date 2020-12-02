@@ -4,12 +4,12 @@
   padding: 8px 24px;
   border-radius: $border-radius-lg;
   font-weight: lighter;
-  opacity: 0.9;
+  opacity: 1;
   transition: opacity 0.3s ease;
 }
 
 .btn-ghost:hover {
-  opacity: 1;
+  opacity: 0,9;
   color: $red;
   font-weight: normal;
 }
@@ -19,7 +19,7 @@
   padding: 8px 24px;
   border-radius: 50px;
   font-weight: initial;
-  opacity: 0.7;
+  opacity: 0.9;
   transition: opacity 0.3s ease;
   background-color: $red;
   border: 2px solid $red;
@@ -43,9 +43,8 @@
 button:focus {outline:0;}
 
 .btn-white-white {
-  position: absolute;
   padding: 8px 24px;
-  opacity: 0.7;
+  opacity: 0.9;
   transition: opacity 0.3s ease;
   background-color: $red;
   color: white;
@@ -53,7 +52,6 @@ button:focus {outline:0;}
   border-radius: $border-radius-btn;
   font-weight: lighter;
   transition: opacity 0.3s ease;
-  top: 125px;
 }
 
 .btn-white-white:hover {
