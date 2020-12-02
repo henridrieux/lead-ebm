@@ -73,8 +73,8 @@ cat_6 = {
 cat_7 = {
   name: "Comptable",
   description: "Le comptable a la responsabilité de gérer les comptes d'une entreprise \
-    et plus globalement sa santé financière. Dans une grande entreprise, il occupe un \
-    poste en tant que chargé de comptes clients, fournisseurs ou de la paie.",
+    et plus globalement sa santé financière. Dans une grande entreprise, il occupe \
+    un poste en tant que chargé de comptes clients, fournisseurs ou de la paie.",
   color_code:"#D22C51",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606404077/comptable.jpg',
   filename: 'Comptable.jpg'
