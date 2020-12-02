@@ -10,5 +10,4 @@ class PagesController < ApplicationController
     @my_sub_event_cat = @my_sub.map{ |v| v.event_category }.uniq
     @my_sub_event = @my_sub.map{ |v| v.event }.uniq
   end
-
 end
