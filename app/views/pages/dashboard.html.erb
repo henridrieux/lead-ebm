@@ -19,7 +19,7 @@
     <br>
     <div class="btn btn-dash lead-btn">
       <%#= link_to "", class: "flex-left" do %>
-      <i class="fas fa-signal"></i>
+      <i class="fas fa-id-card"></i>
       L.E.A.D
       <%#end %>
     </div>
@@ -78,6 +78,11 @@
         <div class="box-title">
           # all Leads
         </div>
+        <% @my_sub_event_cat.each do |event_cat| %>
+          <% event_cat.get_company_leads.each do |lead| %>
+              <%= render partial: 'event_categories/lead_company_card_small', locals: {lead: lead, event: event_cat.event} %>
+          <% end %>
+        <% end %>
     </div>
   </div>
 </div>
