@@ -1,23 +1,33 @@
 
 const initUpdateDashboardViewsOnClick = () => {
-  const sidebar = document.querySelector('side-bar');
+  const sidebar = document.querySelector('.side-bar');
+  console.log(sidebar);
   if (sidebar) {
-    viewOver = document.querySelector('over-btn');
-    viewAbo = document.querySelector('abo-btn');
-    viewLead = document.querySelector('lead-btn');
+    const viewOver = document.querySelector('.over-btn');
+    const viewAbo = document.querySelector('.abo-btn');
+    const viewLead = document.querySelector('.lead-btn');
+    const boxOver = document.querySelector('.overview');
+    const boxAbo = document.querySelector('.abonnement');
+    const boxLead = document.querySelector('.lead');
+    boxAbo.hidden = true;
+    boxLead.hidden = true;
 
     viewOver.addEventListener('click', () => {
-      console.log(viewOver);
       viewOver.classList.add('active');
       viewAbo.classList.remove('active');
       viewLead.classList.remove('active');
+      boxOver.hidden = false;
+      boxAbo.hidden = true;
+      boxLead.hidden = true;
     });
 
     viewAbo.addEventListener('click', () => {
-      console.log(viewAbo);
       viewOver.classList.remove('active');
       viewAbo.classList.add('active');
       viewLead.classList.remove('active');
+      boxOver.hidden = true;
+      boxAbo.hidden = false;
+      boxLead.hidden = true;
     });
 
     viewLead.addEventListener('click', () => {
@@ -25,6 +35,9 @@ const initUpdateDashboardViewsOnClick = () => {
       viewOver.classList.remove('active');
       viewAbo.classList.remove('active');
       viewLead.classList.add('active');
+      boxOver.hidden = true;
+      boxAbo.hidden = true;
+      boxLead.hidden = false;
     });
   }
 }

@@ -9,9 +9,6 @@ class EventCategoriesController < ApplicationController
   def show
     @event_category = EventCategory.find(params[:id])
 
-    @recruitments = Recruitment.where(category: @event_category.category)
-    @recruitments = @recruitments.where(publication_date: "#{Date.today}")
-
     @leads = @event_category.get_company_leads
   end
 
