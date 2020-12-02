@@ -15,6 +15,7 @@ class EventCategory < ApplicationRecord
       "
     if self.event.title == "Sociétés qui recrutent"
       companies = Company.joins(:recruitments)
+      companies = companies.where("companies.category_id = #{self.category_id}")
       rec_companies = companies ? companies.where(query, query_params) : nil
       @leads = rec_companies.uniq
     else
@@ -27,7 +28,7 @@ class EventCategory < ApplicationRecord
   def get_company_leads_from_date(date)
       query = self.event.query
       query_params = "#{date}"
-    if self.event.title == "Les sociétés qui recrutent"
+    if self.event.title == "Sociétés qui recrutent"
       companies = Company.joins(:recruitments)
       rec_companies = companies ? companies.where(query, query_params) : nil
       @leads = rec_companies
@@ -49,7 +50,6 @@ class EventCategory < ApplicationRecord
 
   def slack_json_leads
     leads = self.get_new_leads
-    p leads
     slack_leads = []
     leads.each do |lead|
       lead_slack = {
