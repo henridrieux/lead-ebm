@@ -97,5 +97,27 @@ class EventCategory < ApplicationRecord
     end
     return slack_leads
   end
+
+  def slack_welcome
+      new_sub_slack = {
+        "blocks": [
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": "*#{self.category.name} - #{self.event.title}*🤑"
+            }
+          },
+          {
+            "type": "section",
+            "text": "vous venez de vous abonner à notre évènement #{self.event.title} \
+            pour le métier #{self.category.name}. Vous recevrez les premiers L.E.A.D. \
+            dès demain matin"
+          }
+        ]
+      }
+    return new_sub_slack
+  end
+
 end
 
