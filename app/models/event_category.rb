@@ -13,7 +13,7 @@ class EventCategory < ApplicationRecord
       query_params = " \
       #{Date.today - self.event.query_params.to_i } \
       "
-    if self.event.title == "Les sociétés qui recrutent"
+    if self.event.title == "Sociétés qui recrutent"
       companies = Company.joins(:recruitments)
       rec_companies = companies ? companies.where(query, query_params) : nil
       @leads = rec_companies

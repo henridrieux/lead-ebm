@@ -124,7 +124,7 @@ event_1 = {
   description: "Identifier les nouvelles créations d'entreprise",
   frequency: "Depuis 3 mois",
   query: "creation_date > ?",
-  query_params: "100",
+  query_params: "90",
   url_icon:"https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/new_company_rwmoj9.png"
 }
 event_2 = {
@@ -155,8 +155,8 @@ event_5 = {
   title: "Les sociétés qui créent leur site internet",
   description: "Identifier les sociétés qui créent leur site internet",
   frequency: "Depuis 6 mois",
-  query: "",
-  query_params: "",
+  query: "creation_date > ?",
+  query_params: "150",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/website_efa8la.png"
 }
 event_6 = {
