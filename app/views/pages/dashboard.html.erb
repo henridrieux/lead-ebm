@@ -68,7 +68,7 @@
         <% @my_sub_cat.each do |category| %>
           <% @my_sub.each do |subscription| %>
             <% if subscription.category == category %>
-              <%= render partial: 'subscriptions/subscriptions_card', locals: {subscription: subscription} %>
+              <%= render partial: 'subscriptions/subscriptions_card_large', locals: {subscription: subscription} %>
             <% end %>
           <% end %>
         <% end %>

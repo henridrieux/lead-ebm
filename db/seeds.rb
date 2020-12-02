@@ -122,8 +122,8 @@ puts "#{Category.count} cats in db "
 event_1 = {
   title: "Créations de société",
   description: "Identifier les nouvelles créations d'entreprise",
+  frequency: "sur 3 mois",
   color_code: "#1A6EFC",
-  frequency: "Depuis 3 mois",
   query: "creation_date > ?",
   query_params: "90",
   url_icon:"https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/new_company_rwmoj9.png"
@@ -131,8 +131,8 @@ event_1 = {
 event_2 = {
   title: "Sociétés qui recrutent",
   description: "Identifier les sociétés qui se développent",
+  frequency: "sur 1 mois",
   color_code: "#28B6A4",
-  frequency: "Depuis 1 mois",
   query: "recruitments.id > 0 AND recruitments.created_at > ?",
   query_params: "30",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/recruitment_xqufo0.png"
@@ -140,8 +140,8 @@ event_2 = {
 event_3 = {
   title: "Sociétés qui déménagent",
   description: "Identifier les sociétés qui ont déménagé recemment",
+  frequency: "sur 2 mois",
   color_code: "#BF73DB",
-  frequency: "Depuis 2 mois",
   query: "last_moving_date > ?",
   query_params: "60",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/moving_x4ylvr.png"
@@ -149,8 +149,8 @@ event_3 = {
 event_4 = {
   title: "Sociétés qui fusionnent",
   description: "Identifier les sociétés qui ont fusionné récemment",
+  frequency: "sur 1 an",
   color_code: "#B6BAEA",
-  frequency: "Depuis 1 an",
   query: "creation_date > ?",
   query_params: "30",
   url_icon:"https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/fusion_ftodyw.png"
@@ -158,17 +158,17 @@ event_4 = {
 event_5 = {
   title: "Sociétés qui créent leur site internet",
   description: "Identifier les sociétés qui créent leur site internet",
+  frequency: "sur 6 mois",
   color_code: "#FC454A",
-  frequency: "Depuis 6 mois",
   query: "creation_date > ?",
-  query_params: "150",
+  query_params: "180",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/website_efa8la.png"
 }
 event_6 = {
   title: "Ouvertures d'un nouvel établissement",
   description: "Identifier les sociétés qui ont ouvert un deuxième siège social",
+  frequency: "sur 1 an",
   color_code: "#F2C94D",
-  frequency: "Depuis 1 an",
   query: "creation_date > ?",
   query_params: "30",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/etablissement_j5ithk.png"
