@@ -33,6 +33,7 @@ gem 'devise'
 gem "rails_refactor"
 gem 'pundit'
 gem 'rails_admin', '~> 2.0'
+gem 'nokogiri'
 
 
 gem 'autoprefixer-rails'
