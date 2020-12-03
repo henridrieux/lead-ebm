@@ -19,10 +19,14 @@
 
 .nav-item {
   margin-right: 1rem;
-  &.active {
+  &.active-item {
     border-bottom: 3px solid $red;
-    a {
+    .nav-link {
+    color: $red;
+    opacity: 1;
+    &:hover {
       color: $red;
+    }
     }
   }
 }
