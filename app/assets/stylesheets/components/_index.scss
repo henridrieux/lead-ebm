@@ -48,6 +48,11 @@
   justify-content: center;
 }
 
-.no-show {
-  display: hidden;
+.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  border-bottom: .5px solid $light-gray;
 }
