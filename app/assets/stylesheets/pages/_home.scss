@@ -1,1 +1,92 @@
 // Specific CSS for your home-page
+
+.home-arguments {
+}
+
+.home-arguments-cta {
+  background-color: $light-gray;
+  .home-definition {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
+
+.home-arguments-ctb {
+  background-color: white;
+  .home-reason{
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
+
+.home-arguments-ctc {
+  background-color: $red;
+  position: relative;
+  .example-figure {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    border: 1px solid $red;
+  }
+  .home-example{
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 250px;
+    h2, h5, p {
+      color: white;
+    }
+  }
+  .home-example-arg {
+    text-align: left;
+  }
+}
+
+.home-arguments-ctd {
+  padding-top: 120px;
+  background-color: $light-gray;
+  .home-testimony {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
+
+.align-text {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.light-grey{
+  background-color: $light-gray;
+}
+
+.main-box {
+  position: relative;
+  background-color: $red;
+  text-align: left;
+  color: white;
+  height: 350px;
+  h4 {
+    color:white;
+  }
+  h5 {
+    color: white;
+  }
+  p{
+    color:white;
+    font-weight: lighter;
+  }
+}
+
+.second-box {
+  margin-top: -166px;
+  img{
+  box-shadow: rgba(60, 64, 67, 0.3) 1px 1px 3px 1px, rgba(60, 64, 67, 0.15) 1px 2px 7px 3px;
+  border-radius: 5px;
+  }
+}
