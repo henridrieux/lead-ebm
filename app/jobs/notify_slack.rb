@@ -4,7 +4,7 @@ require 'json'
 class NotifySlack < ApplicationJob
   include RestClient
 
-  def perform(event_category, url = ENV["SLACK_LEAD_INCOMING_WEBHOOK_URL"])
+  def perform(event_category, url)
     puts "executing...."
     hash = event_category.slack_json_leads
     hash.each do |lead|

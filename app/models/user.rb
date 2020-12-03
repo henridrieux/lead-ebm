@@ -8,5 +8,6 @@ class User < ApplicationRecord
   # validates :company_name, presence: true
   has_one_attached :photo
   has_many :subscriptions
+  has_many :event_categories, through: :subscriptions
 
 end
