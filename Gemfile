@@ -42,6 +42,7 @@ gem 'httparty'
 # gem 'sidekiq'
 # gem 'sidekiq-failures', '~> 1.0'
 gem 'rest-client'
+gem 'whenever', require: false
 
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'
