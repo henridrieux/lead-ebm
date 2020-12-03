@@ -23,7 +23,7 @@ namespace :company do
   # rails company:push_leads_to_slack
   task push_leads_to_slack: :environment do
     # cat = Category.find_by(name: "Avocat")
-    # event = Event.find_by(title: "Créations de société")
+    # event = Event.find_by(title: "Créations de société ")
     # EventCategory.where(category: cat, event: event).each do |event_cat|
     User.all.each do |user|
       if user.webhook_slack?
