@@ -30,6 +30,14 @@
       Déconnexion
       <% end %>
     </div>
+    <div class="slack-dash">
+      <% if current_user.webhook_slack? %>
+        <p class="mt-5 ml-2">
+          <i class="fab fa-slack"></i>
+            = Slack activé
+        </p>
+      <% end %>
+    </div>
   </div>
   <div class="main-page">
     <div class="header-top text-center">

@@ -9,19 +9,10 @@ class EventCategory < ApplicationRecord
   validates :category, uniqueness: { scope: :event, message: "can't be associated twice to the same event" }
 
   def get_company_leads
-      query = self.event.query
       query_params = " \
       #{Date.today - self.event.query_params.to_i } \
       "
-    if self.event.title == "Sociétés qui recrutent"
-      companies = Company.joins(:recruitments)
-      companies = companies.where("companies.category_id = #{self.category_id}")
-      rec_companies = companies ? companies.where(query, query_params) : nil
-      @leads = rec_companies.uniq
-    else
-      companies = Company.includes(:category, :events, :recruitments).where(category: self.category)
-      @leads = companies ? companies.where(query, query_params) : nil
-    end
+      @leads = get_company_leads_from_date(query_params)
     return @leads
   end
 
@@ -30,6 +21,7 @@ class EventCategory < ApplicationRecord
       query_params = "#{date}"
     if self.event.title == "Sociétés qui recrutent"
       companies = Company.joins(:recruitments)
+      companies = companies.where("companies.category_id = #{self.category_id}")
       rec_companies = companies ? companies.where(query, query_params) : nil
       @leads = rec_companies.uniq
     else
@@ -66,7 +58,7 @@ class EventCategory < ApplicationRecord
             "fields": [
               {
                 "type": "plain_text",
-                "text": "#{lead.category.name} - #{lead.company_name}",
+                "text": "#{lead.company_name}",
                 "emoji": true
               },
               {

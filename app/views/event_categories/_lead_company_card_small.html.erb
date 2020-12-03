@@ -2,11 +2,18 @@
   <div class="card-lead-top">
     <div class="card-lead-contact">
         <p>
-          <span class="cat-name"> <%= lead.category.name %></span>
+            <%= link_to category_path(lead.category), class: "cat-name" do %>
+              <%= lead.category.name %>
+            <% end %>
           - <%= lead.company_name.titleize %>
         </p>
     </div>
     <div class="card-lead-event">
+      <div class="slack-status" >
+        <% if current_user.webhook_slack? %>
+            <i class="fab fa-slack mx-2" alt="Slack activé"></i>
+        <% end %>
+      </div>
       <div class="tag-event" style="background-color: <%= event.color_code %>">
         <%= event.title %>
       </div>
