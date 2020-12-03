@@ -31,7 +31,7 @@ class EventCategory < ApplicationRecord
     if self.event.title == "Sociétés qui recrutent"
       companies = Company.joins(:recruitments)
       rec_companies = companies ? companies.where(query, query_params) : nil
-      @leads = rec_companies
+      @leads = rec_companies.uniq
     else
       companies = Company.includes(:category, :events, :recruitments).where(category: self.category)
       @leads = companies ? companies.where(query, query_params) : nil
@@ -40,7 +40,7 @@ class EventCategory < ApplicationRecord
   end
 
   def get_new_leads
-    @new_leads = self.get_company_leads_from_date(Date.today - 1)
+    @new_leads = self.get_company_leads_from_date(Date.today)
     return @new_leads
   end
 
@@ -66,7 +66,7 @@ class EventCategory < ApplicationRecord
             "fields": [
               {
                 "type": "plain_text",
-                "text": "*#{lead.company_name}*",
+                "text": "#{lead.category.name} - #{lead.company_name}",
                 "emoji": true
               },
               {
