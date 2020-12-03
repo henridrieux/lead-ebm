@@ -7,6 +7,11 @@
         </p>
     </div>
     <div class="card-lead-tags">
+      <div class="slack-status">
+        <% if current_user.webhook_slack? %>
+            <i class="fab fa-slack mx-2"></i>
+        <% end %>
+      </div>
       <div class="tag-event" style="background-color: <%= event.color_code %>">
         <%= event.title %>
       </div>

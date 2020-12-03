@@ -1,18 +1,28 @@
-<div class="header-top">
-  <div class="container">
-    <h1> <%= @event_category.title %></h1>
-  </div>
-</div>
-<br>
-  <div class="container">
-    <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" id="customSwitch1">
-<!--       <label class="custom-control-label" for="customSwitch1">Recevez vos leads directement sur Slack <a href="#" target="_blank"><i class="fab fa-slack"></i></a></label>
- -->      <a href="https://slack.com/oauth/v2/authorize?client_id=1542625832836.1530110301126&scope=incoming-webhook&user_scope="><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
-    </div>
-  </div>
-<br>
 <div class="container">
+  <div class="header-top">
+    <h1 class="text-center">
+      <%= link_to category_path(@event_category.category), class: "text-decoration-none" do  %>
+        <%= @event_category.category.name %>
+      <% end %>
+      - <%= @event_category.event.title %>
+     </h1>
+  </div>
+    <div class="slack-status">
+      <% if current_user.webhook_slack? %>
+        <small class="ml-3">
+          <i class="fab fa-slack"></i>  = Slack activé
+          <em>(vous recevez tous les jours vos nouveaux leads dans votre application Slack.)</em>
+        </small>
+      <% else %>
+        <%= link_to edit_user_registration_path(current_user) do %>
+          <div class="card-style-event flex-left text-decoration-none mt-0">
+            <img class="mr-3" alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" />
+            Ajouter un webhook Slack pour recevoir tous les jours vos nouveaux leads dans votre application Slack.
+          </div>
+          <br>
+        <% end %>
+      <% end %>
+    </div>
   <div class="leads-list">
     <% @leads.each do |lead| %>
       <%= render partial: 'event_categories/lead_company_card_large', locals: {lead: lead, event:@event_category.event } %>

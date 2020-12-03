@@ -2,7 +2,7 @@
   color: $red;
   border: 2px solid $red;
   padding: 8px 24px;
-  border-radius: $border-radius-lg;
+  border-radius: $border-radius-btn;
   font-weight: lighter;
   opacity: 1;
   transition: opacity 0.3s ease;
@@ -37,7 +37,7 @@
   color: white;
   background-color: $red;
   padding: .2rem .5rem;
-  opacity: 1;
+  opacity: 0.8;
   font-size: .7rem;
   font-weight: 400;
   margin-left: 0.1rem;
