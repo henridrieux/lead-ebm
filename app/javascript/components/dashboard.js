@@ -7,8 +7,8 @@ const initUpdateDashboardViewsOnClick = () => {
     const viewAbo = document.querySelector('.abo-btn');
     const viewLead = document.querySelector('.lead-btn');
     const boxOver = document.querySelector('.overview');
-    const boxAbo = document.querySelector('.abonnement');
-    const boxLead = document.querySelector('.lead');
+    const boxAbo = document.querySelector('.abonnements');
+    const boxLead = document.querySelector('.leads');
     boxAbo.hidden = true;
     boxLead.hidden = true;
 

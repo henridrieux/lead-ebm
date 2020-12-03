@@ -5,7 +5,8 @@
       <div class="category-description ml-4">
         <div class="category-head-top-infos">
           <h1> <%=@category.name%> </h1>
-          <span class="category-link"> (<%= @category.event_categories.count - @category.subscriptions.where(user: current_user).count %> évènements disponibles )</span>
+          <% nb_user_abo = @category.subscriptions.where(user: current_user).count %>
+          <span class="tag-event"> <%= @category.event_categories.count - nb_user_abo %> disponibles</span>
         </div>
         <p>Fiez-vous à des données fraîches et précises grâce à nos recherches exclusives en temps réel sur la profession de <%=@category.name%>.
           Agissez immédiatement en fonction des nouvelles informations, avec des alertes de vente et des notifications de changement de poste par exemple.</p>
@@ -17,10 +18,17 @@
 <!-- EVENTS DE LA CATEGORY -->
 
 <div class="container">
-  <div class="">
-     <button class="card-minimum flex-between mt-3" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        Les événements déjà abonnés ∨
+  <div class="mb-5">
+    <div class="flex-between py-3">
+      <button class="card-minimum flex-between">
+          <%= link_to "<<< Retour vers les autres categories du panel", categories_path , class:"text-decoration-none" %>
+      </button>
+      <% if nb_user_abo > 0 %>
+        <button class="card-minimum flex-between" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Voir les événements déjà abonnés <i class="fas fa-caret-down ml-2"></i>
         </button>
+      <% end %>
+    </div>
     <% @category.event_categories.each do |event_category| %>
       <% if Subscription.find_by(user: current_user, event_category:event_category ) %>
         <div class="collapse" id="collapseExample">
@@ -38,9 +46,6 @@
 <!-- RETOUR A L'INDEX -->
 
 <div class="container">
-  <button class="card-minimum flex-between mt-3 mb-4">
-      <%= link_to "<<< Retour vers les autres categories du panel", categories_path , class:"text-decoration-none" %>
-  </button>
 </div>
 
 

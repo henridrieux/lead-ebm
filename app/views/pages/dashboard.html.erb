@@ -60,8 +60,7 @@
         <% end %>
       </div>
     </div>
-    <div class="abonnement">
-      <div class="abonnement-box">
+    <div class="abonnements">
         <div class="box-title">
           Abonnements
         </div>
@@ -72,17 +71,16 @@
             <% end %>
           <% end %>
         <% end %>
-      </div>
     </div>
-    <div class="lead">
+    <div class="leads">
         <div class="box-title">
-          # all Leads
+          Tous nos L.E.A.D.
         </div>
         <% @my_sub_event_cat.each do |event_cat| %>
           <% event_cat.get_company_leads.each do |lead| %>
               <%= render partial: 'event_categories/lead_company_card_small', locals: {lead: lead, event: event_cat.event} %>
           <% end %>
         <% end %>
-    </div>
+      </div>
   </div>
 </div>
