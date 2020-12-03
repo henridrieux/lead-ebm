@@ -21,20 +21,9 @@
   background-color: $light-gray;
 }
 
-.home-arguments {
-  margin: 0.5rem 0 0rem 0;
-}
-
-.home-arguments-cta {
-  text-align: center;
-  background-color: $light-gray;
-  height: 175px;
-  padding-top: 20px;
-}
-
 .card-home-arguments {
   img {
-    height: 64px;
+    height: 100px;
     object-fit: cover;
   }
   h4 {
