@@ -13,10 +13,12 @@
     </div>
   </div>
   <div class="card-lead-details">
-      <p>
-        <i class="fas fa-map-marker-alt mr-1"></i>
-        <%= lead.address %> - <%= lead.city %> <%= lead.zip_code %>
-      </p>
+      <div class="location">
+        <p>
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          <%= lead.address %> - <%= lead.city %> <%= lead.zip_code %>
+        </p>
+      </div>
       <div class="card-lead-event creation">
         <% if lead.creation_date && event.title == "Créations de société" %>
           <p>
@@ -51,5 +53,42 @@
             <% end %>
           <% end %>
       </div>
+      <div class="options-show">
+        <small>voir plus </small> <i class="fas fa-caret-down ml-1"></i>
+      </div>
   </div>
+  <div class="card-lead-options d-none">
+    <div class="options-details">
+      Informations détaillées :
+    <p>
+      <i class="fas fa-scroll"> </i>
+      SIRET : <%= lead.siret %>
+    </p>
+    <p>
+      <i class="fas fa-scroll"> </i>
+      SIREN : <%= lead.siren %>
+    </p>
+    <p>
+       <i class="fas fa-building mr-1"> </i>
+       <%= lead.legal_structure %>
+    </p>
+    <% if lead.creation_date? %>
+      <p>
+        <i class="fas fa-play mr-1"></i>
+        Créée le <%= lead.creation_date.strftime("%d/%m/%Y") %>
+      </p>
+    <% end %>
+    <p>
+      <i class="fas fa-user-friends mr-1"> </i>
+      <%= lead.head_count %>
+    </p>
+    <p>
+      <%= lead.recruitments.count %> recrutements en cours
+    </p>
+    </div>
+    <div class="options-hide d-none">
+      <small>voir moins </small> <i class="fas fa-caret-up ml-1"></i>
+    </div>
+  </div>
+
 </div>
