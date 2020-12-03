@@ -2,13 +2,14 @@
 .side-bar {
   display: block;
   min-height: 100vh;
+  min-width: 230px;
   border-right: .5px solid $light-gray;
-  padding: 2rem;
+  padding: 1rem;
   background-color: white;
 }
 
 .dash-brand {
-  height: 100px;
+  height: 160px;
   img {
     height: 40px;
   }
