@@ -21,14 +21,13 @@
           </li>
         <% end %>
         <% if user_signed_in? %>
-          <li class="nav-item">
-          <!-- active -->
+          <li class="nav-item <%= 'active-item' if params[:controller] == 'pages' && params[:action] == 'home' %>">
             <%= link_to "Home", "/", class: "nav-link" %>
           </li>
-          <li class="nav-item">
+          <li class="nav-item <%= 'active-item' if params[:controller] == 'categories' && params[:action] == 'index' %>">
             <%= link_to "Panel", categories_path, class: "nav-link" %>
           </li>
-          <li class="nav-item">
+          <li class="nav-item <%= 'active-item' if params[:controller] == 'pages' && params[:action] == 'dashboard' %>">
             <%= link_to "Dashboard", "/dashboard", class: "nav-link" %>
           </li>
           <li class="nav-item dropdown">
