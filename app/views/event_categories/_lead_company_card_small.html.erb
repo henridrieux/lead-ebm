@@ -11,7 +11,7 @@
     <div class="card-lead-event">
       <div class="slack-status" >
         <% if current_user.webhook_slack? %>
-            <i class="fab fa-slack mx-2" alt="Slack activé"></i>
+            <span class="icon-slack" alt="Slack activé"><%= image_tag("favicon-slack.png")%></span>
         <% end %>
       </div>
       <div class="tag-event" style="background-color: <%= event.color_code %>">

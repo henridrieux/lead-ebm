@@ -33,7 +33,7 @@
     <div class="slack-dash">
       <% if current_user.webhook_slack? %>
         <p class="mt-5 ml-2">
-          <i class="fab fa-slack"></i>
+          <span class="icon-slack"><%= image_tag("favicon-slack.png")%></span>
             = Slack activé
         </p>
       <% end %>

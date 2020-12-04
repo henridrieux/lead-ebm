@@ -13,7 +13,7 @@
     <div class="slack-status">
       <% if current_user.webhook_slack? %>
         <small class="ml-3">
-          <i class="fab fa-slack"></i>  = Slack activé
+         <span class="icon-slack"><%= image_tag("favicon-slack.png")%></span>  = Slack activé
           <em>(vous recevez tous les jours vos nouveaux leads dans votre application Slack.)</em>
         </small>
       <% else %>
