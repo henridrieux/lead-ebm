@@ -34,7 +34,7 @@
           </p>
           <p class="card-event">
             <i class="fas fa-play mr-1"></i>
-            Créée le <%= lead.creation_date.strftime("%d/%m/%Y") %>
+            Créée le <%= l(lead.creation_date, format: :long, locale: :fr) %>
           </p>
         <% end %>
       </div>
@@ -42,7 +42,7 @@
         <% if lead.last_moving_date && event.title == "Sociétés qui déménagent" %>
           <p class="card-event">
             <i class="fas fa-truck-moving mr-1"></i>
-            Déménagement le <%= lead.last_moving_date.strftime("%d/%m/%Y") %>
+            Déménagement le <%= l(lead.last_moving_date, format: :long, locale: :fr) %>
           </p>
         <% end %>
       </div>
@@ -64,7 +64,7 @@
         <% if lead.fusion_date && event.title == "Sociétés qui fusionnent" %>
           <p class="card-event">
             <i class="fas fa-object-group"></i>
-            Fusion le <%= lead.fusion_date.strftime("%d/%m/%Y") %>
+            Fusion le <%= l(lead.fusion_date, format: :long, locale: :fr) %>
           </p>
         <% end %>
       </div>
@@ -72,7 +72,7 @@
         <% if lead.website_date && event.title == "Sociétés qui créent leur site internet" %>
           <p class="card-event">
             <i class="fas fa-at"></i>
-            En ligne depuis le <%= lead.website_date.strftime("%d/%m/%Y") %>
+            En ligne depuis <%= l(lead.website_date, format: "%B %Y", locale: :fr) %>
           </p>
         <% end %>
       </div>
@@ -80,7 +80,7 @@
         <% if lead.second_headquarter_date && event.title == "Ouvertures d'un nouvel établissement" %>
           <p class="card-event">
             <i class="fas fa-building"></i>
-            Ouverture du 2nd siège le <%= lead.second_headquarter_date.strftime("%d/%m/%Y") %>
+            Ouverture du 2nd siège le <%= l(lead.second_headquarter_date, format: :long, locale: :fr) %>
           </p>
         <% end %>
       </div>
@@ -106,8 +106,7 @@
     </p>
     <% if lead.creation_date? %>
       <p>
-        <i class="fas fa-play mr-1"></i>
-        Créée le <%= lead.creation_date.strftime("%d/%m/%Y") %>
+        Création le <%= lead.creation_date.strftime("%d/%m/%Y") %>
       </p>
     <% end %>
     <p>
