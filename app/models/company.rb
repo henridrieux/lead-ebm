@@ -8,6 +8,4 @@ class Company < ApplicationRecord
   validates :siret, presence: true
   validates :siren, presence: true
   validates :naf_code, presence: true
-  #validates :rcs_inscription, presence: true
-  #validates :manager_birth_year, presence: true
 end

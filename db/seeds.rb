@@ -151,17 +151,17 @@ event_4 = {
   description: "Identifier les sociétés qui ont fusionné récemment",
   frequency: "sur 1 an",
   color_code: "#B6BAEA",
-  query: "creation_date > ?",
-  query_params: "30",
+  query: "fusion_date > ?",
+  query_params: "360",
   url_icon:"https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/fusion_ftodyw.png"
 }
 event_5 = {
   title: "Sociétés qui créent leur site internet",
   description: "Identifier les sociétés qui créent leur site internet",
-  frequency: "sur 6 mois",
+  frequency: "sur 3 mois",
   color_code: "#FC454A",
-  query: "creation_date > ?",
-  query_params: "180",
+  query: "website_date > ?",
+  query_params: "90",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/website_efa8la.png"
 }
 event_6 = {
@@ -169,7 +169,7 @@ event_6 = {
   description: "Identifier les sociétés qui ont ouvert un deuxième siège social",
   frequency: "sur 1 an",
   color_code: "#F2C94D",
-  query: "creation_date > ?",
+  query: "second_headquarter_date > ?",
   query_params: "30",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/etablissement_j5ithk.png"
 }

@@ -60,6 +60,31 @@
             <% end %>
           <% end %>
       </div>
+      <div class="card-lead-event fusion">
+        <% if lead.fusion_date && event.title == "Sociétés qui fusionnent" %>
+          <p class="card-event">
+            <i class="fas fa-object-group"></i>
+            Fusion le <%= lead.fusion_date.strftime("%d/%m/%Y") %>
+          </p>
+        <% end %>
+      </div>
+      <div class="card-lead-event website">
+        <% if lead.website_date && event.title == "Sociétés qui créent leur site internet" %>
+          <p class="card-event">
+            <i class="fas fa-at"></i>
+            En ligne depuis le <%= lead.website_date.strftime("%d/%m/%Y") %>
+          </p>
+        <% end %>
+      </div>
+      <div class="card-lead-event second-head">
+        <% if lead.second_headquarter_date && event.title == "Ouvertures d'un nouvel établissement" %>
+          <p class="card-event">
+            <i class="fas fa-building"></i>
+            Ouverture du 2nd siège le <%= lead.second_headquarter_date.strftime("%d/%m/%Y") %>
+          </p>
+        <% end %>
+      </div>
+
       <div class="options-show">
         <small>voir plus </small> <i class="fas fa-caret-down ml-1"></i>
       </div>
