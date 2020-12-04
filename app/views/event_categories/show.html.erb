@@ -1,16 +1,19 @@
 <div class="container">
   <div class="header-top">
     <h1 class="text-center">
+      <br>
       <%= link_to category_path(@event_category.category), class: "text-decoration-none" do  %>
         <%= @event_category.category.name %>
       <% end %>
-      - <%= @event_category.event.title %>
+      - <span class="tag-event-big" style="background-color: <%= @event_category.event.color_code %>">
+        <%= @event_category.event.title %>
+        </span>
      </h1>
   </div>
     <div class="slack-status">
       <% if current_user.webhook_slack? %>
         <small class="ml-3">
-          <i class="fab fa-slack"></i>  = Slack activé
+         <span class="icon-slack"><%= image_tag("favicon-slack.png")%></span>  = Slack activé
           <em>(vous recevez tous les jours vos nouveaux leads dans votre application Slack.)</em>
         </small>
       <% else %>
