@@ -62,7 +62,7 @@
           L.E.A.D. des dernières 24h
         </div>
         <% @my_sub_event_cat.each do |event_cat| %>
-          <% event_cat.get_company_leads_from_date(Date.today-1).first(5).each do |lead| %>
+          <% event_cat.get_new_leads.first(5).each do |lead| %>
               <%= render partial: 'event_categories/lead_company_card_small', locals: {lead: lead, event: event_cat.event} %>
           <% end %>
         <% end %>
