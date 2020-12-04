@@ -32,7 +32,7 @@ class EventCategory < ApplicationRecord
   end
 
   def get_new_leads
-    @new_leads = self.get_company_leads_from_date(Date.today)
+    @new_leads = self.get_company_leads_from_date(Date.today-1)
     return @new_leads
   end
 
