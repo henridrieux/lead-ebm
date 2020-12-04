@@ -1,10 +1,13 @@
 <div class="container">
   <div class="header-top">
     <h1 class="text-center">
+      <br>
       <%= link_to category_path(@event_category.category), class: "text-decoration-none" do  %>
         <%= @event_category.category.name %>
       <% end %>
-      - <%= @event_category.event.title %>
+      - <span class="tag-event-big" style="background-color: <%= @event_category.event.color_code %>">
+        <%= @event_category.event.title %>
+        </span>
      </h1>
   </div>
     <div class="slack-status">
