@@ -27,6 +27,7 @@ class EventCategory < ApplicationRecord
     else
       companies = Company.includes(:category, :events, :recruitments).where(category: self.category)
       @leads = companies ? companies.where(query, query_params) : nil
+      @leads = @leads.order(creation_date: :desc)
     end
     return @leads
   end
