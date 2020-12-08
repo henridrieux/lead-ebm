@@ -1,4 +1,5 @@
 require 'httparty'
+require "open-uri"
 
 class APIPapers
 # Or wrap things up in your own class
@@ -14,20 +15,21 @@ require "json"
         api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
         par_page: number,
         entreprise_cessee: false,
-        nom_entreprise: "",
         code_naf: "69.10Z",
         date_creation_min: date_string
       },
-      headers: {
+       headers: {
         pragma: "no-cache",
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
         "Content-Type": "application/json",
         accept: "*/*",
-        cookie: "__cfduid=da64ed270569726ecde8337ce77714a421606301876"
+        cookie: "__cfduid=d527232f02404f16bcda98a3a52bb74651606225094"
       },
       body: body_request.to_json
     }
-    return_body= HTTParty.get(url, @options).body
+
+    body_request
+    p return_body = HTTParty.get(url, @options).body
     result = JSON.parse(return_body)
     @nb_create = 0
     @nb_update = 0
@@ -169,5 +171,6 @@ require "json"
     input2.category = Category.find_by(name: cat)
     input2.save
   end
-
 end
+
+APIPapers.new.papers_all(4, "01-01-2020")
