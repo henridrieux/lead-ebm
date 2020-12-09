@@ -172,5 +172,3 @@ require "json"
     input2.save
   end
 end
-
-APIPapers.new.papers_all(4, "01-01-2020")
