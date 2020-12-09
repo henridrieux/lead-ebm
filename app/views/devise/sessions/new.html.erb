@@ -1,27 +1,40 @@
-<div class="container">
-  <h2>Connectez-vous</h2>
+<br>
+<br>
 
+<div class="devise">
+  <div>
+  <h2>Connectez-vous</h2>
+  <br>
   <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="form-inputs">
       <%= f.input :email,
                   required: false,
                   autofocus: true,
                   input_html: { autocomplete: "email" },
-                  label: "Adresse email" %>
+                  :placeholder => 'Adresse email',label: "Votre adresse email liée à votre compte" %>
       <%= f.input :password,
                   required: false,
                   input_html: { autocomplete: "current-password" },
-                  label: "Mot de passe" %>
+                  :placeholder => 'Mot de passe',label: "Votre mot de passe" %>
       <%= f.input :remember_me,
                       label: 'Se souvenir de moi',
                       as: :boolean if devise_mapping.rememberable? %>
     </div>
-
-    <div class="form-actions">
-      <%= f.button :submit, "Se connecter" %>
-    </div>
+  <div class="form-actions">
+      <%= f.button :submit, "Se connecter", class: "btn-white-white mt-2" %>
+  </div>
   <% end %>
-
+  <br>
   <%= render "devise/shared/links" %>
+  </div>
+  <div class="devise-signin flex-center">
+      <%= image_tag "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606993377/Capture_d_e%CC%81cran_2020-12-03_a%CC%80_12.02.43_tn9ukt.png", width: 600, height: 350 %>
+  </div>
 
 </div>
+
+<br>
+
+
+
+
