@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/about", to: 'pages#about'
   get "/dashboard", to: 'pages#dashboard'
   get "/cpps", to: 'pages#cpps'
+  get "/legal", to: 'pages#legal'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :companies, only: [:index, :show]
   resources :recruitments, only: [:index, :show]
