@@ -1,5 +1,5 @@
 .footer {
-  height: 150px;
+  height: 130px;
   background-color: $dark-blue;
   text-align: center;
   padding: 3rem;
@@ -20,4 +20,16 @@
 
 .content-wrapper {
   min-height: calc(80vh - 80px - 80px);
+}
+
+.footer-link {
+  display: flex;
+  justify-content: space-around;
+  justify-content: center;
+  .footer-link-list {
+    margin-left: 20px;
+  }
+  h5 {
+    color: white;
+  }
 }
