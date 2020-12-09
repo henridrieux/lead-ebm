@@ -1,9 +1,9 @@
-namespace :recruitment do
-  desc "récupérer les recrutements sur bourse_emploi et les écrire en base"
-  # rails recruitment:fetch_recruitments
-  task fetch_recruitments: :environment do
-    EXCEPTIONS = ["SAS", "SARL", "SELARL", "OFFICE", "NOTARIAL"]
-    def create_recruitment(recruitoffer)
+namespace :recruitmentvj do
+  desc "récupérer les recrutements sur vj et les écrire en base"
+  # rails recruitmentvj:fetch_recruitmentvjs
+  task fetch_recruitmentvjs: :environment do
+
+  def create_recruitment(recruitoffer)
       input = Recruitment.new(
         zip_code: recruitoffer["zipCode"].to_i,
         employer: recruitoffer["officeName"],
@@ -16,14 +16,13 @@ namespace :recruitment do
         employer_phone: recruitoffer["phone"],
         external_id: recruitoffer["idOffer"]
       )
-      cat = Category.find_by(name: "Notaire")
+      cat = Category.find_by(name: "Avocat")
       input.category = cat
       input.company = create_company(recruitoffer)
       if input.save
         @nb_create +=1
       end
     end
-
 
     def create_company(recruitoffer)
       company = Company.find_by(siret: recruitoffer["siret"])
@@ -32,13 +31,13 @@ namespace :recruitment do
       else
         # création rapide de la company
         new_company = Company.create!(
-          company_name: recruitoffer["officeName"],
+          company_name: recruitoffer["company_name"],
           siret: recruitoffer["siret"],
           siren: recruitoffer["siren"],
           naf_code: "69.10Z",
-          zip_code: recruitoffer["zipCode"],
+          zip_code: recruitoffer["zip_code"],
           city: recruitoffer["city"],
-          category_id: Category.find_by(name: "Notaire").id
+          category_id: Category.find_by(name: "Avocat").id
         )
         # enrichissement de la company
         APIPapers.new.papers_one(new_company.siret)
@@ -62,12 +61,11 @@ namespace :recruitment do
       input.save
     end
 
-    def run_bourse_emploi(number)
-      data = APIBourseEmploiNew.new.bourse_emploi(number)
+    def run_vj
+      data = ScrapVj.new.get_vj_recruit_offers
       @nb_update = 0
       @nb_create = 0
       data.each do |recruitoffer|
-        # p recruitment.find_by(external_id: recruitoffer["idOffer"])
         if Recruitment.find_by(external_id: recruitoffer["idOffer"])
           update_recruitment(recruitoffer)
           p "emploi updated"
@@ -80,6 +78,7 @@ namespace :recruitment do
       puts "#{@nb_create} créations et #{@nb_update} updates"
     end
 
-    run_bourse_emploi(20)
+    run_vj
+
   end
 end

@@ -4,8 +4,8 @@ class Company < ApplicationRecord
   has_many :events, through: :event_categories
   has_many :recruitments
 
-  validates :company_name, presence: true
-  validates :siret, presence: true
-  validates :siren, presence: true
-  validates :naf_code, presence: true
+  # validates :company_name, presence: true
+  # validates :siret, presence: true
+  # validates :siren, presence: true
+  # validates :naf_code, presence: true
 end
