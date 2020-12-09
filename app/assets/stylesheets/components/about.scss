@@ -1,0 +1,55 @@
+.about {
+background-color: #ec524b;
+height: 950px;
+
+}
+
+.values {
+  color: $gray;
+  text-align: center;
+  background-color: white;
+  width: 400px;
+  height: 350px;
+  border-radius: 15px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-shadow: 5px 10px 16px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  h3 {
+    text-align: center;
+    color: $gray;
+  }
+  h4 {
+    color: #ec524b;
+  }
+  i {
+    font-size: 50px;
+    color: #ec524b;
+  }
+}
+
+.about-values {
+  margin-left: 120px;
+  margin-right: 120px;
+  display: flex;
+  justify-content: center;
+  justify-content: space-around;
+
+}
+
+.cta-about {
+  text-align: center;
+  margin-top: 70px;
+}
+
+.about-arguments-ctd {
+  padding-top: 40px;
+  background-color: $light-gray;
+  .about-testimony {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
