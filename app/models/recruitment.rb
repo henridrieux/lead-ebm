@@ -1,5 +1,4 @@
 class Recruitment < ApplicationRecord
-  belongs_to :category
   belongs_to :company
   validates :employer, presence: true
   validates :job_title, presence: true
