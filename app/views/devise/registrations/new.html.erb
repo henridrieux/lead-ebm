@@ -26,7 +26,11 @@
         <%= f.input :password_confirmation,
                     required: true,
                     input_html: { autocomplete: "new-password" } %>
+
       </div>
+
+      <p>En cochant cette case j'accepte les <a target="_blank" href="cpps">CGU</a> de LEAD : <input name="cgu" type="checkbox" value=""></p>
+      <!-- <span class="mr-2" style="color: red;"> (Champ obligatoire) </span> -->
 
       <div class="form-actions">
       <%= f.button :submit, "Enregistrer", class: "btn-white-white mt-2" %>
