@@ -19,7 +19,7 @@
 }
 
 .content-wrapper {
-  min-height: calc(80vh - 80px - 80px);
+  min-height: calc(50vh - 50px - 50px);
 }
 
 .footer-link {
@@ -27,9 +27,9 @@
   justify-content: space-around;
   justify-content: center;
   .footer-link-list {
-    margin-left: 20px;
+    margin-left: 25px;
   }
-  h5 {
+  h6 {
     color: white;
   }
 }
