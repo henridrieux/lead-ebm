@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_085624) do
+ActiveRecord::Schema.define(version: 2020_12_10_162831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,7 +72,6 @@ ActiveRecord::Schema.define(version: 2020_12_04_085624) do
   end
 
   create_table "event_categories", force: :cascade do |t|
-    t.string "title"
     t.bigint "category_id", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -94,7 +93,6 @@ ActiveRecord::Schema.define(version: 2020_12_04_085624) do
   end
 
   create_table "recruitments", force: :cascade do |t|
-    t.bigint "category_id", null: false
     t.string "employer"
     t.string "job_title"
     t.string "contract_type"
@@ -108,7 +106,6 @@ ActiveRecord::Schema.define(version: 2020_12_04_085624) do
     t.string "employer_name"
     t.string "external_id"
     t.bigint "company_id"
-    t.index ["category_id"], name: "index_recruitments_on_category_id"
     t.index ["company_id"], name: "index_recruitments_on_company_id"
   end
 
@@ -144,7 +141,6 @@ ActiveRecord::Schema.define(version: 2020_12_04_085624) do
   add_foreign_key "companies", "categories"
   add_foreign_key "event_categories", "categories"
   add_foreign_key "event_categories", "events"
-  add_foreign_key "recruitments", "categories"
   add_foreign_key "recruitments", "companies"
   add_foreign_key "subscriptions", "event_categories"
   add_foreign_key "subscriptions", "users"
