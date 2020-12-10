@@ -1,5 +1,11 @@
+<br>
+<div class="devise">
 <div class="container">
-  <h2>Editer mon profil</h2>
+  <h2 style="text-align: center;">Editer mon profil</h2>
+
+  <br>
+
+  <h3>Mes informations personnels :</h3>
 
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= f.error_notification %>
@@ -11,32 +17,41 @@
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
       <%= f.input :first_name, :placeholder => 'Jean', label: 'Prénom' %>
-      <%= f.input :last_name, label: 'Nom de famille', :placeholder => 'Bon' %>
+      <%= f.input :last_name, label: 'Nom de famille', :placeholder => 'Plus' %>
       <%= f.input :company_name, label: 'Nom de votre société', :placeholder => 'Google France' %>
       <%= f.input :photo, as: :file, label: "Votre photo de profil" %>
       <img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" />
-      <%= f.input :webhook_slack, label: "Votre webhook slack" %>
+      <%= f.input :webhook_slack, label: "Votre webhook slack (https://slack.com/intl/fr-fr/help/articles/115005265063-Webhooks-entrants-pour-Slack)" %>
+
+      <br>
+
+      <h3>Valider votre mot de passe pour enregistrer vos modifications :</h3>
+
       <%= f.input :password,
-                  hint: "leave it blank if you don't want to change it",
+                  hint: "Laissez le champ vide si vous ne voulez pas le changer",
                   required: false,
-                  input_html: { autocomplete: "new-password" } %>
+                  input_html: { autocomplete: "mot de passe" } %>
       <%= f.input :password_confirmation,
                   required: false,
-                  input_html: { autocomplete: "new-password" } %>
+                  input_html: { autocomplete: "mot de passe" } %>
       <%= f.input :current_password,
-                  hint: "we need your current password to confirm your changes",
+                  hint: "Nous avons besoin de votre mot de passe actuel pour confirmer vos changements",
                   required: true,
-                  input_html: { autocomplete: "current-password" } %>
+                  input_html: { autocomplete: "mot de passe actuel" } %>
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit, "Update", class: "btn, btn-ghost" %>
+      <%= f.button :submit, "Enregistrer", class: "btn-white-white mt-2" %>
     </div>
   <% end %>
 
-  <h3>Cancel my account</h3>
+  <hr>
 
-  <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+  <h3>Supprimer mon compte</h3>
 
-  <%= link_to "Back", :back %>
+  <p>Mécontent ? Vous pouvez supprimer votre compte en cliquant : <%= link_to "ici", registration_path(resource_name), data: { confirm: "Etes-vous sur?" }, method: :delete %></p>
+  <br>
+  <%= link_to "Revenir à la page précedente", :back %>
+  <br>
+</div>
 </div>

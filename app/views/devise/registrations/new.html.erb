@@ -1,33 +1,40 @@
-<div class="container">
-  <h2>Sign up</h2>
+<br>
+<div class="devise">
+  <div class="container">
+    <h2 style="text-align: center;">Créer mon compte</h2>
+    <br>
+    <h3>Mes informations personnels :</h3>
 
-  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= f.error_notification %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= f.error_notification %>
 
-    <div class="form-inputs">
-      <%= f.input :email,
-                  required: true,
-                  autofocus: true,
-                  input_html: { autocomplete: "email" },
-                  :placeholder => 'Jean.bon@gmail.com'%>
-      <%= f.input :first_name, :placeholder => 'Jean', label: 'Prénom' %>
-      <%= f.input :last_name, label: 'Nom de famille', :placeholder => 'Bon' %>
-      <%= f.input :company_name, label: 'Nom de votre société', :placeholder => 'Google France' %>
-      <%= f.input :photo, as: :file, label: "Votre photo de profil" %>
-      <%= f.input :webhook_slack, label: "Votre webhook slack" %>
-      <%= f.input :password,
-                  required: true,
-                  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                  input_html: { autocomplete: "new-password" } %>
-      <%= f.input :password_confirmation,
-                  required: true,
-                  input_html: { autocomplete: "new-password" } %>
-    </div>
+      <div class="form-inputs">
+        <%= f.input :email,
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "email" },
+                    :placeholder => 'Jean.plus@gmail.com'%>
+        <%= f.input :first_name, :placeholder => 'Jean', label: 'Prénom' %>
+        <%= f.input :last_name, label: 'Nom de famille', :placeholder => 'Bon' %>
+        <%= f.input :company_name, label: 'Nom de votre société', :placeholder => 'Google France' %>
+        <%= f.input :photo, as: :file, label: "Votre photo de profil" %>
+        <%= f.input :webhook_slack, label: "Votre webhook slack (https://slack.com/intl/fr-fr/help/articles/115005265063-Webhooks-entrants-pour-Slack)" %>
+        <%= f.input :password,
+                    required: true,
+                    hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                    input_html: { autocomplete: "new-password" } %>
+        <%= f.input :password_confirmation,
+                    required: true,
+                    input_html: { autocomplete: "new-password" } %>
+      </div>
 
-    <div class="form-actions">
-      <%= f.button :submit, "Sign up" %>
-    </div>
-  <% end %>
+      <div class="form-actions">
+      <%= f.button :submit, "Enregistrer", class: "btn-white-white mt-2" %>
+      </div>
+    <% end %>
 
-  <%= render "devise/shared/links" %>
+    <br>
+
+    <%= render "devise/shared/links" %>
+  </div>
 </div>
