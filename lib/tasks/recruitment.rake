@@ -37,7 +37,7 @@ namespace :recruitment do
           naf_code: "69.10Z",
           zip_code: recruitoffer["zipCode"],
           city: recruitoffer["city"],
-          # category_id: Category.find_by(name: "Notaire").id
+          category_id: Category.find_by(name: "Notaire").id
         )
         # enrichissement de la company
         APIPapers.new.papers_one(new_company.siret)
