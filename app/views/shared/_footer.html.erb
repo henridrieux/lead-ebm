@@ -10,28 +10,33 @@
     <p>Ce site internet a été fait avec ❤️ par l'équipe LEAD depuis Paris.</p>
   </div>
 
+<br>
 
   <div class="footer-link">
     <div class="footer-link">
-      <a href="about"><h6>A propos</h6></a>
+      <%= link_to "A propos", legal_path %>
+      <!-- <a href="about"><h6>A propos</h6></a> -->
       <div class="footer-link-list">
       </div>
     </div>
 
      <div class="footer-link">
-      <a href="cpps"><h6>CPPS</h6></a>
+      <%= link_to "CPPS", legal_path %>
+      <!-- <a href="cpps"><h6>CPPS</h6></a>
+ -->      <div class="footer-link-list">
+      </div>
+    </div>
+
+     <div class="footer-link">
+      <%= link_to "Mentions légales", legal_path %>
+    <!--   <a href="legal"><h6>Mentions légales</h6></a> -->
       <div class="footer-link-list">
       </div>
     </div>
 
      <div class="footer-link">
-      <a href="legal"><h6>Mentions légales</h6></a>
-      <div class="footer-link-list">
-      </div>
-    </div>
-
-     <div class="footer-link">
-      <a href="contact"><h6>Contact</h6></a>
+      <%= link_to "Contact", legal_path %>
+     <!--  <a href="contact"><h6>Contact</h6></a> -->
       <div class="footer-link-list">
       </div>
     </div>
