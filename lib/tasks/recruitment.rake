@@ -16,14 +16,13 @@ namespace :recruitment do
         employer_phone: recruitoffer["phone"],
         external_id: recruitoffer["idOffer"]
       )
-      cat = Category.find_by(name: "Notaire")
-      input.category = cat
+      # cat = Category.find_by(name: "Notaire")
+      # input.category = cat
       input.company = create_company(recruitoffer)
       if input.save
-        @nb_create +=1
+        @nb_create += 1
       end
     end
-
 
     def create_company(recruitoffer)
       company = Company.find_by(siret: recruitoffer["siret"])
@@ -38,7 +37,7 @@ namespace :recruitment do
           naf_code: "69.10Z",
           zip_code: recruitoffer["zipCode"],
           city: recruitoffer["city"],
-          category_id: Category.find_by(name: "Notaire").id
+          # category_id: Category.find_by(name: "Notaire").id
         )
         # enrichissement de la company
         APIPapers.new.papers_one(new_company.siret)
@@ -80,6 +79,6 @@ namespace :recruitment do
       puts "#{@nb_create} créations et #{@nb_update} updates"
     end
 
-    run_bourse_emploi(30)
+    run_bourse_emploi(8)
   end
 end
