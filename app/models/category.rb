@@ -1,7 +1,6 @@
 class Category < ApplicationRecord
   has_many :companies
   has_many :event_categories
-  has_many :recruitments
   has_many :subscriptions, through: :event_categories
   has_one_attached :photo
 

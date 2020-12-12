@@ -20,10 +20,9 @@ namespace :recruitment do
       # input.category = cat
       input.company = create_company(recruitoffer)
       if input.save
-        @nb_create +=1
+        @nb_create += 1
       end
     end
-
 
     def create_company(recruitoffer)
       company = Company.find_by(siret: recruitoffer["siret"])
@@ -81,6 +80,7 @@ namespace :recruitment do
       end
       puts "#{@nb_create} créations et #{@nb_update} updates"
     end
+
 
     run_bourse_emploi(10)
   end

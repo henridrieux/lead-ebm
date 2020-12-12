@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   root to: 'pages#home'
+  get "/about", to: 'pages#about'
   get "/dashboard", to: 'pages#dashboard'
+  get "/cpps", to: 'pages#cpps'
+  get "/legal", to: 'pages#legal'
+  get "/contact", to: 'pages#contact'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :companies, only: [:index, :show]
   resources :recruitments, only: [:index, :show]

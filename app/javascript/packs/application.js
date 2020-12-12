@@ -30,6 +30,7 @@ import "bootstrap";
 import { initUpdateDashboardViewsOnClick } from "../components/dashboard";
 import { toggleCardsLeadsDetailsOnClick } from "../components/leadcard";
 import { initUpdateNavbarOnScroll } from "../components/navbar";
+// import { cguOnClick } from "../components/navbar";
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
@@ -37,4 +38,24 @@ document.addEventListener('turbolinks:load', () => {
   initUpdateNavbarOnScroll();
   toggleCardsLeadsDetailsOnClick();
   initUpdateDashboardViewsOnClick();
+  // cguOnClick();
 });
+
+
+
+// const cgu = document.getElementById("cgu");
+// cgu.addEventListener("click", (event) => {
+//   const btn = document.getElementById("btn-cgu")
+//   event.currentTarget.setAttribute("disabled", "");
+//   console.log(event);
+// });
+
+// const button = document.querySelector('#cgu');
+
+// button.addEventListener('click', (event) => {
+//   event.currentTarget.setAttribute("disabled", "");
+//   // event.currentTarget.innerText = 'Hold still...';
+//   event.currentTarget.setAttribute("disabled", "");
+// });
+
+

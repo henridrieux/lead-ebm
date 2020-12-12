@@ -1,5 +1,5 @@
 .footer {
-  height: 150px;
+  height: 130px;
   background-color: $dark-blue;
   text-align: center;
   padding: 3rem;
@@ -19,5 +19,17 @@
 }
 
 .content-wrapper {
-  min-height: calc(80vh - 80px - 80px);
+  min-height: calc(50vh - 50px - 50px);
+}
+
+.footer-link {
+  display: flex;
+  justify-content: space-around;
+  justify-content: center;
+  .footer-link-list {
+    margin-left: 25px;
+  }
+  h6 {
+    color: white;
+  }
 }
