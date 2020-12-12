@@ -1,7 +1,7 @@
 require 'httparty'
 require "open-uri"
 
-class APIPapers
+class APIPapers8621z
 # Or wrap things up in your own class
 
 require "json"
@@ -15,7 +15,7 @@ require "json"
         api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
         par_page: number,
         entreprise_cessee: false,
-        code_naf: "69.10Z",
+        code_naf: "86.21Z",
         date_creation_min: date_string
       },
        headers: {
@@ -72,7 +72,7 @@ require "json"
     }
     return_body_siret = HTTParty.get(url2, @options).read_body
     result2 = JSON.parse(return_body_siret)
-    #p result2
+    # p result2
     return result2
   end
 
@@ -106,37 +106,9 @@ require "json"
       activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
     )
 
-    cat = check_category(input2)
+    cat = "Médecin"
     input2.category = Category.find_by(name: cat)
     input2.save
-  end
-
-  def test_category(input, keyword, cat_name)
-    test = false
-    test1 = input.company_name.match?(/.*#{keyword}.*/i)
-    test2 = input.activities.match?(/.*#{keyword}.*/i) if input.activities
-    test3 = input.social_purpose.match?(/.*#{keyword}.*/i) if input.social_purpose
-    test = test1 |  test2 || test3
-  end
-
-  def check_category (input)
-    cat = "Greffier"
-    if input.category && input.category == Category.find_by(name: "Notaire")
-      cat = "Notaire"
-    end
-    prof_test = {
-      "Administrateur judiciaire" => "administrateur",
-      "Commissaire-priseur" => "commissaire",
-      "Greffier" => "greffier",
-      "Avocat" => "avocat",
-      "Huissier" => "huissier",
-      "Notaire" => "nota"
-    }
-    prof_test.each do |k,v|
-      cat = k if test_category(input, v, k)
-    end
-    p cat
-    return cat
   end
 
   def update_company(company)
@@ -167,8 +139,10 @@ require "json"
       naf_code: company["siege"]["code_naf"],
       activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
     )
-    cat = check_category(input2)
+    cat = "Médecin"
     input2.category = Category.find_by(name: cat)
     input2.save
   end
 end
+
+# APIPapers6920Z.new.papers_all(20, "01-01-2020")
