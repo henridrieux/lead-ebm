@@ -16,8 +16,10 @@ namespace :recruitmentvj do
         employer_phone: recruitoffer["phone"],
         external_id: recruitoffer["idOffer"]
       )
-      cat = Category.find_by(name: "Avocat")
-      input.category = cat
+
+      # cat = Category.find_by(name: "Avocat")
+      # input.category = cat
+
       input.company = create_company(recruitoffer)
       if input.save
         @nb_create +=1
@@ -25,7 +27,9 @@ namespace :recruitmentvj do
     end
 
     def create_company(recruitoffer)
-      company = Company.find_by(siret: recruitoffer["siret"])
+
+      company = Company.find_by(recruitoffer[:external_id])
+
       if company
         company
       else
@@ -46,7 +50,9 @@ namespace :recruitmentvj do
     end
 
     def update_recruitment(recruitoffer)
-      input = Recruitment.find_by(external_id: recruitoffer["idOffer"])
+
+      input = Recruitment.find_by(recruitoffer[:external_id])
+
       input.update(
         zip_code: recruitoffer["zipCode"].to_i,
         employer: recruitoffer["officeName"],
@@ -63,10 +69,14 @@ namespace :recruitmentvj do
 
     def run_vj
       data = ScrapVj.new.get_vj_recruit_offers
+      #p data
       @nb_update = 0
       @nb_create = 0
       data.each do |recruitoffer|
-        if Recruitment.find_by(external_id: recruitoffer["idOffer"])
+        #p recruitoffer[:external_id]
+
+        if Recruitment.find_by(recruitoffer[:external_id])
+
           update_recruitment(recruitoffer)
           p "emploi updated"
           @nb_update +=1
