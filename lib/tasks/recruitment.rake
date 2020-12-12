@@ -16,8 +16,8 @@ namespace :recruitment do
         employer_phone: recruitoffer["phone"],
         external_id: recruitoffer["idOffer"]
       )
-      cat = Category.find_by(name: "Notaire")
-      input.category = cat
+      # cat = Category.find_by(name: "Notaire")
+      # input.category = cat
       input.company = create_company(recruitoffer)
       if input.save
         @nb_create +=1
@@ -64,12 +64,14 @@ namespace :recruitment do
 
     def run_bourse_emploi(number)
       data = APIBourseEmploiNew.new.bourse_emploi(number)
+
       @nb_update = 0
       @nb_create = 0
       data.each do |recruitoffer|
-        # p recruitment.find_by(external_id: recruitoffer["idOffer"])
+        #p recruitment.find_by(external_id: recruitoffer["idOffer"])
         if Recruitment.find_by(external_id: recruitoffer["idOffer"])
           update_recruitment(recruitoffer)
+          #p update_recruitment(recruitoffer)
           p "emploi updated"
           @nb_update +=1
         else
@@ -80,6 +82,6 @@ namespace :recruitment do
       puts "#{@nb_create} créations et #{@nb_update} updates"
     end
 
-    run_bourse_emploi(20)
+    run_bourse_emploi(10)
   end
 end

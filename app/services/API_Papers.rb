@@ -72,7 +72,7 @@ require "json"
     }
     return_body_siret = HTTParty.get(url2, @options).read_body
     result2 = JSON.parse(return_body_siret)
-    # p result2
+    #p result2
     return result2
   end
 

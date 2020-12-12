@@ -7,7 +7,7 @@ class ScrapVj
   def get_vj_recruit_offers
     url_array = get_vj_url
     recruit_offers = get_recruit_offers_array(url_array)
-    p recruit_offers
+    # p recruit_offers.first.class
     return recruit_offers
   end
 
@@ -74,6 +74,7 @@ class ScrapVj
     recruit_offer[:company_name] = recruteur
     recruit_offer[:publication_date] = date
     recruit_offer[:zip_code] = city
+    recruit_offer[:external_id] = "4572455316479808419"
     recruit_offer[:category_id] = "Avocat"
     if recruit_offer[:company_name] == "TeamRH" || recruit_offer[:company_name] == "Neithwork" || recruit_offer[:company_name] == "Neithwork" || recruit_offer[:company_name] == "Fed Légal" || recruit_offer[:company_name] == "Michael Page" || recruit_offer[:company_name] == "Hays"
       recruit_offer[:siret] = "35081090900076"
@@ -82,6 +83,7 @@ class ScrapVj
       recruit_offer[:siret] = papers_name(recruteur)[0]
       recruit_offer[:siren] = papers_name(recruteur)[1]
     end
+    #p recruit_offer.class
     return recruit_offer
   end
 
