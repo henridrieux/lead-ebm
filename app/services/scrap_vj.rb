@@ -7,7 +7,7 @@ class ScrapVj
   def get_vj_recruit_offers
     url_array = get_vj_url
     recruit_offers = get_recruit_offers_array(url_array)
-    # p recruit_offers.first.class
+    # p recruit_offers.first
     return recruit_offers
   end
 
