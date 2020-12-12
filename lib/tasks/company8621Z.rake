@@ -1,23 +1,22 @@
-namespace :company do
+namespace :company8621z do
   desc "récupérer les company sur Papers.com et les écrire en base"
-  # rails company:fetch_compagnies
+  # rails company8621z:fetch_compagnies
   task fetch_compagnies: :environment do
 
     def run_papers(number, date_string)
-      APIPapers.new.papers_all(number, date_string)
+      APIPapers8621z.new.papers_all(number, date_string)
     end
-
-    run_papers(100, "01-01-2015")
+    run_papers(10, "01-01-2015")
   end
 
   # rails company:fetch_one_company
   task fetch_one_company: :environment do
 
     def run_one_paper(siret_string)
-      APIPapers.new.papers_one(siret_string)
+      APIPapers8621z.new.papers_one(siret_string)
     end
 
-    run_one_paper("52503152201109")
+    run_one_paper("89061007400019")
   end
 
   # rails company:push_leads_to_slack
@@ -36,3 +35,5 @@ namespace :company do
   end
 
 end
+
+
