@@ -29,14 +29,15 @@ require "json"
     }
 
     body_request
-    p return_body = HTTParty.get(url, @options).body
+    return_body = HTTParty.get(url, @options).body
     result = JSON.parse(return_body)
     @nb_create = 0
     @nb_update = 0
     nb_request = result["entreprises"].count
     result["entreprises"].each do |v|
       company = transform_json(v["siege"]["siret"])
-      check_company(company)
+      check_company_adress(company)
+      check_company_siret_counter(company)
       nb_treated = @nb_create + @nb_update
       puts " #{nb_treated} / #{nb_request} - #{((nb_treated / nb_request.to_f)*100).round}%"
     end
@@ -47,7 +48,7 @@ require "json"
     @nb_create = 0
     @nb_update = 0
     company = transform_json(siret)
-    check_company(company)
+    check_company_adress(company)
     # puts "#{@nb_create} création et #{@nb_update} update"
     p Company.find_by(siret: siret.to_i)
   end
@@ -76,10 +77,10 @@ require "json"
     return result2
   end
 
-  def check_company(company)
+  def check_company_adress(company)
     Company.find_by(siret: company["siege"]["siret"].to_i)
     if Company.find_by(siret: company["siege"]["siret"].to_i)
-      update_company(company)
+      update_company_adress(company)
       @nb_update += 1
     else
       create_company(company)
@@ -87,10 +88,35 @@ require "json"
     end
   end
 
+   def check_company_siret_counter(company)
+    Company.find_by(siret: company["siege"]["siret"].to_i)
+    if Company.find_by(siret: company["siege"]["siret"].to_i)
+      update_company_siret_counter(company)
+    else
+      create_company(company)
+    end
+  end
+
+  def headquarter_count(siren)
+
+  url = URI("https://api.pappers.fr/v1/entreprise?api_token=3e10f34b388926a0e4030180829391e02b3155bef5f069d5&siren=#{siren}&entreprise_cessee=false")
+  https = Net::HTTP.new(url.host, url.port)
+  https.use_ssl = true
+  request = Net::HTTP::Get.new(url)
+  request["Cookie"] = "Cookie_1=value; __cfduid=d527232f02404f16bcda98a3a52bb74651606225094"
+  response = https.request(request)
+  return_array = response.read_body
+  result = JSON.parse(return_array)
+
+  return result["etablissements"].count
+
+end
+
   def create_company(company)
     input2 = Company.new(
       siren: company["siren"].to_i,
       siret: company["siege"]["siret"].to_i,
+      siret_count: headquarter_count(company["siren"].to_i),
       company_name: company["nom_entreprise"],
       social_purpose: company["objet_social"],
       creation_date: company["siege"]["date_de_creation"],
@@ -105,7 +131,6 @@ require "json"
       naf_code: company["siege"]["code_naf"],
       activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
     )
-
     cat = check_category(input2)
     input2.category = Category.find_by(name: cat)
     input2.save
@@ -116,10 +141,10 @@ require "json"
     test1 = input.company_name.match?(/.*#{keyword}.*/i)
     test2 = input.activities.match?(/.*#{keyword}.*/i) if input.activities
     test3 = input.social_purpose.match?(/.*#{keyword}.*/i) if input.social_purpose
-    test = test1 |  test2 || test3
+    test = test1 || test2 || test3
   end
 
-  def check_category (input)
+  def check_category(input)
     cat = "Greffier"
     if input.category && input.category == Category.find_by(name: "Notaire")
       cat = "Notaire"
@@ -132,14 +157,14 @@ require "json"
       "Huissier" => "huissier",
       "Notaire" => "nota"
     }
-    prof_test.each do |k,v|
+    prof_test.each do |k, v|
       cat = k if test_category(input, v, k)
     end
     p cat
     return cat
   end
 
-  def update_company(company)
+  def update_company_adress(company)
     input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
     address_old = input2[:address]
     address_new = company["siege"]["adresse_ligne_1"]
@@ -152,6 +177,7 @@ require "json"
     input2.update(
       siren: company["siren"].to_i,
       siret: company["siege"]["siret"].to_i,
+      siret_count: headquarter_count(company["siren"].to_i),
       company_name: company["nom_entreprise"],
       social_purpose: company["objet_social"],
       creation_date: company["siege"]["date_de_creation"],
@@ -167,6 +193,43 @@ require "json"
       naf_code: company["siege"]["code_naf"],
       activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
     )
+
+    cat = check_category(input2)
+    input2.category = Category.find_by(name: cat)
+    input2.save
+  end
+
+  def update_company_siret_counter(company)
+    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    siret_count_old = input2[:siret_count]
+    siret_count_new = company["siege"]["siret_count"]
+    if siret_count_old != siret_count_new && !siret_count_old.nil?
+      second_headquarter_date = Date.today
+      puts "1 nouvel établissement"
+    else
+      second_headquarter_date = input2[:second_headquarter_date]
+    end
+    input2.update(
+      siren: company["siren"].to_i,
+      siret: company["siege"]["siret"].to_i,
+      siret_count: headquarter_count(company["siren"].to_i),
+      company_name: company["nom_entreprise"],
+      social_purpose: company["objet_social"],
+      creation_date: company["siege"]["date_de_creation"],
+      registered_capital: company["capital"].to_i,
+      address: company["siege"]["adresse_ligne_1"],
+      zip_code: company["siege"]["code_postal"],
+      city: company["siege"]["ville"],
+      # last_moving_date: last_moving_date,
+      second_headquarter_date: second_headquarter_date,
+      legal_structure: company["forme_juridique"],
+      # manager_name: company["representants"].first["nom_complet"],
+      # manager_birth_year: company["representants"].first["date_de_naissance_formate"].last(4).to_i
+      head_count: company["effectif"],
+      naf_code: company["siege"]["code_naf"],
+      activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
+    )
+
     cat = check_category(input2)
     input2.category = Category.find_by(name: cat)
     input2.save

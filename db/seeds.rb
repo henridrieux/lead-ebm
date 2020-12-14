@@ -79,14 +79,14 @@ cat_7 = {
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606404077/comptable.jpg',
   filename: 'Comptable.jpg'
 }
-cat_8 = {
-  name: "Médecin",
-  description: "Un médecin est un professionnel de la santé titulaire d'un diplôme de docteur
-   en médecine ou, en France d'un diplôme d'État de docteur en médecine. ",
-  color_code:"#54e346",
-  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1607764870/Medecin-geriatre-850x523_ivvnjb.jpg',
-  filename: 'Médecin.jpg'
-}
+# cat_8 = {
+#   name: "Médecin",
+#   description: "Un médecin est un professionnel de la santé titulaire d'un diplôme de docteur
+#    en médecine ou, en France d'un diplôme d'État de docteur en médecine. ",
+#   color_code:"#54e346",
+#   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1607764870/Medecin-geriatre-850x523_ivvnjb.jpg',
+#   filename: 'Médecin.jpg'
+# }
 
 def seed_category(cat)
   if Category.find_by(name: cat[:name])
@@ -117,7 +117,7 @@ end
 
 puts "creating cats..."
 
-ALL_CATS = [cat_1, cat_2, cat_3, cat_4, cat_5, cat_6, cat_7, cat_8]
+ALL_CATS = [cat_1, cat_2, cat_3, cat_4, cat_5, cat_6, cat_7]
 ALL_CATS.each do |cat|
   p cat[:url]
   seed_category(cat)
@@ -173,12 +173,12 @@ event_5 = {
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/website_efa8la.png"
 }
 event_6 = {
-  title: "Ouvertures d'un nouvel établissement",
+  title: "Ouverture nouvel établissement",
   description: "Identifier les sociétés qui ont ouvert un deuxième siège social",
-  frequency: "sur 1 an",
+  frequency: "sur 3 mois",
   color_code: "#F2C94D",
   query: "second_headquarter_date > ?",
-  query_params: "30",
+  query_params: "90",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/etablissement_j5ithk.png"
 }
 
