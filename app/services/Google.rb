@@ -28,8 +28,6 @@ def check_google(siren, category)
   links = html_doc.search('a')
   urls = links.map { |a| a.attribute("href").value }
   return urls
-  # url_recruit_offers = links.map{ |a| a.attribute("href").value }
-  # p links
 end
 
 def http(siren, category)
@@ -44,14 +42,11 @@ def http(siren, category)
       bin << url
     end
   end
-  #p array.first(6)
 
   array2 = array.first(6)
   bin2 = []
   array3 = []
-
   array2.each do |url|
-    # p url
 
     # URL GOOGLE
 
@@ -64,6 +59,8 @@ def http(siren, category)
     domain_pagesjaunes = /(\/url\?q=)(https)\:\/\/www\.pages[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
     domain_linkedin = /(\/url\?q=)(https)\:\/\/fr\.linked[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
     domain_mappy = /(\/url\?q=)(https)\:\/\/fr\.map[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+    domain_facebook = /(\/url\?q=)(https)\:\/\/fr-fr\.faceboo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+    domain_facebook2 = /(\/url\?q=)(https)\:\/\/www\.face[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
     # URL AVOCAT
 
@@ -71,19 +68,27 @@ def http(siren, category)
     domain_doctrine = /(\/url\?q=)(https)\:\/\/www\.doctri[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
     domain_annuaireacte = /(\/url\?q=)(http)\:\/\/annuaire[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
+    # URL NOTAIRE
+
+    # domain_notaire = /(\/url\?q=)(https)\:\/\/www\.notair[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+
     # URL MEDECIN
 
-    # domain_docto = /(\/url\?q=)(https)\:\/\/www\.docto[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-    # domain_rdvmedi = /(\/url\?q=)(https)\:\/\/www.rdvmedi[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-    # domain_docave = /(\/url\?q=)(https)\:\/\/www.docave[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-    # domain_keldoc = /(\/url\?q=)(https)\:\/\/www.keldo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+    domain_docto = /(\/url\?q=)(http)\:\/\/doctoli[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+    domain_docto2 = /(\/url\?q=)(https)\:\/\/www\.docto[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+    domain_rdvmedi = /(\/url\?q=)(https)\:\/\/www.rdvmedi[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+    domain_docave = /(\/url\?q=)(https)\:\/\/www.docave[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+    domain_keldoc = /(\/url\?q=)(https)\:\/\/www.keldo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+    domain_lemedecin = /(\/url\?q=)(https)\:\/\/lemedeci[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
-    if url.match(domain_annuaireacte) ||url.match(domain_google) || url.match(domain_map) || url.match(domain_societe) || url.match(domain_pagesjaunes) || url.match(domain_linkedin) || url.match(domain_consultation) || url.match(domain_doctrine)
+    if url.match(domain_lemedecin) || url.match(domain_docto2) || url.match(domain_docto) || url.match(domain_rdvmedi) || url.match(domain_docave) || url.match(domain_keldoc) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_annuaireacte) || url.match(domain_google) || url.match(domain_map) || url.match(domain_societe) || url.match(domain_pagesjaunes) || url.match(domain_linkedin) || url.match(domain_consultation) || url.match(domain_doctrine)
       bin2 << url
     else
       array3 << url
     end
   end
+
+  p array3
 
   clean = array3.first.to_s.delete_prefix('/url?q=').split('&')
   clean1 = clean.first
@@ -111,81 +116,28 @@ def email(siren, category)
   p email_address
 end
 
-# siren = 342119047
-# siren1 = 434963922
-#siren2 = (880609227, 'avocat')
-# siren = 880612056
-# siren = 880611983
-# siren = 880667530
-# siren = 880556691
+# SIREN AVOCAT
 
-http(434963922, 'avocat')
-email(434963922, 'avocat')
+siren = 342119047
+siren1 = 434963922
+siren2 = 880609227
+siren3 = 880612056
+siren4 = 880611983
+siren5 = 880556691
 
-# def email(siren)
-#   query = website(siren)
-#   cat = "avocat"
-#   url = URI("https://www.google.com/search?q=#{query} #{cat}&aqs=chrome..69i57j33i160.30487j0j7&sourceid=chrome&ie=UTF-8")
-#   # p url
-#   html_file = open(url).read
-#   html_doc = Nokogiri::HTML(html_file)
-#   text = html_doc.search('#search')
-#   domain_regex = (/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
-#   text.each do |span|
-#     p span
-#   end
-#   # if text.match(domain_regex)
-#   #   p text
-#   # end
-#   # span = text.map { |a| a.attribute("span").value }
-#   # p span
+# SIREN NOTAIRE
 
-#   return
-# end
+siren = 390949840
+siren1 = 813555885
+siren2 = 337936322
+siren3 = 831526967
 
-# email(440821197)
+# SIREN MEDECIN
 
-# def doctrine(siren)
-#   array = []
-#   bin = []
-#   domain_regex = /(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-#   check_google(siren).each do |url|
-#     # p url
-#     if url.match(domain_regex)
-#       array << url
-#     else
-#       bin << url
-#     end
-#   end
-#   # p array.first(6)
-#   array2 = array.first(6)
-#   bin2 = []
-#   array3 = []
-#   array2.each do |url|
-#     # p url
-#     domain_doctrine = /(\/url\?q=)(https)\:\/\/www\.doctri[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-#     if url.match(domain_doctrine)
-#       bin2 << url
-#     else
-#       array3 << url
-#     end
-#   end
-#   # p bin2
-#   return bin2
-# end
-
-# def website_doctrine(siren)
-#   urldoctrine = doctrine(siren).first.to_s.delete_prefix('/url?q=')[0...-88]
-#   # p urldoctrine
-#   url = URI(urldoctrine)
-#   html_file = open(url).read
-#   html_doc = Nokogiri::HTML(html_file)
-#   links = html_doc.search('#professional-about')
-#   p links
-#   urls = links.map { |a| a.attribute("href").value }
-#   p urls
-#   return urls
-# end
+siren = 340657667
+siren1 = 348597485
+siren2 = 330625203
 
 
-# result
+http(siren2, 'medecin')
+email(siren2, 'medecin')
