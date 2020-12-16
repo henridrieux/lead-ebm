@@ -107,8 +107,8 @@ def email(siren, category)
   # domain_regex = (/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
   content = links.to_s
   #p content
-  if content.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i)[0].nil?
-    p 'pas d email'
+  if content.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i).nil?
+    email_address = 'pas d email'
   else
     email_address = content.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i)[0]
   end
@@ -123,7 +123,7 @@ siren1 = 434963922
 siren2 = 880609227
 siren3 = 880612056
 siren4 = 880611983
-siren5 = 880556691
+siren5 = 844757161
 
 # SIREN NOTAIRE
 
@@ -138,6 +138,6 @@ siren = 340657667
 siren1 = 348597485
 siren2 = 330625203
 
-
-http(siren2, 'medecin')
-email(siren2, 'medecin')
+#email(844768028, "avocat")
+# http(siren2, 'medecin')
+email(siren5, 'Avocat')
