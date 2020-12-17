@@ -116,6 +116,34 @@ def email(siren, category)
   p email_address
 end
 
+def check_category_greffier(siren)
+  query = website(siren)
+  url = URI("https://www.google.com/search?q=#{query}&aqs=chrome..69i57j33i160.30487j0j7&sourceid=chrome&ie=UTF-8")
+  html_file = open(url).read
+
+  if html_file.match?(/[a-zA-Z0-9\-\.]dministrateu[a-zA-Z0-9\-\.](\/\S*)?/i).nil? || html_file.match?(/[a-zA-Z0-9\-\.]ommissair[a-zA-Z0-9\-\.](\/\S*)?/i).nil? || html_file.match?(/[a-zA-Z0-9\-\.]uissie[a-zA-Z0-9\-\.](\/\S*)?/i).nil? || html_file.match?(/[a-zA-Z0-9\-\.]otaire[a-zA-Z0-9\-\.](\/\S*)?/i).nil? || html_file.match?(/[a-zA-Z0-9\-\.]voca[a-zA-Z0-9\-\.](\/\S*)?/i).nil?
+    cat = "Greffier"
+  elsif html_file.match?(/[a-zA-Z0-9\-\.]dministrateu[a-zA-Z0-9\-\.](\/\S*)?/i)
+    cat = "Administrateur judiciaire"
+  elsif html_file.match?(/[a-zA-Z0-9\-\.]ommissair[a-zA-Z0-9\-\.](\/\S*)?/i)
+    cat = "Commissaire-priseur"
+  elsif html_file.match?(/[a-zA-Z0-9\-\.]uissie[a-zA-Z0-9\-\.](\/\S*)?/i)
+    cat = "Huissier"
+  elsif html_file.match?(/[a-zA-Z0-9\-\.]otaire[a-zA-Z0-9\-\.](\/\S*)?/i)
+    cat = "Notaire"
+  elsif html_file.match?(/[a-zA-Z0-9\-\.]voca[a-zA-Z0-9\-\.](\/\S*)?/i)
+    cat = "Avocat"
+  end
+
+  return cat
+end
+
+check_category(844812545)
+
+# SIREN ADM JURIDICAIRE
+
+siren1 = 423606326
+
 # SIREN AVOCAT
 
 siren = 342119047
@@ -140,4 +168,4 @@ siren2 = 330625203
 
 #email(844768028, "avocat")
 # http(siren2, 'medecin')
-email(siren5, 'Avocat')
+# email(siren5, 'Avocat')
