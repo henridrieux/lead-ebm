@@ -138,7 +138,7 @@ def check_category_greffier(siren)
   return cat
 end
 
-check_category(844812545)
+# check_category(844812545)
 
 # SIREN ADM JURIDICAIRE
 
