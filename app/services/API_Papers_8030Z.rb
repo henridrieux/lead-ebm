@@ -16,7 +16,7 @@ class APIPapers8030z
     }
     @options = {
       query: {
-        api_token: process.env.PAPPERS_API,
+        api_token: ENV['PAPPERS_API_KEY'],
         par_page: number,
         entreprise_cessee: false,
         code_naf: "80.30Z",
@@ -65,7 +65,7 @@ class APIPapers8030z
     }
     @options = {
       query: {
-        api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
+        api_token: ENV['PAPPERS_API_KEY'],
         siret: "#{siret}"
       },
       headers: {
@@ -104,7 +104,8 @@ class APIPapers8030z
   end
 
   def headquarter_count(siren)
-    url = URI("https://api.pappers.fr/v1/entreprise?api_token=3e10f34b388926a0e4030180829391e02b3155bef5f069d5&siren=#{siren}&entreprise_cessee=false")
+    apitoken = ENV['PAPPERS_API_KEY']
+    url = URI("https://api.pappers.fr/v1/entreprise?api_token=#{apitoken}&siren=#{siren}&entreprise_cessee=false")
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
     request = Net::HTTP::Get.new(url)
@@ -252,7 +253,8 @@ class APIPapers8030z
   # __________________________________
 
   def website(siren)
-    url = URI("https://api.pappers.fr/v1/entreprise?api_token=3e10f34b388926a0e4030180829391e02b3155bef5f069d5&siren=#{siren}&entreprise_cessee=false")
+    apitoken = ENV['PAPPERS_API_KEY']
+    url = URI("https://api.pappers.fr/v1/entreprise?api_token=#{apitoken}&siren=#{siren}&entreprise_cessee=false")
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
     request = Net::HTTP::Get.new(url)
@@ -389,7 +391,7 @@ class APIPapers8030z
       https = Net::HTTP.new(url.host, url.port)
       https.use_ssl = true
       request = Net::HTTP::Get.new(url)
-      request["Authorization"] = CLEARBIT_API
+      request["Authorization"] = ENV['CLEARBIT_API_KEY']
       response = https.request(request)
       puts response.read_body
 

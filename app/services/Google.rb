@@ -10,7 +10,8 @@ require "net/http"
 class Google
 
   def website(siren)
-    url = URI("https://api.pappers.fr/v1/entreprise?api_token=3e10f34b388926a0e4030180829391e02b3155bef5f069d5&siren=#{siren}&entreprise_cessee=false")
+    apitoken = ENV['PAPPERS_API_KEY']
+    url = URI("https://api.pappers.fr/v1/entreprise?api_token=#{apitoken}&siren=#{siren}&entreprise_cessee=false")
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
     request = Net::HTTP::Get.new(url)
@@ -148,46 +149,43 @@ class Google
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
     request = Net::HTTP::Get.new(url)
-    request["Authorization"] = "Bearer sk_487e191491f8426f839aa2329336f3b9"
+    request["Authorization"] = ENV['CLEARBIT_API_KEY']
     response = https.request(request)
     result = response.read_body
+    p result
     result2 = JSON.parse(result)
     p result2["site"]["emailAddresses"]
   end
 
-  #clearbit("http://www.bertrand-palies-avocats.fr/")
-
-  # check_category_greffier(880609227)
-
   # SIREN ADM JURIDICAIRE
 
-  siren1 = 423606326
+  # siren1 = 423606326
 
-  # SIREN AVOCAT
+  # # SIREN AVOCAT
 
-  siren = 342119047
-  siren1 = 434963922
-  siren2 = 880609227
-  siren3 = 880612056
-  siren4 = 880611983
-  siren5 = 844757161
+  # siren = 342119047
+  # siren1 = 434963922
+  # siren2 = 880609227
+  # siren3 = 880612056
+  # siren4 = 880611983
+  # siren5 = 844757161
 
-  # SIREN NOTAIRE
+  # # SIREN NOTAIRE
 
-  siren = 390949840
-  siren1 = 813555885
-  siren2 = 337936322
-  siren3 = 831526967
+  # siren = 390949840
+  # siren1 = 813555885
+  # siren2 = 337936322
+  # siren3 = 831526967
 
-  # SIREN MEDECIN
+  # # SIREN MEDECIN
 
-  siren = 340657667
-  siren1 = 348597485
-  siren2 = 330625203
+  # siren = 340657667
+  # siren1 = 348597485
+  # siren2 = 330625203
 
   #email(844768028, "avocat")
   # http(siren2, 'medecin')
   # email(siren5, 'Avocat')
 end
 
-# Google.new.clearbit("http://www.bertrand-palies-avocats.fr/")
+Google.new.clearbit("http://www.bertrand-palies-avocats.fr/")

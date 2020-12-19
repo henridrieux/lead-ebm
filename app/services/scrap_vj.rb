@@ -93,7 +93,7 @@ class ScrapVj
     }
     @options = {
       query: {
-        api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
+        api_token: ENV['PAPPERS_API_KEY'],
         code_naf: "69.10Z",
         entreprise_cessee: false,
         nom_entreprise: company_name.gsub(",", "")

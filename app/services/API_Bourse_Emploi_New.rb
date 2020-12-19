@@ -92,7 +92,7 @@ class APIBourseEmploiNew
     }
     @options = {
       query: {
-        api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
+        api_token: apitoken = ENV['PAPPERS_API_KEY'],
         code_naf: "69.10Z",
         nom_entreprise: company_name.gsub(",", "")
       },
