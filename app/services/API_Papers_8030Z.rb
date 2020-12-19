@@ -16,7 +16,7 @@ class APIPapers8030z
     }
     @options = {
       query: {
-        api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
+        api_token: process.env.PAPPERS_API,
         par_page: number,
         entreprise_cessee: false,
         code_naf: "80.30Z",
@@ -389,7 +389,7 @@ class APIPapers8030z
       https = Net::HTTP.new(url.host, url.port)
       https.use_ssl = true
       request = Net::HTTP::Get.new(url)
-      request["Authorization"] = "Bearer sk_487e191491f8426f839aa2329336f3b9"
+      request["Authorization"] = CLEARBIT_API
       response = https.request(request)
       puts response.read_body
 
