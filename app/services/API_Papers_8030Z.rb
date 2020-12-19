@@ -3,6 +3,9 @@ require "net/http"
 require "json"
 require "open-uri"
 require 'nokogiri'
+require 'clearbit'
+require "uri"
+require "net/http"
 
 class APIPapers8030z
 # Or wrap things up in your own class
@@ -17,8 +20,8 @@ class APIPapers8030z
         par_page: number,
         entreprise_cessee: false,
         code_naf: "80.30Z",
-        #effectif_min: 2,
-        departement: 75,
+        #effectif_min: 50,
+        # departement: 75,
         date_creation_min: date_string
       },
        headers: {
@@ -241,8 +244,8 @@ class APIPapers8030z
 
     cat = check_category(input2)
     input2.category = Category.find_by(name: cat)
-    input2.website = http(input2["siren"], cat)
-    input2.email = email(input2["siren"], cat)
+    # input2.website = http(input2["siren"], cat)
+    # input2.email = email(input2["siren"], cat)
     input2.save
   end
 
@@ -300,9 +303,11 @@ class APIPapers8030z
 
       # URL CLASSIQUE
 
-      #domain_societe = /(\/url\?q=)(https)\:\/\/www\.soci[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      # domain_pagesjaunes = /(\/url\?q=)(https)\:\/\/www\.pages[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_img2 = /(\/imgres\?imgurl=)(http)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_img = /(\/imgres\?imgurl=)(https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_linkedin = /(\/url\?q=)(https)\:\/\/fr\.linked[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_linke = /(\/url\?q=)(https)\:\/\/www\.linked[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_linkedines = /(\/url\?q=)(https)\:\/\/es\.linked[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_mappy = /(\/url\?q=)(https)\:\/\/fr\.map[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_facebook = /(\/url\?q=)(https)\:\/\/fr-fr\.faceboo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_facebook2 = /(\/url\?q=)(https)\:\/\/www\.face[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
@@ -314,61 +319,84 @@ class APIPapers8030z
       domain_rif = /(\/url\?q=)(http)\:\/\/detective-r[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_cnaps = /(\/url\?q=)(http)\:\/\/www\.cnap[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_dete = /(\/url\?q=)(https)\:\/\/detective-prive.annuairefranc[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-
-      # URL AVOCAT
-
-      # domain_consultation = /(\/url\?q=)(https)\:\/\/consultation[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      # domain_doctrine = /(\/url\?q=)(https)\:\/\/www\.doctri[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      # domain_annuaireacte = /(\/url\?q=)(http)\:\/\/annuaire[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-
-      # URL NOTAIRE
-
-      # domain_notaire = /(\/url\?q=)(https)\:\/\/www\.notair[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      # domain_immo = /(\/url\?q=)(https)\:\/\/entreprise[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      # domain_immo = /(\/url\?q=)(http)\:\/\/entreprise[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-
-      # URL MEDECIN
-
-      # domain_docto = /(\/url\?q=)(http)\:\/\/doctoli[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_lesechos = /(\/url\?q=)(https)\:\/\/solutions\.lesech[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_athena = /(\/url\?q=)(http)\:\/\/athen[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_cndep = /(\/url\?q=)(https)\:\/\/cnde[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_df = /(\/url\?q=)(https)\:\/\/www\.detectives\-fra[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_isere = /(\/url\?q=)(https)\:\/\/www\.isere\.gou[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_french = /(\/url\?q=)(https)\:\/\/french\-lea[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_clau = /(\/url\?q=)(http)\:\/\/claudelicou[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_laval = /(\/url\?q=)(https)\:\/\/laval\.mavill[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_lavenirdelart = /(\/url\?q=)(http)\:\/\/www\.lavenirdelar[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_daily = /(\/url\?q=)(https)\:\/\/dailyno[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_tel = /(\/url\?q=)(https)\:\/\/www\.telepho[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_detami = /(\/url\?q=)(http)\:\/\/www\.detective\-amie[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_french2 = /(\/url\?q=)(https)\:\/\/french\-corpo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_d2 = /(\/url\?q=)(https)\:\/\/www\.omnirisinvestigation[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_twit = /(\/url\?q=)(http)\:\/\/twitte[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_docto2 = /(\/url\?q=)(https)\:\/\/www\.mondoct[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      # domain_rdvmedi = /(\/url\?q=)(https)\:\/\/www.rdvmedi[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      # domain_docave = /(\/url\?q=)(https)\:\/\/www.docave[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      # domain_keldoc = /(\/url\?q=)(https)\:\/\/www.keldo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_docto3 = /(\/url\?q=)(https)\:\/\/www\.cerg[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_docto4 = /(\/url\?q=)(http)\:\/\/www\.icfhabit[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_wiki = /(\/url\?q=)(https)\:\/\/fr\.wikipedi[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_wiki = /(\/url\?q=)(https)\:\/\/www\.spitpaslo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_dom = /(\/url\?q=)(https)\:\/\/www\.orpe[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
 
-      if url.match(domain_dete) || url.match(domain_cnaps) || url.match(domain_rif) || url.match(domain_rci) || url.match(domain_erf) || url.match(domain_groupe) || url.match(domain_kompas) || url.match(domain_docto2) || url.match(domain_info) || url.match(domain_google2) || url.match(domain_mappy) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_google) || url.match(domain_map) || url.match(domain_linkedin)
+
+
+      if url.match(domain_dom) || url.match(domain_img2) || url.match(domain_img) || url.match(domain_wiki) || url.match(domain_docto4) || url.match(domain_docto3) || url.match(domain_twit) || url.match(domain_d2) || url.match(domain_french2) || url.match(domain_detami) || url.match(domain_tel) || url.match(domain_daily) || url.match(domain_lavenirdelart) || url.match(domain_laval) || url.match(domain_clau) || url.match(domain_french) || url.match(domain_isere) || url.match(domain_linke) || url.match(domain_df) || url.match(domain_cndep) || url.match(domain_linkedines) || url.match(domain_athena) || url.match(domain_lesechos) || url.match(domain_dete) || url.match(domain_cnaps) || url.match(domain_rif) || url.match(domain_rci) || url.match(domain_erf) || url.match(domain_groupe) || url.match(domain_kompas) || url.match(domain_docto2) || url.match(domain_info) || url.match(domain_google2) || url.match(domain_mappy) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_google) || url.match(domain_map) || url.match(domain_linkedin)
         bin2 << url
       else
         array3 << url
       end
     end
 
-    if array3.first.to_s.delete_prefix('/url?q=').split('&').nil?
-      url = "N.C."
-    else
-      url = array3.first.to_s.delete_prefix('/url?q=').split('&').first
-    end
-
-    return url
+      if array3.first.to_s.delete_prefix('/url?q=').split('&').nil?
+        url = "N.C."
+      else
+        url = array3.first.to_s.delete_prefix('/url?q=').split('&').first
+      end
+      p url
+      return url
   end
 
   def email(siren, category)
 
-    if http(siren, category).nil? || http(siren, category) == "N.C."
-      email_address = "N.C."
+    if http(siren, category).nil?
+      p email_address = "N.C."
     else
       url = http(siren, category)
-       p url
-      html_file = open(url).read
+      p url
 
-      if html_file.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i).nil?
-        email_address = "N.C."
+      if open(url).read == OpenURI::HTTPError || open(url).read.nil?
+        p email_address = "N.C.2"
       else
-        email_address = html_file.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i)[0].to_s
+        html_file = open(url).read
+        if html_file.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i).nil?
+          email_address = "N.C."
+        else
+          email_address = html_file.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i)[0].to_s
+        end
       end
       return email_address
     end
   end
 
+  def clearbit(email, website)
+    if email == "N.C"
+      url = URI("https://company.clearbit.com/v2/companies/find?domain=#{website}")
+
+      https = Net::HTTP.new(url.host, url.port)
+      https.use_ssl = true
+      request = Net::HTTP::Get.new(url)
+      request["Authorization"] = "Bearer sk_487e191491f8426f839aa2329336f3b9"
+      response = https.request(request)
+      puts response.read_body
+
+    else
+      email = "N.C"
+    end
+    return email
+  end
 end
 

@@ -6,7 +6,7 @@ namespace :company8030z do
     def run_papers(number, date_string)
       APIPapers8030z.new.papers_all(number, date_string)
     end
-    run_papers(100, "01-01-1950")
+    run_papers(2000, "01-01-2015")
   end
 end
 

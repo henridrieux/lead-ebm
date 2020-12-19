@@ -3,6 +3,9 @@ require "net/http"
 require "json"
 require "open-uri"
 require 'nokogiri'
+require 'clearbit'
+require "uri"
+require "net/http"
 
 class APIPapers
 # Or wrap things up in your own class
@@ -133,7 +136,10 @@ class APIPapers
     input2.category = Category.find_by(name: cat)
     input2.website = http(input2["siren"], cat)
     input2.email = email(input2["siren"], cat)
-    # p input2.email
+    # if input2.email == "N.C."
+    #   p "clearbit test"
+    #   input2.email = clearbit(input2.website)
+    # end
     input2.save
     #p input2
   end
@@ -359,6 +365,18 @@ class APIPapers
       return email_address
     end
   end
+
+  # def clearbit(website)
+
+  #   url = URI("https://company.clearbit.com/v2/companies/find?domain=#{website}")
+
+  #   https = Net::HTTP.new(url.host, url.port)
+  #   https.use_ssl = true
+  #   request = Net::HTTP::Get.new(url)
+  #   request["Authorization"] = "Bearer sk_487e191491f8426f839aa2329336f3b9"
+  #   response = https.request(request)
+  #   puts response.read_body["site"]["emailAddresses"]
+  # end
 
   def check_category_greffier(siren, city)
     query = website(siren)

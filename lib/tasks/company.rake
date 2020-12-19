@@ -7,7 +7,7 @@ namespace :company do
       APIPapers.new.papers_all(number, date_string)
     end
 
-    run_papers(500, "01-01-2015")
+    run_papers(5, "01-01-2020")
   end
 
   # rails company:fetch_one_company

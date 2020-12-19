@@ -3,6 +3,9 @@ require "net/http"
 require "json"
 require "open-uri"
 require 'nokogiri'
+require 'clearbit'
+require "uri"
+require "net/http"
 
 class Google
 
@@ -135,11 +138,26 @@ class Google
     elsif html_file.match?(/[a-zA-Z0-9\-\.]voca[a-zA-Z0-9\-\.](\/\S*)?/i)
       cat = "Avocat"
     end
-
     return cat
   end
 
-  # check_category(844812545)
+  def clearbit(website)
+
+    url = URI("https://company.clearbit.com/v2/companies/find?domain=#{website}")
+
+    https = Net::HTTP.new(url.host, url.port)
+    https.use_ssl = true
+    request = Net::HTTP::Get.new(url)
+    request["Authorization"] = "Bearer sk_487e191491f8426f839aa2329336f3b9"
+    response = https.request(request)
+    result = response.read_body
+    result2 = JSON.parse(result)
+    p result2["site"]["emailAddresses"]
+  end
+
+  #clearbit("http://www.bertrand-palies-avocats.fr/")
+
+  # check_category_greffier(880609227)
 
   # SIREN ADM JURIDICAIRE
 
@@ -171,3 +189,5 @@ class Google
   # http(siren2, 'medecin')
   # email(siren5, 'Avocat')
 end
+
+# Google.new.clearbit("http://www.bertrand-palies-avocats.fr/")
