@@ -195,4 +195,4 @@ class Google
   # email(siren5, 'Avocat')
 end
 
-Google.new.clearbit("http://www.bertrand-palies-avocats.fr/")
+#Google.new.clearbit("http://www.bertrand-palies-avocats.fr/")
