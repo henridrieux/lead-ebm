@@ -40,8 +40,7 @@ class APIPapers
     nb_request = result["entreprises"].count
     result["entreprises"].each do |v|
       company = transform_json(v["siege"]["siret"])
-      check_company_adress(company)
-      check_company_siret_counter(company)
+      check_company(company)
       nb_treated = @nb_create + @nb_update
       puts " #{nb_treated} / #{nb_request} - #{((nb_treated / nb_request.to_f)*100).round}%"
     end
@@ -52,7 +51,7 @@ class APIPapers
     @nb_create = 0
     @nb_update = 0
     company = transform_json(siret)
-    check_company_adress(company)
+    check_company(company)
     # puts "#{@nb_create} création et #{@nb_update} update"
     p Company.find_by(siret: siret.to_i)
   end
@@ -81,23 +80,17 @@ class APIPapers
     return result2
   end
 
-  def check_company_adress(company)
+  def check_company(company)
     Company.find_by(siret: company["siege"]["siret"].to_i)
     if Company.find_by(siret: company["siege"]["siret"].to_i)
       update_company_adress(company)
+      update_company_siret_counter(company)
+      check_company_manager_name(company)
+      check_company_website(company)
       @nb_update += 1
     else
       create_company(company)
       @nb_create += 1
-    end
-  end
-
-  def check_company_siret_counter(company)
-    Company.find_by(siret: company["siege"]["siret"].to_i)
-    if Company.find_by(siret: company["siege"]["siret"].to_i)
-      update_company_siret_counter(company)
-    else
-      create_company(company)
     end
   end
 
@@ -127,15 +120,21 @@ class APIPapers
       zip_code: company["siege"]["code_postal"],
       city: company["siege"]["ville"],
       legal_structure: company["forme_juridique"],
-      # manager_name: company["representants"].first["nom_complet"],
       # manager_birth_year: company["representants"].first["date_de_naissance_formate"].last(4).to_i
       head_count: company["effectif"],
       naf_code: company["siege"]["code_naf"],
       activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
     )
+    if company["representants"].count == 0
+      input2.manager_name = "N.C."
+    else
+      input2.manager_name = company["representants"].first["nom_complet"]
+    end
     cat = check_category(input2)
     input2.category = Category.find_by(name: cat)
     input2.website = http(input2["siren"], cat)
+    p cat
+    p input2.website
     input2.email = email(input2["siren"], cat)
     # if input2.email == "N.C."
     #   p "clearbit test"
@@ -190,37 +189,19 @@ class APIPapers
     end
 
     input2.update(
-      siren: company["siren"].to_i,
-      siret: company["siege"]["siret"].to_i,
-      siret_count: headquarter_count(company["siren"].to_i),
-      company_name: company["nom_entreprise"],
-      social_purpose: company["objet_social"],
-      creation_date: company["siege"]["date_de_creation"],
-      registered_capital: company["capital"].to_i,
       address: company["siege"]["adresse_ligne_1"],
       zip_code: company["siege"]["code_postal"],
       city: company["siege"]["ville"],
       last_moving_date: last_moving_date,
-      legal_structure: company["forme_juridique"],
-      # manager_name: company["representants"].first["nom_complet"],
-      # manager_birth_year: company["representants"].first["date_de_naissance_formate"].last(4).to_i
-      head_count: company["effectif"],
-      naf_code: company["siege"]["code_naf"],
-      activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"],
     )
-
-    cat = check_category(input2)
-    input2.category = Category.find_by(name: cat)
-    input2.website = http(input2["siren"], cat)
-    input2.email = email(input2["siren"], cat)
     input2.save
-    p input2
   end
 
   def update_company_siret_counter(company)
     input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
     siret_count_old = input2[:siret_count]
-    siret_count_new = company["siege"]["siret_count"]
+    siret_count_new = headquarter_count(company["siren"])
+
     if siret_count_old != siret_count_new && !siret_count_old.nil?
       second_headquarter_date = Date.today
       puts "1 nouvel établissement"
@@ -228,30 +209,57 @@ class APIPapers
       second_headquarter_date = input2[:second_headquarter_date]
     end
     input2.update(
-      siren: company["siren"].to_i,
-      siret: company["siege"]["siret"].to_i,
       siret_count: headquarter_count(company["siren"].to_i),
-      company_name: company["nom_entreprise"],
-      social_purpose: company["objet_social"],
-      creation_date: company["siege"]["date_de_creation"],
-      registered_capital: company["capital"].to_i,
-      address: company["siege"]["adresse_ligne_1"],
-      zip_code: company["siege"]["code_postal"],
-      city: company["siege"]["ville"],
-      # last_moving_date: last_moving_date,
       second_headquarter_date: second_headquarter_date,
-      legal_structure: company["forme_juridique"],
-      # manager_name: company["representants"].first["nom_complet"],
-      # manager_birth_year: company["representants"].first["date_de_naissance_formate"].last(4).to_i
-      head_count: company["effectif"],
-      naf_code: company["siege"]["code_naf"],
-      activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
+    )
+    input2.save
+  end
+
+  def check_company_manager_name(company)
+    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    manager_name_old = input2[:manager_name]
+
+    if company["representants"].count == 0
+      manager_name_new = "N.C."
+    else
+      manager_name_new = company["representants"].first["nom_complet"]
+    end
+
+    if manager_name_old != manager_name_new && !manager_name_old.nil?
+      fusion_date = Date.today
+      puts "1 changement de dirigeant"
+    else
+      fusion_date = input2[:fusion_date]
+    end
+    input2.update(
+      fusion_date: fusion_date
     )
 
+    if company["representants"].count == 0
+      input2.manager_name = "N.C."
+    else
+      input2.manager_name = company["representants"].first["nom_complet"]
+    end
+    input2.save
+  end
+
+  def check_company_website(company)
+    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    website_old = input2[:website]
     cat = check_category(input2)
-    input2.category = Category.find_by(name: cat)
-    input2.website = http(input2["siren"], cat)
-    input2.email = email(input2["siren"], cat)
+    website_new = http(company["siren"], cat)
+
+    if website_old != website_new && !website_old.nil?
+      website_date = Date.today
+      puts "1 création de site web"
+    else
+      website_date = input2[:website_date]
+    end
+
+    input2.update(
+      website: website_new,
+      website_date: website_date
+    )
     input2.save
   end
 
@@ -297,7 +305,7 @@ class APIPapers
       end
     end
 
-    array2 = array.first(6)
+    array2 = array.first(5)
     bin2 = []
     array3 = []
     array2.each do |url|
@@ -316,7 +324,7 @@ class APIPapers
       domain_facebook = /(\/url\?q=)(https)\:\/\/fr-fr\.faceboo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_facebook2 = /(\/url\?q=)(https)\:\/\/www\.face[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_verif = /(\/url\?q=)(https)\:\/\/www\.veri[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-
+      domain_lefi = /(\/url\?q=)(http)\:\/\/entreprises\.lefiga[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       # URL AVOCAT
 
       domain_consultation = /(\/url\?q=)(https)\:\/\/consultation[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
@@ -327,7 +335,7 @@ class APIPapers
 
       # domain_notaire = /(\/url\?q=)(https)\:\/\/www\.notair[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_immo = /(\/url\?q=)(https)\:\/\/www\.immono[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-
+      domain_immonot = /(\/url\?q=)(https)\:\/\/www\.immobilier\.notai[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       # URL MEDECIN
 
       domain_docto = /(\/url\?q=)(http)\:\/\/doctoli[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
@@ -337,7 +345,7 @@ class APIPapers
       domain_keldoc = /(\/url\?q=)(https)\:\/\/www.keldo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_lemedecin = /(\/url\?q=)(https)\:\/\/lemedeci[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
-      if url.match(domain_immo) || url.match(domain_mappy) || url.match(domain_verif) || url.match(domain_lemedecin) || url.match(domain_docto2) || url.match(domain_docto) || url.match(domain_rdvmedi) || url.match(domain_docave) || url.match(domain_keldoc) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_annuaireacte) || url.match(domain_google) || url.match(domain_map) || url.match(domain_societe) || url.match(domain_pagesjaunes) || url.match(domain_linkedin) || url.match(domain_consultation) || url.match(domain_doctrine)
+      if url.match(domain_immonot) || url.match(domain_lefi) || url.match(domain_immo) || url.match(domain_mappy) || url.match(domain_verif) || url.match(domain_lemedecin) || url.match(domain_docto2) || url.match(domain_docto) || url.match(domain_rdvmedi) || url.match(domain_docave) || url.match(domain_keldoc) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_annuaireacte) || url.match(domain_google) || url.match(domain_map) || url.match(domain_societe) || url.match(domain_pagesjaunes) || url.match(domain_linkedin) || url.match(domain_consultation) || url.match(domain_doctrine)
         bin2 << url
       else
         array3 << url
