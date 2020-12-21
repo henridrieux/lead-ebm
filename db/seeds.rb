@@ -155,7 +155,7 @@ event_3 = {
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/moving_x4ylvr.png"
 }
 event_4 = {
-  title: "Sociétés qui fusionnent",
+  title: "Changements de dirigeants",
   description: "Identifier les sociétés qui ont fusionné récemment",
   frequency: "sur 1 an",
   color_code: "#B6BAEA",
