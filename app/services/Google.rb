@@ -144,17 +144,24 @@ class Google
 
   def clearbit(website)
 
-    url = URI("https://company.clearbit.com/v2/companies/find?domain=#{website}")
+    Clearbit.key = ENV['CLEARBIT_KEY']
 
-    https = Net::HTTP.new(url.host, url.port)
-    https.use_ssl = true
-    request = Net::HTTP::Get.new(url)
-    request["Authorization"] = ENV['CLEARBIT_API_KEY']
-    response = https.request(request)
-    result = response.read_body
-    p result
-    result2 = JSON.parse(result)
-    p result2["site"]["emailAddresses"]
+    company = Clearbit::Enrichment::Company.find(domain: website, stream: true)
+    p company["site"]["emailAddresses"]
+
+    # url = URI("https://company.clearbit.com/v2/companies/find?domain=#{website}")
+
+    # https = Net::HTTP.new(url.host, url.port)
+    # https.use_ssl = true
+    # request = Net::HTTP::Get.new(url)
+    # api = ENV['CLEARBIT_KEY']
+    # request["Authorization"] = "Bearer #{api}"
+    # p request
+    # response = https.request(request)
+    # result = response.read_body
+    # p result
+    # result2 = JSON.parse(result)
+    # p result2["site"]["emailAddresses"]
   end
 
   # SIREN ADM JURIDICAIRE

@@ -391,7 +391,7 @@ class APIPapers8030z
       https = Net::HTTP.new(url.host, url.port)
       https.use_ssl = true
       request = Net::HTTP::Get.new(url)
-      request["Authorization"] = ENV['CLEARBIT_API_KEY']
+      request["Authorization"] = ENV['CLEARBIT_KEY']
       response = https.request(request)
       puts response.read_body
 

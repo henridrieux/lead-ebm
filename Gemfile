@@ -36,7 +36,6 @@ gem 'rails_admin', '~> 2.0'
 gem 'nokogiri'
 gem 'clearbit'
 
-
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
