@@ -1,3 +1,5 @@
+# _________ PROFESSIONS JURIDIQUES ___________
+
 require "uri"
 require "net/http"
 require "json"
@@ -53,7 +55,7 @@ class APIPapers
     company = transform_json(siret)
     check_company(company)
     # puts "#{@nb_create} création et #{@nb_update} update"
-    p Company.find_by(siret: siret.to_i)
+    # p Company.find_by(siret: siret.to_i)
   end
 
   def transform_json(siret)
@@ -133,8 +135,6 @@ class APIPapers
     cat = check_category(input2)
     input2.category = Category.find_by(name: cat)
     input2.website = http(input2["siren"], cat)
-    p cat
-    p input2.website
     input2.email = email(input2["siren"], cat)
     # if input2.email == "N.C."
     #   p "clearbit test"

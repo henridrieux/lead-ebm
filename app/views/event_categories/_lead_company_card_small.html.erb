@@ -8,6 +8,7 @@
           - <%= lead.company_name %>
         </p>
     </div>
+
     <div class="card-lead-event">
       <div class="slack-status" >
         <% if current_user.webhook_slack? %>
@@ -116,10 +117,29 @@
     <p>
       <%= lead.recruitments.count %> recrutements en cours
     </p>
+    <p>
+      <%= lead.email %> *
+    </p>
+    <p>
+      <%= link_to lead.website, lead.website %> *
+
+    </p>
+
     </div>
     <div class="options-hide d-none">
       <small>voir moins </small> <i class="fas fa-caret-up ml-1"></i>
     </div>
   </div>
-
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<small>* Nous comparons en fonction du nom exact de l'entreprise et renvoyons l'entreprise avec le plus de trafic sur le site Web. Il convient de noter que le nom d'une société n'étant pas un identifiant unique, vous devez vous préparer à une certaine inexactitude inhérente aux résultats.</small>
+
