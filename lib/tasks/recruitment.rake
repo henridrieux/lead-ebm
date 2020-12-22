@@ -6,7 +6,7 @@ namespace :recruitment do
     def run_recruitment(number)
       APIBourseEmploiNew.new.run_bourse_emploi(number)
     end
-    run_recruitment(1)
+    run_recruitment(3)
   end
 end
 

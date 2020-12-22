@@ -201,5 +201,3 @@ class APIBourseEmploiNew
     p input
   end
 end
-
-#APIBourseEmploiNew.new.run_bourse_emploi(10)
