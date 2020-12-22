@@ -9,6 +9,28 @@ require 'httparty'
 
 class APIBourseEmploiNew
 
+  EXCEPTIONS = ["SAS", "SARL", "SELARL", "OFFICE", "NOTARIAL"]
+
+  def run_bourse_emploi(number)
+    # data = APIBourseEmploiNew.new.bourse_emploi(number)
+    data = bourse_emploi(number)
+    @nb_update = 0
+    @nb_create = 0
+    data.each do |recruitoffer|
+      # p recruitment.find_by(external_id: recruitoffer["idOffer"])
+      if Recruitment.find_by(external_id: recruitoffer["idOffer"])
+        update_recruitment(recruitoffer)
+        # p update_recruitment(recruitoffer)
+        p "emploi updated"
+        @nb_update +=1
+      else
+        create_recruitment(recruitoffer)
+        p "emploi created"
+      end
+    end
+    puts "#{@nb_create} créations et #{@nb_update} updates"
+  end
+
   def bourse_emploi(number)
     url = "https://bourse-emplois.notaires.fr/api/offre/search"
     body_request = {
@@ -61,12 +83,12 @@ class APIBourseEmploiNew
       recruit = transform_json(id)
       recruit["siret"] = papers_name(recruit["officeName"])[0]
       recruit["siren"] = papers_name(recruit["officeName"])[1]
-      p recruit
+      # p recruit
       count += 1
       puts "#{count} / #{result["content"].count}"
       final_array << recruit
     end
-    p final_array
+    # p final_array
     return final_array
   end
 
@@ -89,7 +111,7 @@ class APIBourseEmploiNew
     return_array2 = response2.body
     result2 = JSON.parse(return_array2)
     # new_company_name = papers_name(company_name)
-    p result2
+    # p result2
     return result2
   end
 
@@ -121,6 +143,63 @@ class APIBourseEmploiNew
     # p siren.class
     return [siret, siren]
   end
+
+  def create_recruitment(recruitoffer)
+    input = Recruitment.new(
+      zip_code: recruitoffer["zipCode"].to_i,
+      employer: recruitoffer["officeName"],
+      job_title: recruitoffer["principal"],
+      contract_type: recruitoffer["contractType"],
+      publication_date: recruitoffer["datePublication"],
+      employer_email: recruitoffer["mail"],
+      job_description: recruitoffer["description"],
+      employer_name: recruitoffer["label"],
+      employer_phone: recruitoffer["phone"],
+      external_id: recruitoffer["idOffer"]
+    )
+    input.company = create_company(recruitoffer)
+    if input.save
+      @nb_create += 1
+    end
+  end
+
+  def create_company(recruitoffer)
+    company = Company.find_by(siret: recruitoffer["siret"])
+    if company
+      company
+    else
+      # creation rapide de la company
+      new_company = Company.create!(
+        company_name: recruitoffer["officeName"],
+        siret: recruitoffer["siret"],
+        siren: recruitoffer["siren"],
+        naf_code: "69.10Z",
+        zip_code: recruitoffer["zipCode"],
+        city: recruitoffer["city"],
+        category_id: Category.find_by(name: "Notaire").id
+      )
+      # enrichissement de la company
+      # APIPapers.new.papers_one(new_company.siret)
+      return new_company
+    end
+  end
+
+  def update_recruitment(recruitoffer)
+    input = Recruitment.find_by(external_id: recruitoffer["idOffer"])
+    input.update(
+      zip_code: recruitoffer["zipCode"].to_i,
+      employer: recruitoffer["officeName"],
+      job_title: recruitoffer["principal"],
+      contract_type: recruitoffer["contractType"],
+      publication_date: recruitoffer["datePublication"],
+      employer_email: recruitoffer["mail"],
+      job_description: recruitoffer["description"],
+      employer_name: recruitoffer["label"],
+      employer_phone: recruitoffer["phone"]
+    )
+    input.save
+    p input
+  end
 end
 
-APIBourseEmploiNew.new.bourse_emploi(2)
+#APIBourseEmploiNew.new.run_bourse_emploi(10)
