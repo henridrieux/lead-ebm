@@ -81,7 +81,6 @@ namespace :recruitment do
       puts "#{@nb_create} créations et #{@nb_update} updates"
     end
 
-
     run_bourse_emploi(10)
   end
 end

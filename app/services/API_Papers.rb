@@ -7,6 +7,7 @@ require "open-uri"
 require 'nokogiri'
 require 'clearbit'
 require "uri"
+require 'httparty'
 require "net/http"
 
 class APIPapers
@@ -18,7 +19,7 @@ class APIPapers
     }
     @options = {
       query: {
-        api_token: ENV['PAPPERS_API_KEY'],
+        api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
         par_page: number,
         entreprise_cessee: false,
         code_naf: "69.10Z",
@@ -33,10 +34,9 @@ class APIPapers
       },
       body: body_request.to_json
     }
-
-    body_request
     return_body = HTTParty.get(url, @options).body
     result = JSON.parse(return_body)
+    p result["entreprises"].count
     @nb_create = 0
     @nb_update = 0
     nb_request = result["entreprises"].count
@@ -64,7 +64,7 @@ class APIPapers
     }
     @options = {
       query: {
-        api_token: ENV['PAPPERS_API_KEY'],
+        api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
         siret: "#{siret}"
       },
       headers: {
@@ -83,7 +83,7 @@ class APIPapers
   end
 
   def check_company(company)
-    Company.find_by(siret: company["siege"]["siret"].to_i)
+    #Company.find_by(siret: company["siege"]["siret"].to_i)
     if Company.find_by(siret: company["siege"]["siret"].to_i)
       update_company_adress(company)
       update_company_siret_counter(company)
@@ -97,7 +97,7 @@ class APIPapers
   end
 
   def headquarter_count(siren)
-    apitoken = ENV['PAPPERS_API_KEY']
+    apitoken = "3e10f34b388926a0e4030180829391e02b3155bef5f069d5"
     url = URI("https://api.pappers.fr/v1/entreprise?api_token=#{apitoken}&siren=#{siren}&entreprise_cessee=false")
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
@@ -266,7 +266,7 @@ class APIPapers
   # __________________________________
 
   def website(siren)
-    apitoken = ENV['PAPPERS_API_KEY']
+    apitoken = "3e10f34b388926a0e4030180829391e02b3155bef5f069d5"
     url = URI("https://api.pappers.fr/v1/entreprise?api_token=#{apitoken}&siren=#{siren}&entreprise_cessee=false")
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
@@ -411,5 +411,6 @@ class APIPapers
 
     return cat
   end
-
 end
+
+APIPapers.new.papers_all(10, "01-01-1900")

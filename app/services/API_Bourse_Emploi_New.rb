@@ -1,6 +1,11 @@
-require 'rest-client'
-require 'httparty'
+require "uri"
+require "net/http"
 require "json"
+require "open-uri"
+require 'nokogiri'
+require 'clearbit'
+require "uri"
+require 'httparty'
 
 class APIBourseEmploiNew
 
@@ -56,11 +61,12 @@ class APIBourseEmploiNew
       recruit = transform_json(id)
       recruit["siret"] = papers_name(recruit["officeName"])[0]
       recruit["siren"] = papers_name(recruit["officeName"])[1]
-      # p recruit
+      p recruit
       count += 1
       puts "#{count} / #{result["content"].count}"
       final_array << recruit
     end
+    p final_array
     return final_array
   end
 
@@ -83,34 +89,38 @@ class APIBourseEmploiNew
     return_array2 = response2.body
     result2 = JSON.parse(return_array2)
     # new_company_name = papers_name(company_name)
+    p result2
     return result2
   end
 
   def papers_name(company_name)
-    url2 = "https://api.pappers.fr/v1/recherche?"
+    url = "https://api.pappers.fr/v1/recherche?"
     body_request = {
     }
     @options = {
       query: {
-        api_token: apitoken = ENV['PAPPERS_API_KEY'],
-        code_naf: "69.10Z",
-        nom_entreprise: company_name.gsub(",", "")
+        api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
+        nom_entreprise: company_name,
+        entreprise_cessee: false,
+        code_naf: "69.10Z"
       },
-      headers: {
+       headers: {
         pragma: "no-cache",
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
         "Content-Type": "application/json",
         accept: "*/*",
-        cookie: "__cfduid=da64ed270569726ecde8337ce77714a421606301876"
+        cookie: "__cfduid=d527232f02404f16bcda98a3a52bb74651606225094"
       },
       body: body_request.to_json
     }
-    return_body_siret = HTTParty.get(url2, @options).read_body
-    result2 = JSON.parse(return_body_siret)
-    siret = result2["entreprises"][0]["siege"]["siret"]
-    siren = result2["entreprises"][0]["siren"]
+    return_body = HTTParty.get(url, @options).body
+    result = JSON.parse(return_body)
+    # p result
+    siret = result["entreprises"][0]["siege"]["siret"]
+    siren = result["entreprises"][0]["siren"]
+    # p siren.class
     return [siret, siren]
   end
 end
 
-
+APIBourseEmploiNew.new.bourse_emploi(2)
