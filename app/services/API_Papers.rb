@@ -263,8 +263,6 @@ class APIPapers
     input2.save
   end
 
-  # __________________________________
-
   def website(siren)
     apitoken = "3e10f34b388926a0e4030180829391e02b3155bef5f069d5"
     url = URI("https://api.pappers.fr/v1/entreprise?api_token=#{apitoken}&siren=#{siren}&entreprise_cessee=false")
@@ -413,4 +411,4 @@ class APIPapers
   end
 end
 
-APIPapers.new.papers_all(10, "01-01-1900")
+#APIPapers.new.papers_all(10, "01-01-1900")
