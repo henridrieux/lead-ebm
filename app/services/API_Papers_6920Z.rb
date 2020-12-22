@@ -37,7 +37,7 @@ class APIPapers6920z
     }
 
     body_request
-    p return_body = HTTParty.get(url, @options).body
+    return_body = HTTParty.get(url, @options).body
     result = JSON.parse(return_body)
     @nb_create = 0
     @nb_update = 0
@@ -57,7 +57,7 @@ class APIPapers6920z
     company = transform_json(siret)
     check_company(company)
     # puts "#{@nb_create} création et #{@nb_update} update"
-    p Company.find_by(siret: siret.to_i)
+    Company.find_by(siret: siret.to_i)
   end
 
   def transform_json(siret)
@@ -66,7 +66,7 @@ class APIPapers6920z
     }
     @options = {
       query: {
-        api_token: ENV['PAPPERS_API_KEY'],
+        api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
         siret: "#{siret}"
       },
       headers: {
