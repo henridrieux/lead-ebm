@@ -13,14 +13,13 @@ require "net/http"
 class APIPapers6920z
 # Or wrap things up in your own class
 
-
   def papers_all(number, date_string)
     url = "https://api.pappers.fr/v1/recherche?"
     body_request = {
     }
     @options = {
       query: {
-        api_token: ENV['PAPPERS_API_KEY'],
+        api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
         par_page: number,
         entreprise_cessee: false,
         code_naf: "69.20Z",
