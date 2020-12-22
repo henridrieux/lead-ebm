@@ -81,6 +81,11 @@ class EventCategory < ApplicationRecord
                 "type": "plain_text",
                 "text": "🧑‍🤝‍🧑#{lead.head_count} - #{lead.legal_structure}",
                 "emoji": true
+              },
+              {
+                "type": "plain_text",
+                "text": "💻#{lead.website} - 💌#{lead.email}",
+                "emoji": true
               }
             ]
           }
