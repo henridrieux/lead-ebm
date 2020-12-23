@@ -11,7 +11,16 @@ require 'httparty'
 require "net/http"
 
 class APIPapers
-# Or wrap things up in your own class
+# Pour populer la partie recruitmnet = papersone
+
+  def papers_one(siret)
+    @nb_create = 0
+    @nb_update = 0
+    company = transform_json(siret)
+    create_company(company)
+    #puts "#{@nb_create} création et #{@nb_update} update"
+    # p Company.find_by(siret: siret.to_i)
+  end
 
   def papers_all(number, date_string)
     url = "https://api.pappers.fr/v1/recherche?"
@@ -49,14 +58,7 @@ class APIPapers
     puts "#{@nb_create} créations et #{@nb_update} updates"
   end
 
-  def papers_one(siret)
-    @nb_create = 0
-    @nb_update = 0
-    company = transform_json(siret)
-    check_company(company)
-    # puts "#{@nb_create} création et #{@nb_update} update"
-    # p Company.find_by(siret: siret.to_i)
-  end
+
 
   def transform_json(siret)
     url2 = "https://api.pappers.fr/v1/entreprise?"
@@ -133,7 +135,9 @@ class APIPapers
       input2.manager_name = company["representants"].first["nom_complet"]
     end
     cat = check_category(input2)
+    # p cat
     input2.category = Category.find_by(name: cat)
+    # p input2.category
     input2.website = http(input2["siren"], cat)
     input2.email = email(input2["siren"], cat)
     # if input2.email == "N.C."
@@ -141,7 +145,6 @@ class APIPapers
     #   input2.email = clearbit(input2.website)
     # end
     input2.save
-    #p input2
   end
 
   def test_category(input, keyword, cat_name)
@@ -172,8 +175,7 @@ class APIPapers
     if cat == "Greffier"
       check_category_greffier(input.siren, input.city)
     end
-
-    # p cat
+    #p cat
     return cat
   end
 
@@ -303,7 +305,7 @@ class APIPapers
       end
     end
 
-    array2 = array.first(5)
+    array2 = array.first(6)
     bin2 = []
     array3 = []
     array2.each do |url|
@@ -355,7 +357,7 @@ class APIPapers
     else
       url = array3.first.to_s.delete_prefix('/url?q=').split('&').first
     end
-
+    p url
     return url
   end
 
@@ -406,7 +408,7 @@ class APIPapers
     else
       cat = "Greffier"
     end
-
+    # p cat
     return cat
   end
 end

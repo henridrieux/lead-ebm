@@ -19,7 +19,7 @@ class APIBourseEmploiNew
     data.each do |recruitoffer|
       # p recruitment.find_by(external_id: recruitoffer["idOffer"])
       if Recruitment.find_by(external_id: recruitoffer["idOffer"])
-        update_recruitment(recruitoffer)
+        # update_recruitment(recruitoffer)
         # p update_recruitment(recruitoffer)
         p "emploi updated"
         @nb_update +=1
@@ -179,25 +179,25 @@ class APIBourseEmploiNew
         category_id: Category.find_by(name: "Notaire").id
       )
       # enrichissement de la company
-      # APIPapers.new.papers_one(new_company.siret)
+
+      APIPapers.new.papers_one(new_company.siret)
       return new_company
     end
   end
 
-  def update_recruitment(recruitoffer)
-    input = Recruitment.find_by(external_id: recruitoffer["idOffer"])
-    input.update(
-      zip_code: recruitoffer["zipCode"].to_i,
-      employer: recruitoffer["officeName"],
-      job_title: recruitoffer["principal"],
-      contract_type: recruitoffer["contractType"],
-      publication_date: recruitoffer["datePublication"],
-      employer_email: recruitoffer["mail"],
-      job_description: recruitoffer["description"],
-      employer_name: recruitoffer["label"],
-      employer_phone: recruitoffer["phone"]
-    )
-    input.save
-    p input
-  end
+  # def update_recruitment(recruitoffer)
+  #   input = Recruitment.find_by(external_id: recruitoffer["idOffer"])
+  #   input.update(
+  #     zip_code: recruitoffer["zipCode"].to_i,
+  #     employer: recruitoffer["officeName"],
+  #     job_title: recruitoffer["principal"],
+  #     contract_type: recruitoffer["contractType"],
+  #     publication_date: recruitoffer["datePublication"],
+  #     employer_email: recruitoffer["mail"],
+  #     job_description: recruitoffer["description"],
+  #     employer_name: recruitoffer["label"],
+  #     employer_phone: recruitoffer["phone"]
+  #   )
+  #   input.save
+  # end
 end

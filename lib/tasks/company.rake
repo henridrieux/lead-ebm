@@ -7,7 +7,7 @@ namespace :company do
       APIPapers.new.papers_all(number, date_string)
       #APIPapers6920z.new.papers_all(number, date_string)
     end
-    run_papers(10, "01-01-2020")
+    run_papers(11, "01-01-2020")
   end
 
   # rails company:fetch_one_company
@@ -17,7 +17,7 @@ namespace :company do
       APIPapers.new.papers_one(siret_string)
     end
 
-    run_one_paper("52503152201109")
+    # run_one_paper("52503152201109")
   end
 
   # rails company:push_leads_to_slack
