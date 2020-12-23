@@ -17,7 +17,14 @@ class APIPapers
     @nb_create = 0
     @nb_update = 0
     company = transform_json(siret)
-    create_company(company)
+    companyfull = update_company(company)
+
+    # if Company.find_by(siret: siret.to_i)
+    #   update_company_adress(company)
+    #   update_company_siret_counter(company)
+    #   check_company_manager_name(company)
+    #   check_company_website(company)
+    # end
     #puts "#{@nb_create} création et #{@nb_update} update"
     # p Company.find_by(siret: siret.to_i)
   end
@@ -45,7 +52,7 @@ class APIPapers
     }
     return_body = HTTParty.get(url, @options).body
     result = JSON.parse(return_body)
-    p result["entreprises"].count
+    result["entreprises"].count
     @nb_create = 0
     @nb_update = 0
     nb_request = result["entreprises"].count
@@ -57,8 +64,6 @@ class APIPapers
     end
     puts "#{@nb_create} créations et #{@nb_update} updates"
   end
-
-
 
   def transform_json(siret)
     url2 = "https://api.pappers.fr/v1/entreprise?"
@@ -177,6 +182,28 @@ class APIPapers
     end
     #p cat
     return cat
+  end
+
+  def update_company(company)
+    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    input2.update(
+      siren: company["siren"].to_i,
+      siret: company["siege"]["siret"].to_i,
+      company_name: company["nom_entreprise"],
+      social_purpose: company["objet_social"],
+      creation_date: company["siege"]["date_de_creation"],
+      registered_capital: company["capital"].to_i,
+      address: company["siege"]["adresse_ligne_1"],
+      zip_code: company["siege"]["code_postal"],
+      city: company["siege"]["ville"],
+      legal_structure: company["forme_juridique"],
+      head_count: company["effectif"],
+      naf_code: company["siege"]["code_naf"],
+      activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
+    )
+    cat = "Notaire"
+    input2.category = Category.find_by(name: cat)
+    input2.save
   end
 
   def update_company_adress(company)
@@ -357,7 +384,7 @@ class APIPapers
     else
       url = array3.first.to_s.delete_prefix('/url?q=').split('&').first
     end
-    p url
+    #p url
     return url
   end
 

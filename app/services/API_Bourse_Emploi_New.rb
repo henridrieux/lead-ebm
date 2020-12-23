@@ -164,10 +164,13 @@ class APIBourseEmploiNew
   end
 
   def create_company(recruitoffer)
+    p 'hello'
     company = Company.find_by(siret: recruitoffer["siret"])
     if company
       company
+      # p 'deja en place'
     else
+      p "en création"
       # creation rapide de la company
       new_company = Company.create!(
         company_name: recruitoffer["officeName"],
@@ -178,10 +181,9 @@ class APIBourseEmploiNew
         city: recruitoffer["city"],
         category_id: Category.find_by(name: "Notaire").id
       )
+      # p new_company.siret.class
       # enrichissement de la company
-
-      APIPapers.new.papers_one(new_company.siret)
-      return new_company
+      APIPapers.new.papers_one((new_company.siret).to_i)
     end
   end
 
