@@ -4,10 +4,23 @@ require 'nokogiri'
 
 class ScrapVj
 
+  def create_vj_recruitment
+    get_vj_recruit_offers.each do |recruit_offer|
+      # p recruit_offer[:siret]
+      if recruit_offer[:siret] == "N.C"
+        p "cabinet de recrutment"
+      else
+        create_company(recruit_offer)
+        create_recruitment(recruit_offer)
+        p 'Création 1 entreprise'
+      end
+
+    end
+  end
+
   def get_vj_recruit_offers
     url_array = get_vj_url
     recruit_offers = get_recruit_offers_array(url_array)
-    # p recruit_offers.first
     return recruit_offers
   end
 
@@ -74,43 +87,90 @@ class ScrapVj
     recruit_offer[:company_name] = recruteur
     recruit_offer[:publication_date] = date
     recruit_offer[:zip_code] = city
-    recruit_offer[:external_id] = "4572455316479808419"
-    recruit_offer[:category_id] = "Avocat"
-    if recruit_offer[:company_name] == "TeamRH" || recruit_offer[:company_name] == "Neithwork" || recruit_offer[:company_name] == "Neithwork" || recruit_offer[:company_name] == "Fed Légal" || recruit_offer[:company_name] == "Michael Page" || recruit_offer[:company_name] == "Hays"
-      recruit_offer[:siret] = "35081090900076"
-      recruit_offer[:siren] = "350810909"
+    # recruit_offer[:external_id] = "4572455316479808419"
+    # recruit_offer[:category_id] = 1
+    if recruit_offer[:company_name] == "Teamrh"  || recruit_offer[:company_name] == "Hermexis Avocats Associés" || recruit_offer[:company_name] == "Legal&HR Talents" || recruit_offer[:company_name] == "Neithwork" || recruit_offer[:company_name] == "Fed Légal" || recruit_offer[:company_name] == "Michael Page" || recruit_offer[:company_name] == "Hays"
+      recruit_offer[:siret] = "N.C"
+      recruit_offer[:siren] = "N.C"
+      #p "cabinet de recrutment"
     else
+      #p recruteur
       recruit_offer[:siret] = papers_name(recruteur)[0]
+      # p recruit_offer[:siret]
       recruit_offer[:siren] = papers_name(recruteur)[1]
     end
     #p recruit_offer.class
     return recruit_offer
   end
 
+  def create_recruitment(recruit_offer)
+    @nb_create = 0
+
+    input = Recruitment.new(
+      zip_code: recruit_offer[:zip_code].to_i,
+      employer: recruit_offer[:company_name],
+      job_title: recruit_offer[:job_title],
+      # category_id: recruit_offer[:category_id]
+      # contract_type: recruitoffer["contractType"],
+      # publication_date: recruitoffer["datePublication"],
+      # employer_email: recruitoffer["mail"],
+      # job_description: recruitoffer["description"],
+      # employer_name: recruitoffer["label"],
+      # employer_phone: recruitoffer["phone"],
+      # external_id: recruitoffer["idOffer"]
+    )
+    #p 'la'
+    input.company = create_company(recruit_offer)
+    input.company.category_id = 1
+    p input.company.category_id
+    if input.save
+      @nb_create += 1
+    end
+  end
+
   def papers_name(company_name)
-    url2 = "https://api.pappers.fr/v1/recherche?"
-    body_request = {
-    }
-    @options = {
-      query: {
-        api_token: ENV['PAPPERS_API_KEY'],
-        code_naf: "69.10Z",
-        entreprise_cessee: false,
-        nom_entreprise: company_name.gsub(",", "")
-      },
-      headers: {
-        pragma: "no-cache",
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
-        "Content-Type": "application/json",
-        accept: "*/*",
-        cookie: "__cfduid=da64ed270569726ecde8337ce77714a421606301876"
-      },
-      body: body_request.to_json
-    }
-    return_body_siret = HTTParty.get(url2, @options).read_body
-    result2 = JSON.parse(return_body_siret)
-    siret = result2["entreprises"][0]["siege"]["siret"]
-    siren = result2["entreprises"][0]["siren"]
+    #p company_name
+    url = URI("https://api.pappers.fr/v1recherche?nom_entreprise=#{company_name}&code_naf=69.10Z&api_token=c8c26742dc2e31f8ad0059a0d4069c4c66addf1cdddfea7a&par_page=1&entreprice_cessee=false")
+
+    https = Net::HTTP.new(url.host, url.port)
+    https.use_ssl = true
+    request = Net::HTTP::Get.new(url)
+    request["Cookie"] = "Cookie_1=value; __cfduid=d527232f02404f16bcda98a3a52bb74651606225094"
+    response = https.request(request)
+    company = JSON.parse(response.read_body)
+    siret = company["entreprises"][0]["siege"]["siret"]
+    siren = company["entreprises"][0]["siren"]
     return [siret, siren]
   end
+
+  def create_company(recruit_offer)
+    # p 'hello'
+    # p recruit_offer.class
+    # p recruit_offer[:company_name]
+    # p recruit_offer[:siren]
+
+    company = Company.find_by(siren: recruit_offer[:siren])
+    # p company
+    if company
+      company
+      # p 'deja en place'
+    else
+      p "en création"
+      # creation rapide de la company
+      new_company = Company.create!(
+        company_name: recruit_offer[:company_name],
+        siret: recruit_offer[:siret],
+        siren: recruit_offer[:siren],
+        naf_code: "69.10Z",
+        zip_code: recruit_offer[:zip_code],
+        city: recruit_offer[:city],
+        category_id: Category.find_by(name: "Avocat").id
+      )
+      # enrichissement de la company
+      APIPapers.new.papers_one((new_company.siret).to_i)
+      # p new_company.category_id
+      # new_company.save
+    end
+  end
 end
+
