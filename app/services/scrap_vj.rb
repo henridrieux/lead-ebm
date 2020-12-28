@@ -13,8 +13,12 @@ class ScrapVj
         create_company(recruit_offer)
         create_recruitment(recruit_offer)
         p 'Création 1 entreprise'
+        company = Company.find_by(siret: recruit_offer[:siret])
+        #p company
+        company.category_id = 1
+        company.save
+        #p company.category_id
       end
-
     end
   end
 
@@ -71,6 +75,8 @@ class ScrapVj
       recruteur = nokogiri_objet.search('#main > div > div.col-xs-12.col-sm-7.col-md-7.col-lg-7 > span > ul > li:nth-child(2) > i').text.strip
       date = nokogiri_objet.search('#main > div > div.col-xs-12.col-sm-7.col-md-7.col-lg-7 > span > ul > li:nth-child(3) > i').text.strip
       city = nokogiri_objet.search('#main > div > div.col-xs-12.col-sm-7.col-md-7.col-lg-7 > span > ul > li:nth-child(4) > i').text.strip
+      contrat = nokogiri_objet.search('#main > div > div:nth-child(11) > ul > li:nth-child(3)').text.strip
+      job_desc = nokogiri_objet.search('#main > div > div.col-xs-12.styl_annonce > p').text.strip
 
     # ---- ANNONCE WITH PICTURE ----
     else
@@ -78,7 +84,8 @@ class ScrapVj
         recruteur = nokogiri_objet.search('#main > div > div.col-xs-12.col-sm-7.col-md-7.col-lg-7 > span > ul > li:nth-child(3) > i').text.strip
         date = nokogiri_objet.search('#main > div > div.col-xs-12.col-sm-7.col-md-7.col-lg-7 > span > ul > li:nth-child(4) > i').text.strip
         city = nokogiri_objet.search('#main > div > div.col-xs-12.col-sm-7.col-md-7.col-lg-7 > span > ul > li:nth-child(5) > i').text.strip
-
+        contrat = nokogiri_objet.search("#main > div > div:nth-child(11) > ul > li:nth-child(3)").text.strip
+        job_desc = nokogiri_objet.search('#main > div > div.col-xs-12.styl_annonce > p').text.strip
     end
 
     # effectuer assignation entre valeurs et cles symbol
@@ -87,9 +94,10 @@ class ScrapVj
     recruit_offer[:company_name] = recruteur
     recruit_offer[:publication_date] = date
     recruit_offer[:zip_code] = city
-    # recruit_offer[:external_id] = "4572455316479808419"
-    # recruit_offer[:category_id] = 1
-    if recruit_offer[:company_name] == "Teamrh"  || recruit_offer[:company_name] == "Hermexis Avocats Associés" || recruit_offer[:company_name] == "Legal&HR Talents" || recruit_offer[:company_name] == "Neithwork" || recruit_offer[:company_name] == "Fed Légal" || recruit_offer[:company_name] == "Michael Page" || recruit_offer[:company_name] == "Hays"
+    recruit_offer[:publication_date] = Date.today
+    recruit_offer[:contract_type] = contrat
+    recruit_offer[:job_description] = job_desc
+    if recruit_offer[:company_name] == "Teamrh" || recruit_offer[:company_name] == "Fed Legal" || recruit_offer[:company_name] == "Hermexis Avocats Associés" || recruit_offer[:company_name] == "Legal&HR Talents" || recruit_offer[:company_name] == "Neithwork" || recruit_offer[:company_name] == "Fed Légal" || recruit_offer[:company_name] == "Michael Page" || recruit_offer[:company_name] == "Hays"
       recruit_offer[:siret] = "N.C"
       recruit_offer[:siren] = "N.C"
       #p "cabinet de recrutment"
@@ -111,10 +119,10 @@ class ScrapVj
       employer: recruit_offer[:company_name],
       job_title: recruit_offer[:job_title],
       # category_id: recruit_offer[:category_id]
-      # contract_type: recruitoffer["contractType"],
-      # publication_date: recruitoffer["datePublication"],
+      contract_type: recruit_offer[:contract_type],
+      publication_date: Date.today,
       # employer_email: recruitoffer["mail"],
-      # job_description: recruitoffer["description"],
+      job_description: recruit_offer[:job_description]
       # employer_name: recruitoffer["label"],
       # employer_phone: recruitoffer["phone"],
       # external_id: recruitoffer["idOffer"]
@@ -122,7 +130,7 @@ class ScrapVj
     #p 'la'
     input.company = create_company(recruit_offer)
     input.company.category_id = 1
-    p input.company.category_id
+    input.save
     if input.save
       @nb_create += 1
     end
@@ -138,8 +146,10 @@ class ScrapVj
     request["Cookie"] = "Cookie_1=value; __cfduid=d527232f02404f16bcda98a3a52bb74651606225094"
     response = https.request(request)
     company = JSON.parse(response.read_body)
+    #p company
     siret = company["entreprises"][0]["siege"]["siret"]
     siren = company["entreprises"][0]["siren"]
+    #p siren
     return [siret, siren]
   end
 
@@ -168,7 +178,7 @@ class ScrapVj
       )
       # enrichissement de la company
       APIPapers.new.papers_one((new_company.siret).to_i)
-      # p new_company.category_id
+      #p new_company.category_id
       # new_company.save
     end
   end
