@@ -14,10 +14,10 @@ class ScrapVj
         create_recruitment(recruit_offer)
         p 'Création 1 entreprise'
         company = Company.find_by(siret: recruit_offer[:siret])
-        #p company
+        # p company
         company.category_id = 1
         company.save
-        #p company.category_id
+        # p company.category_id
       end
     end
   end

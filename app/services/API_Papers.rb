@@ -169,8 +169,8 @@ class APIPapers
       "Administrateur judiciaire" => "administrateur",
       "Commissaire-priseur" => "commissaire",
       "Greffier" => "greffier",
-      "Avocat" => "avocat",
       "Huissier" => "huissier",
+      "Avocat" => "avocat",
       "Notaire" => "nota"
     }
     prof_test.each do |k, v|

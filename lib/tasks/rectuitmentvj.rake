@@ -3,8 +3,6 @@ namespace :recruitmentvj do
   # rails recruitmentvj:fetch_recruitmentvjs
   task fetch_recruitmentvjs: :environment do
 
-    #test zgeg
-
   ScrapVj.new.create_vj_recruitment
 
   end
