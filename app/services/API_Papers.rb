@@ -341,6 +341,7 @@ class APIPapers
 
       domain_map = /(https)\:\/\/maps[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_google = /(https)\:\/\/www\.googl[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_scholar = /(https)\:\/\/scholar.goog[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
       # URL CLASSIQUE
 
@@ -378,7 +379,7 @@ class APIPapers
       domain_keldoc = /(\/url\?q=)(https)\:\/\/www.keldo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_lemedecin = /(\/url\?q=)(https)\:\/\/lemedeci[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
-      if url.match(domain_irish) || url.match(domain_actu) || url.match(domain_lille) || url.match(domain_info2) || url.match(domain_info) || url.match(domain_immonot) || url.match(domain_lefi) || url.match(domain_immo) || url.match(domain_mappy) || url.match(domain_verif) || url.match(domain_lemedecin) || url.match(domain_docto2) || url.match(domain_docto) || url.match(domain_rdvmedi) || url.match(domain_docave) || url.match(domain_keldoc) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_annuaireacte) || url.match(domain_google) || url.match(domain_map) || url.match(domain_societe) || url.match(domain_pagesjaunes) || url.match(domain_linkedin) || url.match(domain_consultation) || url.match(domain_doctrine)
+      if url.match(domain_scholar) ||url.match(domain_irish) || url.match(domain_actu) || url.match(domain_lille) || url.match(domain_info2) || url.match(domain_info) || url.match(domain_immonot) || url.match(domain_lefi) || url.match(domain_immo) || url.match(domain_mappy) || url.match(domain_verif) || url.match(domain_lemedecin) || url.match(domain_docto2) || url.match(domain_docto) || url.match(domain_rdvmedi) || url.match(domain_docave) || url.match(domain_keldoc) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_annuaireacte) || url.match(domain_google) || url.match(domain_map) || url.match(domain_societe) || url.match(domain_pagesjaunes) || url.match(domain_linkedin) || url.match(domain_consultation) || url.match(domain_doctrine)
         bin2 << url
       else
         array3 << url
@@ -397,10 +398,10 @@ class APIPapers
   def email(siren, category)
     url = http(siren, category)
     p url
-
     if http(siren, category).nil?
       email_address = "N.C."
     elsif open(url).read == OpenURI::HTTPError
+      p "bug"
       # begin
       # open(url)
       # rescue OpenURI::HTTPError => error
