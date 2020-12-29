@@ -357,7 +357,7 @@ class APIPapers
       domain_info2 = /(\/url\?q=)(https)\:\/\/www\.infogreff[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_actu = /(\/url\?q=)(https)\:\/\/actulegale[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_irish = /(\/url\?q=)(https)\:\/\/www\.irishtim[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_dnb = /(\/url\?q=)(https)\:\/\/www\.dnb\.co[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_dnb = /(\/url\?q=)(https)\:\/\/www\.dn[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
       # URL AVOCAT
       domain_lille = /(\/url\?q=)(https)\:\/\/www\.avocats-lill[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
