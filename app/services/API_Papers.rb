@@ -398,7 +398,7 @@ class APIPapers
   def email(siren, category)
     url = http(siren, category)
     p url
-    if http(siren, category).nil?
+    if http(siren, category).nil? || url == nil?
       email_address = "N.C."
     elsif
       begin
