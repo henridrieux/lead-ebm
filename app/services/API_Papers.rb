@@ -354,6 +354,9 @@ class APIPapers
       domain_lefi = /(\/url\?q=)(http)\:\/\/entreprises\.lefiga[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_info = /(\/url\?q=)(http)\:\/\/www\.greffe[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_info2 = /(\/url\?q=)(https)\:\/\/www\.infogreff[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_actu = /(\/url\?q=)(https)\:\/\/www\.actulegale[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+
+
       # URL AVOCAT
       domain_lille = /(\/url\?q=)(https)\:\/\/www\.avocats-lill[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_consultation = /(\/url\?q=)(https)\:\/\/consultation[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
@@ -374,7 +377,7 @@ class APIPapers
       domain_keldoc = /(\/url\?q=)(https)\:\/\/www.keldo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_lemedecin = /(\/url\?q=)(https)\:\/\/lemedeci[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
-      if url.match(domain_lille) || url.match(domain_info2) || url.match(domain_info) || url.match(domain_immonot) || url.match(domain_lefi) || url.match(domain_immo) || url.match(domain_mappy) || url.match(domain_verif) || url.match(domain_lemedecin) || url.match(domain_docto2) || url.match(domain_docto) || url.match(domain_rdvmedi) || url.match(domain_docave) || url.match(domain_keldoc) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_annuaireacte) || url.match(domain_google) || url.match(domain_map) || url.match(domain_societe) || url.match(domain_pagesjaunes) || url.match(domain_linkedin) || url.match(domain_consultation) || url.match(domain_doctrine)
+      if url.match(domain_actu) || url.match(domain_lille) || url.match(domain_info2) || url.match(domain_info) || url.match(domain_immonot) || url.match(domain_lefi) || url.match(domain_immo) || url.match(domain_mappy) || url.match(domain_verif) || url.match(domain_lemedecin) || url.match(domain_docto2) || url.match(domain_docto) || url.match(domain_rdvmedi) || url.match(domain_docave) || url.match(domain_keldoc) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_annuaireacte) || url.match(domain_google) || url.match(domain_map) || url.match(domain_societe) || url.match(domain_pagesjaunes) || url.match(domain_linkedin) || url.match(domain_consultation) || url.match(domain_doctrine)
         bin2 << url
       else
         array3 << url
