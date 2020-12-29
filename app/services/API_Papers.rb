@@ -400,11 +400,10 @@ class APIPapers
     p url
     if http(siren, category).nil?
       email_address = "N.C."
-    elsif open(url).read == OpenURI::HTTPError
-      p "bug"
-      # begin
-      # open(url)
-      # rescue OpenURI::HTTPError => error
+    elsif
+      begin
+      open(url)
+      rescue OpenURI::HTTPError => error
       # response = error.io
       # response.status
       # => ["503", "Service Unavailable"]
