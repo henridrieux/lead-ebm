@@ -408,6 +408,7 @@ class APIPapers
       # response.status
       # => ["503", "Service Unavailable"]
       email_address = "N.C."
+      end
     else
       html_file = open(url).read
       if html_file.nil? || html_file.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i).nil?
