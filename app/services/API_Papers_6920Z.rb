@@ -271,7 +271,7 @@ class APIPapers6920z
     response = https.request(request)
     return_array = response.read_body
     result = JSON.parse(return_array)
-    result = result["nom_entreprise"] + " " + result["siege"]["ville"]
+    result = result["nom_entreprise"] + " " + result["siege"]["ville"].parameterize.upcase
     # p result
     return result
   end
