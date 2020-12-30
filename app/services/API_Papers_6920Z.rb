@@ -372,12 +372,16 @@ class APIPapers6920z
   def check_url_validity(siren, category)
     url = http(siren, category)
     p url
-    if open(url)
+    if remote_file_exist?(url)
       html_file = open(url).read
       check_email_adress(html_file)
     else
       email_address = "N.C."
     end
+  end
+
+  def remote_file_exist?(url)
+    open(url, :method => :head).status rescue false
   end
 
   def check_email_adress(html_file)
