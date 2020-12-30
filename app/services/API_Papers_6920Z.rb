@@ -371,7 +371,8 @@ class APIPapers6920z
 
   def check_url_validity(siren, category)
     url = http(siren, category)
-    if open(url).read
+    p url
+    if open(url)
       html_file = open(url).read
       check_email_adress(html_file)
     else
