@@ -376,6 +376,7 @@ class APIPapers6920z
       check_email_adress(html_file)
     else
       email_address = "N.C."
+    end
   end
 
   def check_email_adress(html_file)
