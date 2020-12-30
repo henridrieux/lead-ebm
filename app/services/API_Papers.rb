@@ -451,7 +451,6 @@ class APIPapers
     cityquery = city
     url = URI("https://www.google.com/search?q=#{query} #{cityquery}&aqs=chrome..69i57j33i160.30487j0j7&sourceid=chrome&ie=UTF-8")
     html_file = open(url).read
-    p html_file
 
     # if html_file.match?(/[a-zA-Z0-9\-\.]dministrateu[a-zA-Z0-9\-\.](\/\S*)?/i).nil? || html_file.match?(/[a-zA-Z0-9\-\.]ommissair[a-zA-Z0-9\-\.](\/\S*)?/i).nil? || html_file.match?(/[a-zA-Z0-9\-\.]uissie[a-zA-Z0-9\-\.](\/\S*)?/i).nil? || html_file.match?(/[a-zA-Z0-9\-\.]otaire[a-zA-Z0-9\-\.](\/\S*)?/i).nil? || html_file.match?(/[a-zA-Z0-9\-\.]voca[a-zA-Z0-9\-\.](\/\S*)?/i).nil?
     if html_file.match?(/[a-zA-Z0-9\-\.]dministrateu[a-zA-Z0-9\-\.](\/\S*)?/i)
