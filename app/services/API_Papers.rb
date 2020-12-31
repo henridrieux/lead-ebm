@@ -179,7 +179,7 @@ class APIPapers
     end
 
     if cat == "Greffier"
-      check_category_greffier(input.siren, input.city)
+      cat = check_category_greffier(input.siren, input.city)
     end
     #p cat
     return cat
@@ -471,9 +471,9 @@ class APIPapers
     else
       cat = "Greffier"
     end
-    # p cat
+    #p cat
     return cat
   end
 end
 
-#APIPapers.new.papers_all(10, "01-01-1900")
+#APIPapers.new.check_category_greffier("844813923", "LYON 2EME")
