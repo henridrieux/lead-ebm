@@ -101,7 +101,7 @@ class APIPapers
       create_company(company)
       @nb_create += 1
     end
-    sleep 3
+    sleep 2
   end
 
   def headquarter_count(siren)
