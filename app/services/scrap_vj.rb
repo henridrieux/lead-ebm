@@ -43,7 +43,7 @@ class ScrapVj
     #   html_doc2.search('#main > div > div.col-xs-12.col-sm-7.col-md-7.col-lg-7 > span > ul > li').each do |element|
     #   url_recruit_offers << element.text.strip
     #   end
-    # p url_recruit_offers
+    #p url_recruit_offers
     return url_recruit_offers
   end
 
@@ -97,7 +97,7 @@ class ScrapVj
     recruit_offer[:publication_date] = Date.today
     recruit_offer[:contract_type] = contrat
     recruit_offer[:job_description] = job_desc
-    if recruit_offer[:company_name] == "Teamrh" || recruit_offer[:company_name] == "Fed Legal" || recruit_offer[:company_name] == "Hermexis Avocats Associés" || recruit_offer[:company_name] == "Legal&HR Talents" || recruit_offer[:company_name] == "Neithwork" || recruit_offer[:company_name] == "Fed Légal" || recruit_offer[:company_name] == "Michael Page" || recruit_offer[:company_name] == "Hays"
+    if recruit_offer[:company_name] == "Teamrh" || recruit_offer[:company_name] == "Fidal" || recruit_offer[:company_name] == "Lamartine Conseil" || recruit_offer[:company_name] == "Fed Legal" || recruit_offer[:company_name] == "Hermexis Avocats Associés" || recruit_offer[:company_name] == "Legal&HR Talents" || recruit_offer[:company_name] == "Neithwork" || recruit_offer[:company_name] == "Fed Légal" || recruit_offer[:company_name] == "Michael Page" || recruit_offer[:company_name] == "Hays"
       recruit_offer[:siret] = "N.C"
       recruit_offer[:siren] = "N.C"
       #p "cabinet de recrutment"
@@ -107,7 +107,7 @@ class ScrapVj
       # p recruit_offer[:siret]
       recruit_offer[:siren] = papers_name(recruteur)[1]
     end
-    #p recruit_offer.class
+    #p recruit_offer
     return recruit_offer
   end
 
@@ -131,14 +131,16 @@ class ScrapVj
     input.company = create_company(recruit_offer)
     input.company.category_id = 1
     input.save
-    if input.save
-      @nb_create += 1
-    end
+    # p "ici"
+    # if input.save
+    #   @nb_create += 1
+    # end
   end
 
   def papers_name(company_name)
-    #p company_name
-    url = URI("https://api.pappers.fr/v1recherche?nom_entreprise=#{company_name}&code_naf=69.10Z&api_token=c8c26742dc2e31f8ad0059a0d4069c4c66addf1cdddfea7a&par_page=1&entreprice_cessee=false")
+    company_name1 = company_name.parameterize
+    #p company_name1
+    url = URI("https://api.pappers.fr/v1recherche?nom_entreprise=#{company_name1}&code_naf=69.10Z&api_token=c8c26742dc2e31f8ad0059a0d4069c4c66addf1cdddfea7a&par_page=1&entreprice_cessee=false")
 
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
