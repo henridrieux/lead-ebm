@@ -15,7 +15,7 @@ class ScrapVj
         p 'Création 1 entreprise'
         company = Company.find_by(siret: recruit_offer[:siret])
         # p company
-        company.category_id = 1
+        company.category_id = 12
         company.save
         # p company.category_id
       end
@@ -43,7 +43,7 @@ class ScrapVj
     #   html_doc2.search('#main > div > div.col-xs-12.col-sm-7.col-md-7.col-lg-7 > span > ul > li').each do |element|
     #   url_recruit_offers << element.text.strip
     #   end
-    #p url_recruit_offers
+    p url_recruit_offers
     return url_recruit_offers
   end
 
@@ -129,7 +129,7 @@ class ScrapVj
     )
     #p 'la'
     input.company = create_company(recruit_offer)
-    input.company.category_id = 1
+    input.company.category_id = 12
     input.save
     # p "ici"
     # if input.save

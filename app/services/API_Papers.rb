@@ -202,8 +202,8 @@ class APIPapers
       naf_code: company["siege"]["code_naf"],
       activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
     )
-    cat = "Notaire"
-    input2.category = Category.find_by(name: cat)
+    # cat = "Comptable"
+    # input2.category = Category.find_by(name: cat)
     input2.save
   end
 
