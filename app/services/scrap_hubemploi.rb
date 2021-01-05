@@ -18,9 +18,11 @@ class ScrapHubemploi
         create_recruitment(recruit_offer)
         p "emploi created"
         company = Company.find_by(siret: recruit_offer[:siret])
-        # p company
         company.category_id = 17
         company.save
+        recruitment = Recruitment.find_by(external_id: recruit_offer[:external_id])
+        recruitment.zip_code = company.zip_code
+        recruitment.save
         @nb_create+=1
       end
     end
@@ -77,7 +79,11 @@ class ScrapHubemploi
     post = nokogiri_objet.search('#app > div.app-body.leading-loose.text-base.md\:text-lg > div.bg-grey-lightest.w-full > div > div.slice_wrapper.bg-grey-lightest.candidate-color > div > div > div > div.bg-white > div > div > div > div.w-full > h1').text.strip
     recruteur = nokogiri_objet.search('#app > div.app-body.leading-loose.text-base.md\:text-lg > div.bg-grey-lightest.w-full > div > div.slice_wrapper.bg-grey-lightest.candidate-color > div > div > div > div.bg-white > div > div > div > div.flex.flex-col.md\:flex-row > div > p.text-24.font-bold.uppercase').text.strip
     date = nokogiri_objet.search('#app > div.app-body.leading-loose.text-base.md\:text-lg > div.bg-grey-lightest.w-full > div > div.slice_wrapper.bg-grey-lightest.candidate-color > div > div > div > div.bg-white > div > div > div > div.published-date').text.strip
+    date = date.scan(/\d+|[A-Za-z]+/)[3].to_i
+    # p date
     city = nokogiri_objet.search('#app > div.app-body.leading-loose.text-base.md\:text-lg > div.bg-grey-lightest.w-full > div > div.slice_wrapper.bg-grey-lightest.candidate-color > div > div > div > div.bg-white > div > div > div > div.flex.flex-col.md\:flex-row > div > p.font-bold.text-base.mt-2').text.strip
+    # city = city.split(/(?<=\d)(?=[A-Za-z])/)
+    # p city
     contrat = nokogiri_objet.search('#app > div.app-body.leading-loose.text-base.md\:text-lg > div.bg-grey-lightest.w-full > div > div.slice_wrapper.bg-grey-lightest.candidate-color > div > div > div > div.flex.flex-col-reverse.lg\:flex-row.pb-24.px-2.lg\:px-0.w-4\/5.lg\:w-full.mx-auto.z-10 > div.w-full.lg\:w-9\/10 > div:nth-child(1) > div > div:nth-child(1) > p').text.strip
     job_desc = nokogiri_objet.search('#app > div.app-body.leading-loose.text-base.md\:text-lg > div.bg-grey-lightest.w-full > div > div.slice_wrapper.bg-grey-lightest.candidate-color > div > div > div > div.flex.flex-col-reverse.lg\:flex-row.pb-24.px-2.lg\:px-0.w-4\/5.lg\:w-full.mx-auto.z-10 > div.w-full.lg\:w-9\/10 > div.bg-white.my-4.py-8.md\:pt-12.md\:pb-16.px-6.sm\:px-8.md\:px-12.lg\:px-16.xl\:px-20.xxl\:px-24.w-full > div:nth-child(1) > div.paragraph.wysiwyg.wysiwyg--candidate > p').text.strip
     external_id = nokogiri_objet.search('#app > div.app-body.leading-loose.text-base.md\:text-lg > div.bg-grey-lightest.w-full > div > div.slice_wrapper.bg-grey-lightest.candidate-color > div > div > div > div.flex.flex-col-reverse.lg\:flex-row.pb-24.px-2.lg\:px-0.w-4\/5.lg\:w-full.mx-auto.z-10 > div.w-full.lg\:w-9\/10 > div.bg-white.my-4.py-8.md\:pt-12.md\:pb-16.px-6.sm\:px-8.md\:px-12.lg\:px-16.xl\:px-20.xxl\:px-24.w-full > div.w-full.paragraph > span').text.strip
@@ -115,7 +121,7 @@ class ScrapHubemploi
       job_title: recruit_offer[:job_title],
       # category_id: recruit_offer[:category_id]
       contract_type: recruit_offer[:contract_type],
-      publication_date: Date.today,
+      publication_date: Date.today - recruit_offer[:publication_date],
       # employer_email: recruitoffer["mail"],
       job_description: recruit_offer[:job_description],
       # employer_name: recruitoffer["label"],
