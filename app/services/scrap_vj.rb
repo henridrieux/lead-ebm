@@ -5,21 +5,27 @@ require 'nokogiri'
 class ScrapVj
 
   def create_vj_recruitment
+    @nb_update = 0
+    @nb_create = 0
     get_vj_recruit_offers.each do |recruit_offer|
       # p recruit_offer[:siret]
       if recruit_offer[:siret] == "N.C"
         p "cabinet de recrutment"
+        @nb_update += 1
       else
         create_company(recruit_offer)
         create_recruitment(recruit_offer)
-        p 'Création 1 entreprise'
+        p "Création d'1 cabinet"
         company = Company.find_by(siret: recruit_offer[:siret])
-        # p company
         company.category_id = 12
         company.save
-        # p company.category_id
+
+        # recruitment = Recruitment.find_by(external_id: recruit_offer[:external_id])
+        # recruitment.zip_code = company.zip_code
+        # recruitment.save
       end
     end
+    puts "#{@nb_create} créations et #{@nb_update} cabinet de recrutement"
   end
 
   def get_vj_recruit_offers
@@ -43,7 +49,7 @@ class ScrapVj
     #   html_doc2.search('#main > div > div.col-xs-12.col-sm-7.col-md-7.col-lg-7 > span > ul > li').each do |element|
     #   url_recruit_offers << element.text.strip
     #   end
-    p url_recruit_offers
+    #p url_recruit_offers
     return url_recruit_offers
   end
 
@@ -60,6 +66,7 @@ class ScrapVj
       # ajouter les recruits offer dans le tableau <<
       array_recruitment << recruit_offer
     end
+    #p array_recruitment
     return array_recruitment
   end
 
@@ -90,14 +97,14 @@ class ScrapVj
 
     # effectuer assignation entre valeurs et cles symbol
 
-    recruit_offer[:job_title] = post
+    recruit_offer[:job_title] = post.parameterize
     recruit_offer[:company_name] = recruteur
     recruit_offer[:publication_date] = date
-    recruit_offer[:zip_code] = city
-    recruit_offer[:publication_date] = Date.today
-    recruit_offer[:contract_type] = contrat
-    recruit_offer[:job_description] = job_desc
-    if recruit_offer[:company_name] == "Teamrh" || recruit_offer[:company_name] == "Fidal" || recruit_offer[:company_name] == "Lamartine Conseil" || recruit_offer[:company_name] == "Fed Legal" || recruit_offer[:company_name] == "Hermexis Avocats Associés" || recruit_offer[:company_name] == "Legal&HR Talents" || recruit_offer[:company_name] == "Neithwork" || recruit_offer[:company_name] == "Fed Légal" || recruit_offer[:company_name] == "Michael Page" || recruit_offer[:company_name] == "Hays"
+    #recruit_offer[:zip_code] = city
+    # recruit_offer[:publication_date] = Date.today
+    recruit_offer[:contract_type] = contrat.parameterize
+    recruit_offer[:job_description] = job_desc.parameterize
+    if recruit_offer[:company_name] == "Teamrh" || recruit_offer[:company_name] == "Cabinet d'avocats" || recruit_offer[:company_name] == "Scp Cordelier & Associés" || recruit_offer[:company_name] == "Fidal" || recruit_offer[:company_name] == "Lamartine Conseil" || recruit_offer[:company_name] == "Fed Legal" || recruit_offer[:company_name] == "Hermexis Avocats Associés" || recruit_offer[:company_name] == "Legal&HR Talents" || recruit_offer[:company_name] == "Neithwork" || recruit_offer[:company_name] == "Fed Légal" || recruit_offer[:company_name] == "Michael Page" || recruit_offer[:company_name] == "Hays"
       recruit_offer[:siret] = "N.C"
       recruit_offer[:siren] = "N.C"
       #p "cabinet de recrutment"
@@ -115,26 +122,29 @@ class ScrapVj
     @nb_create = 0
 
     input = Recruitment.new(
-      zip_code: recruit_offer[:zip_code].to_i,
+      #zip_code: recruit_offer[:zip_code].to_i,
       employer: recruit_offer[:company_name],
       job_title: recruit_offer[:job_title],
       # category_id: recruit_offer[:category_id]
       contract_type: recruit_offer[:contract_type],
-      publication_date: Date.today,
+      publication_date: recruit_offer[:publication_date],
       # employer_email: recruitoffer["mail"],
       job_description: recruit_offer[:job_description]
       # employer_name: recruitoffer["label"],
       # employer_phone: recruitoffer["phone"],
       # external_id: recruitoffer["idOffer"]
     )
-    #p 'la'
+
     input.company = create_company(recruit_offer)
     input.company.category_id = 12
+    company = Company.find_by(siret: recruit_offer[:siret])
+    zip = company.zip_code
+    input.zip_code = zip.to_i
     input.save
-    # p "ici"
-    # if input.save
-    #   @nb_create += 1
-    # end
+
+    if input.save
+      @nb_create += 1
+    end
   end
 
   def papers_name(company_name)
@@ -149,9 +159,13 @@ class ScrapVj
     response = https.request(request)
     company = JSON.parse(response.read_body)
     #p company
-    siret = company["entreprises"][0]["siege"]["siret"]
-    siren = company["entreprises"][0]["siren"]
-    #p siren
+    if company["entreprises"].blank?
+      siret = 'N.C'
+      siren = 'N.C'
+    else
+      siret = company["entreprises"][0]["siege"]["siret"]
+      siren = company["entreprises"][0]["siren"]
+    end    #p siren
     return [siret, siren]
   end
 
@@ -167,7 +181,7 @@ class ScrapVj
       company
       # p 'deja en place'
     else
-      p "en création"
+      #p "en création"
       # creation rapide de la company
       new_company = Company.create!(
         company_name: recruit_offer[:company_name],
