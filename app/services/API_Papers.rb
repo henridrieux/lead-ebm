@@ -309,8 +309,8 @@ class APIPapers
   end
 
   def check_google(siren, category)
-    query = website(siren)
-    cat = category
+    query = website(siren).parameterize
+    cat = category.parameterize
     url = URI("https://www.google.com/search?q=#{query} #{cat}&aqs=chrome..69i57j33i160.30487j0j7&sourceid=chrome&ie=UTF-8")
     # p url
     html_file = open(url).read
