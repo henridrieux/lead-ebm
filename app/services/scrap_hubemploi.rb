@@ -6,21 +6,25 @@ require 'openssl'
 class ScrapHubemploi
 
   def create_hubemploi_recruitment
+    @nb_update = 0
+    @nb_create = 0
     get_vj_recruit_offers.each do |recruit_offer|
       # p recruit_offer[:siret]
-      if recruit_offer[:siret] == "N.C"
-        p "cabinet de recrutment"
+      if if Recruitment.find_by(external_id: recruitoffer[:external_id])
+        p "emploi updated"
+        @nb_update +=1
       else
         create_company(recruit_offer)
         create_recruitment(recruit_offer)
-        p 'Création 1 entreprise'
+        p "emploi created"
         company = Company.find_by(siret: recruit_offer[:siret])
         # p company
-        company.category_id = 12
+        company.category_id = 17
         company.save
-        # p company.category_id
+        @nb_create+=1
       end
     end
+    puts "#{@nb_create} créations et #{@nb_update} updates"
   end
 
   def get_vj_recruit_offers
@@ -120,7 +124,7 @@ class ScrapHubemploi
     )
     #p 'la'
     input.company = create_company(recruit_offer)
-    input.company.category_id = 7
+    input.company.category_id = 12
     input.save
     # p "ici"
     # if input.save
