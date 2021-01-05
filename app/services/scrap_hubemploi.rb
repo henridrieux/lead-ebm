@@ -10,7 +10,7 @@ class ScrapHubemploi
     @nb_create = 0
     get_vj_recruit_offers.each do |recruit_offer|
       # p recruit_offer[:siret]
-      if if Recruitment.find_by(external_id: recruitoffer[:external_id])
+      if Recruitment.find_by(external_id: recruit_offer[:external_id])
         p "emploi updated"
         @nb_update +=1
       else
