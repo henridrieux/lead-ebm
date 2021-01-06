@@ -8,7 +8,7 @@
 
 require "open-uri"
 
-CAT_LIST = ["Avocat", "Huissier", "Notaire", "Administrateur judiciaire", "Commissaire-priseur", "Comptable", 'Médecin']
+CAT_LIST = ["Opticien", "Pharmaciens", "Avocat", "Huissier", "Notaire", "Administrateur judiciaire", "Commissaire-priseur", "Comptable", "Médecin Généraliste", "Architecte", "Radiologue", "Dentitste", "Médecins spécialistes"]
 
 cat_1 = {
   name: "Avocat",
@@ -79,14 +79,64 @@ cat_7 = {
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1606404077/comptable.jpg',
   filename: 'Comptable.jpg'
 }
-# cat_8 = {
-#   name: "Médecin",
-#   description: "Un médecin est un professionnel de la santé titulaire d'un diplôme de docteur
-#    en médecine ou, en France d'un diplôme d'État de docteur en médecine. ",
-#   color_code:"#54e346",
-#   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1607764870/Medecin-geriatre-850x523_ivvnjb.jpg',
-#   filename: 'Médecin.jpg'
-# }
+
+cat_8 = {
+  name: "Médecin Généraliste",
+  description: "Un médecin est un professionnel de la santé titulaire d'un diplôme de docteur
+   en médecine ou, en France d'un diplôme d'État de docteur en médecine. ",
+  color_code:"#54e346",
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957444/cdc-UC9_itYaafM-unsplash_djh5iy.jpg',
+  filename: 'Médecin.jpg'
+}
+
+cat_9 = {
+  name: "Architecte",
+  description: "Construction d'un immeuble, réaménagement d'une cafétéria, réhabilitation d'une maison, etc. Le maître d'oeuvre de tous ces chantiers, c'est l'architecte. Il suit le projet de construction, de la commande à la livraison. Très créatif, surtout en phase de conception,
+  l'architecte n'a rien d'un artiste qui travaillerait seul face à l'ordinateur.",
+  color_code:"#FF7B54",
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1607764870/Medecin-geriatre-850x523_ivvnjb.jpg',
+  filename: 'Médecin.jpg'
+}
+
+cat_10 = {
+  name: "Radiologue",
+  description: "Le radiologue est un médecin spécialiste des techniques de l’imagerie médicale : clichés radio, échographies, scanners et IRM. Il repère notamment les fractures, tumeurs ou infections sur toutes les parties du corps. Il surveille la croissance du fœtus chez la femme enceinte.",
+  color_code:"#4e8d7c",
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957204/jonathan-borba-v_2FRXEba94-unsplash_ctdaom.jpg',
+  filename: 'Médecin.jpg'
+}
+
+cat_11 = {
+  name: "Dentitste",
+  description: "Un dentiste est un professionnel de la santé spécialisé dans la prise en charge des pathologies des dents et des gencives. Le dentiste est un médecin qui suit ses patients dès l'enfance, puis toute leur vie. Il soigne, conseille sur l'hygiène bucco-dentaire.",
+  color_code:"#00587a",
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957336/jonathan-borba-Gt4CWOnHdEE-unsplash_djjqow.jpg',
+  filename: 'Médecin.jpg'
+}
+
+cat_12 = {
+  name: "Médecins spécialistes",
+  description: "Le médecin spécialiste examine les malades, établit un diagnostic et met en place un traitement adapté. De la dermatologie à la pédiatrie, la profession compte une trentaine de disciplines.",
+  color_code:"#9088d4",
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957269/bofu-shaw-QTjR-fCtGCg-unsplash_foiybh.jpg',
+  filename: 'Médecin.jpg'
+}
+
+cat_13 = {
+  name: "Opticien",
+  description: "L’opticien - lunetier / l'opticienne - lunetière vend des montures et verres correcteurs, les lentilles de contact et autres accessoires (lunettes de soleil, produits d'entretien, étuis, cordons...).",
+  color_code:"#c0e218",
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957124/nonsap-visuals-z65bg9SI-9I-unsplash_mazenb.jpg',
+  filename: 'Médecin.jpg'
+}
+
+cat_14 = {
+  name: "Pharmaciens",
+  description: "Le pharmacien vend des médicaments, prescrits ou non par un médecin. Son rôle de conseil est très important. La plupart travaillent en officine, les autres dans la biologie médicale, l'industrie ou la distribution pharmaceutique.",
+  color_code:"#a4b787",
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957030/national-cancer-institute-byGTytEGjBo-unsplash_vlublk.jpg',
+  filename: 'Médecin.jpg'
+}
 
 def seed_category(cat)
   if Category.find_by(name: cat[:name])
@@ -117,7 +167,7 @@ end
 
 puts "creating cats..."
 
-ALL_CATS = [cat_1, cat_2, cat_3, cat_4, cat_5, cat_6, cat_7]
+ALL_CATS = [cat_1, cat_2, cat_3, cat_4, cat_5, cat_6, cat_7, cat_8, cat_9, cat_10, cat_11, cat_12, cat_13, cat_14]
 ALL_CATS.each do |cat|
   p cat[:url]
   seed_category(cat)
@@ -130,55 +180,55 @@ puts "#{Category.count} cats in db "
 event_1 = {
   title: "Créations de société",
   description: "Identifier les nouvelles créations d'entreprise",
-  frequency: "sur 3 mois",
+  frequency: "sur 1 mois",
   color_code: "#1A6EFC",
   query: "creation_date > ?",
-  query_params: "90",
+  query_params: "30",
   url_icon:"https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/new_company_rwmoj9.png"
 }
 event_2 = {
   title: "Sociétés qui recrutent",
   description: "Identifier les sociétés qui se développent",
-  frequency: "sur 1 mois",
+  frequency: "sur 2 semaines",
   color_code: "#28B6A4",
   query: "recruitments.id > 0 AND recruitments.created_at > ?",
-  query_params: "30",
+  query_params: "15",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/recruitment_xqufo0.png"
 }
 event_3 = {
   title: "Sociétés qui déménagent",
   description: "Identifier les sociétés qui ont déménagé recemment",
-  frequency: "sur 2 mois",
+  frequency: "sur 1 mois",
   color_code: "#BF73DB",
   query: "last_moving_date > ?",
-  query_params: "60",
+  query_params: "30",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/moving_x4ylvr.png"
 }
 event_4 = {
   title: "Changements de dirigeants",
   description: "Identifier les sociétés qui ont fusionné récemment",
-  frequency: "sur 1 an",
+  frequency: "sur 1 mois",
   color_code: "#B6BAEA",
   query: "fusion_date > ?",
-  query_params: "360",
+  query_params: "30",
   url_icon:"https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/fusion_ftodyw.png"
 }
 event_5 = {
-  title: "Sociétés qui créent leur site internet",
+  title: "Sociétés qui créent leur site internet (en cours)",
   description: "Identifier les sociétés qui créent leur site internet",
-  frequency: "sur 3 mois",
+  frequency: "sur 1 mois",
   color_code: "#FC454A",
   query: "website_date > ?",
-  query_params: "90",
+  query_params: "30",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/website_efa8la.png"
 }
 event_6 = {
   title: "Ouverture nouvel établissement",
   description: "Identifier les sociétés qui ont ouvert un deuxième siège social",
-  frequency: "sur 3 mois",
+  frequency: "sur 1 mois",
   color_code: "#F2C94D",
   query: "second_headquarter_date > ?",
-  query_params: "90",
+  query_params: "30",
   url_icon: "https://res.cloudinary.com/dpco9ylg1/image/upload/v1606816711/etablissement_j5ithk.png"
 }
 
