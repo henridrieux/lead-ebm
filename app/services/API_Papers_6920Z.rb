@@ -84,7 +84,8 @@ class APIPapers6920z
   end
 
   def check_company(company)
-    Company.find_by(siret: company["siege"]["siret"].to_i)
+    p company["siege"]["siret"]
+    #Company.find_by(siret: company["siege"]["siret"].to_i)
     if Company.find_by(siret: company["siege"]["siret"].to_i)
       update_company_adress(company)
       update_company_siret_counter(company)
@@ -372,7 +373,7 @@ class APIPapers6920z
 
   def check_url_validity(siren, category)
     url = http(siren, category)
-    p url
+    #p url
     if remote_file_exist?(url)
       html_file = open(url).read
       check_email_adress(html_file)

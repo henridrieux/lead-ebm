@@ -114,7 +114,13 @@ class APIPapers
     response = https.request(request)
     return_array = response.read_body
     result = JSON.parse(return_array)
-    return result["etablissements"].count
+
+    if result["etablissements"].blank?
+      result = 1
+    else
+      result = result["etablissements"].count
+    end
+    return result
   end
 
   def create_company(company)
