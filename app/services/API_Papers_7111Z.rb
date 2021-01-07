@@ -332,8 +332,9 @@ def papers_all(number, date_string)
       domain_facebook2 = /(\/url\?q=)(https)\:\/\/www\.face[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_info = /(\/url\?q=)(https)\:\/\/www\.infogreff[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_kompas = /(\/url\?q=)(https)\:\/\/fr\.kompas[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_filam = /(\/url\?q=)(http)\:\/\/www\.filham[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
-      if url.match(domain_societe) || url.match(domain_linke) || url.match(domain_linkedines) || url.match(domain_kompas) || url.match(domain_img2) || url.match(domain_img) || url.match(domain_info) || url.match(domain_google2) || url.match(domain_mappy) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_google) || url.match(domain_map) || url.match(domain_linkedin)
+      if url.match(domain_filam) || url.match(domain_societe) || url.match(domain_linke) || url.match(domain_linkedines) || url.match(domain_kompas) || url.match(domain_img2) || url.match(domain_img) || url.match(domain_info) || url.match(domain_google2) || url.match(domain_mappy) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_google) || url.match(domain_map) || url.match(domain_linkedin)
         bin2 << url
       else
         array3 << url
@@ -345,6 +346,7 @@ def papers_all(number, date_string)
     else
       url = array3.first.to_s.delete_prefix('/url?q=').split('&').first
     end
+
     return url
   end
 
