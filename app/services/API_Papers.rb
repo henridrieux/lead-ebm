@@ -312,7 +312,11 @@ class APIPapers
     response = https.request(request)
     return_array = response.read_body
     result = JSON.parse(return_array)
-    result = result["nom_entreprise"] + " " + result["siege"]["ville"]
+    if result["siege"]["ville"].nil?
+      result = result["nom_entreprise"]
+    else
+    result = result["nom_entreprise"] + " " + result["siege"]["ville"].parameterize.upcase
+    end
     # p result
     return result
   end
