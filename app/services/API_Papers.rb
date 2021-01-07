@@ -455,7 +455,7 @@ class APIPapers
   # end
 
   def check_category_greffier(siren, city)
-    query = website(siren)
+    query = website(siren).parameterize
     cityquery = city.parameterize
     url = URI("https://www.google.com/search?q=#{query} #{cityquery}&aqs=chrome..69i57j33i160.30487j0j7&sourceid=chrome&ie=UTF-8")
     html_file = open(url).read
