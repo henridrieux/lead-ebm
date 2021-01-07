@@ -84,9 +84,10 @@ class APIPapers6920z
   end
 
   def check_company(company)
-    p company["siege"]["siret"]
+    # p company["siege"]["siret"]
     #Company.find_by(siret: company["siege"]["siret"].to_i)
-    if Company.find_by(siret: company["siege"]["siret"].to_i)
+    if company["siege"]["siret"].blank?
+    elsif Company.find_by(siret: company["siege"]["siret"].to_i)
       update_company_adress(company)
       update_company_siret_counter(company)
       check_company_manager_name(company)
