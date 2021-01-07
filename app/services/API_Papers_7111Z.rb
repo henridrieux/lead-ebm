@@ -365,7 +365,7 @@ def papers_all(number, date_string)
 
     url = URI.parse("#{url}")
     req = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
+    #http.use_ssl = true
     res = req.request_head(url.path)
 
     if res
