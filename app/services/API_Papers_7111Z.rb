@@ -83,7 +83,7 @@ def papers_all(number, date_string)
   end
 
   def check_company(company)
-    p company["siege"]["siret"]
+    #p company["siege"]["siret"]
     #Company.find_by(siret: company["siege"]["siret"].to_i)
     if Company.find_by(siret: company["siege"]["siret"].to_i)
       update_company_adress(company)
@@ -290,8 +290,8 @@ def papers_all(number, date_string)
   def check_google(siren, category)
     query = website(siren)
     cat = category
-    url = URI("https://www.google.com/search?q=#{query} #{cat}&aqs=chrome..69i57j33i160.30487j0j7&sourceid=chrome&ie=UTF-8")
-    # p url
+    url = URI("https://www.google.com/search?q=#{query} #{cat}&aqs=chrome..69i57.12838j0j1&sourceid=chrome&ie=UTF-8&google_abuse=GOOGLE_ABUSE_EXEMPTION%3DID%3Dd631c880f8324646:TM%3D1610015596:C%3Dr:IP%3D195.158.249.10-:S%3DAPGng0ugFk3mv3CQOcglO8dStCd4-zNsAg%3B+path%3D/%3B+domain%3Dgoogle.com%3B+expires%3DThu,+07-Jan-2021+13:33:16+GMT")
+    #p url
     html_file = open(url).read
     html_doc = Nokogiri::HTML(html_file)
     links = html_doc.search('a')
@@ -321,6 +321,7 @@ def papers_all(number, date_string)
       domain_google = /(https)\:\/\/www\.googl[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_google2 = /(http)\:\/\/www\.googl[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       # URL CLASSIQUE
+      domain_societe = /(\/url\?q=)(https)\:\/\/www\.soci[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_img2 = /(\/imgres\?imgurl=)(http)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_img = /(\/imgres\?imgurl=)(https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_linkedin = /(\/url\?q=)(https)\:\/\/fr\.linked[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
@@ -332,7 +333,7 @@ def papers_all(number, date_string)
       domain_info = /(\/url\?q=)(https)\:\/\/www\.infogreff[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_kompas = /(\/url\?q=)(https)\:\/\/fr\.kompas[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
-      if url.match(domain_dom) || url.match(domain_img2) || url.match(domain_img) || url.match(domain_wiki) || url.match(domain_docto4) || url.match(domain_docto3) || url.match(domain_twit) || url.match(domain_d2) || url.match(domain_french2) || url.match(domain_detami) || url.match(domain_tel) || url.match(domain_daily) || url.match(domain_lavenirdelart) || url.match(domain_laval) || url.match(domain_clau) || url.match(domain_french) || url.match(domain_isere) || url.match(domain_linke) || url.match(domain_df) || url.match(domain_cndep) || url.match(domain_linkedines) || url.match(domain_athena) || url.match(domain_lesechos) || url.match(domain_dete) || url.match(domain_cnaps) || url.match(domain_rif) || url.match(domain_rci) || url.match(domain_erf) || url.match(domain_groupe) || url.match(domain_kompas) || url.match(domain_docto2) || url.match(domain_info) || url.match(domain_google2) || url.match(domain_mappy) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_google) || url.match(domain_map) || url.match(domain_linkedin)
+      if url.match(domain_societe) || url.match(domain_linke) || url.match(domain_linkedines) || url.match(domain_kompas) || url.match(domain_img2) || url.match(domain_img) || url.match(domain_info) || url.match(domain_google2) || url.match(domain_mappy) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_google) || url.match(domain_map) || url.match(domain_linkedin)
         bin2 << url
       else
         array3 << url
@@ -344,36 +345,34 @@ def papers_all(number, date_string)
     else
       url = array3.first.to_s.delete_prefix('/url?q=').split('&').first
     end
-    p url
     return url
   end
 
   def email(siren, category)
+    #p 'la'
     if http(siren, category).nil?
       email_address = "N.C."
     else
-      # url = http(siren, category)
-      # p url
-      # html_file = open(url).read
-      check_url_validity(siren, category)
-
+      email_address = check_url_validity(siren, category)
       return email_address
     end
   end
 
   def check_url_validity(siren, category)
     url = http(siren, category)
-    # p url
-    if remote_file_exist?(url)
+
+    url = URI.parse("#{url}")
+    req = Net::HTTP.new(url.host, url.port)
+    res = req.request_head(url.path)
+
+    if res
       html_file = open(url).read
-      check_email_adress(html_file)
+      email_address = check_email_adress(html_file)
     else
       email_address = "N.C."
     end
-  end
 
-  def remote_file_exist?(url)
-    open(url, :method => :head).status rescue false
+    return email_address
   end
 
   def check_email_adress(html_file)
@@ -382,6 +381,7 @@ def papers_all(number, date_string)
     else
       email_address = html_file.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i)[0].to_s
     end
+    #p email_address
     return email_address
   end
 

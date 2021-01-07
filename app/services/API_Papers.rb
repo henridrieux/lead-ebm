@@ -406,31 +406,30 @@ class APIPapers
   end
 
   def email(siren, category)
+    #p 'la'
     if http(siren, category).nil?
       email_address = "N.C."
     else
-      # url = http(siren, category)
-      # p url
-      # html_file = open(url).read
-      check_url_validity(siren, category)
-
+      email_address = check_url_validity(siren, category)
       return email_address
     end
   end
 
   def check_url_validity(siren, category)
     url = http(siren, category)
-    p url
-    if remote_file_exist?(url)
+
+    url = URI.parse("#{url}")
+    req = Net::HTTP.new(url.host, url.port)
+    res = req.request_head(url.path)
+
+    if res
       html_file = open(url).read
-      check_email_adress(html_file)
+      email_address = check_email_adress(html_file)
     else
       email_address = "N.C."
     end
-  end
 
-  def remote_file_exist?(url)
-    open(url, :method => :head).status rescue false
+    return email_address
   end
 
   def check_email_adress(html_file)
@@ -439,6 +438,7 @@ class APIPapers
     else
       email_address = html_file.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i)[0].to_s
     end
+    #p email_address
     return email_address
   end
 
