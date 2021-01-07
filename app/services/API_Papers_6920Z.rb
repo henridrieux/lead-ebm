@@ -90,13 +90,14 @@ class APIPapers6920z
       update_company_adress(company)
       update_company_siret_counter(company)
       check_company_manager_name(company)
-      check_company_website(company)
+      # check_company_website(company)
       @nb_update += 1
     else
       create_company(company)
       @nb_create += 1
+      sleep 1.5
     end
-    sleep 2
+    # sleep 2
   end
 
   def headquarter_count(siren)
