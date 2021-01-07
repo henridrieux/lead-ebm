@@ -13,7 +13,7 @@ require "net/http"
 class APIPapers6920z
 # Or wrap things up in your own class
 
-  def papers_all(number, date_string)
+  def papers_all(number, date_string, date_end_string)
     url = "https://api.pappers.fr/v1/recherche?"
     body_request = {
     }
@@ -23,7 +23,8 @@ class APIPapers6920z
         par_page: number,
         entreprise_cessee: false,
         code_naf: "69.20Z",
-        date_creation_min: date_string
+        date_creation_min: date_string,
+        date_creation_max: date_end_string
       },
        headers: {
         pragma: "no-cache",

@@ -5,7 +5,6 @@ namespace :company do
 
     def run_papers(number, date_string, date_end_string)
       APIPapers.new.papers_all(number, date_string, date_end_string)
-      #APIPapers6920z.new.papers_all(number, date_string, date_end_string)
     end
 
     run_papers(2000, "01-01-1900", "31-12-1970")
