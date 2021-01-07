@@ -85,7 +85,7 @@ cat_8 = {
   description: "Un médecin est un professionnel de la santé titulaire d'un diplôme de docteur
    en médecine ou, en France d'un diplôme d'État de docteur en médecine. ",
   color_code:"#54e346",
-  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957444/cdc-UC9_itYaafM-unsplash_djh5iy.jpg',
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1610009391/7bcchcoko0yq3qtp9mh1ywow3wi8.jpg',
   filename: 'Médecin.jpg'
 }
 
@@ -95,7 +95,7 @@ cat_9 = {
   l'architecte n'a rien d'un artiste qui travaillerait seul face à l'ordinateur.",
   color_code:"#FF7B54",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1607764870/Medecin-geriatre-850x523_ivvnjb.jpg',
-  filename: 'Médecin.jpg'
+  filename: 'Architecte.jpg'
 }
 
 cat_10 = {
@@ -103,15 +103,15 @@ cat_10 = {
   description: "Le radiologue est un médecin spécialiste des techniques de l’imagerie médicale : clichés radio, échographies, scanners et IRM. Il repère notamment les fractures, tumeurs ou infections sur toutes les parties du corps. Il surveille la croissance du fœtus chez la femme enceinte.",
   color_code:"#4e8d7c",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957204/jonathan-borba-v_2FRXEba94-unsplash_ctdaom.jpg',
-  filename: 'Médecin.jpg'
+  filename: 'Radiologue.jpg'
 }
 
 cat_11 = {
   name: "Dentitste",
   description: "Un dentiste est un professionnel de la santé spécialisé dans la prise en charge des pathologies des dents et des gencives. Le dentiste est un médecin qui suit ses patients dès l'enfance, puis toute leur vie. Il soigne, conseille sur l'hygiène bucco-dentaire.",
   color_code:"#00587a",
-  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957336/jonathan-borba-Gt4CWOnHdEE-unsplash_djjqow.jpg',
-  filename: 'Médecin.jpg'
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1610009218/6g642jb6fwryhxoa54xd9mz1id8p.jpg',
+  filename: 'Dentitste.jpg'
 }
 
 cat_12 = {
@@ -119,15 +119,15 @@ cat_12 = {
   description: "Le médecin spécialiste examine les malades, établit un diagnostic et met en place un traitement adapté. De la dermatologie à la pédiatrie, la profession compte une trentaine de disciplines.",
   color_code:"#9088d4",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957269/bofu-shaw-QTjR-fCtGCg-unsplash_foiybh.jpg',
-  filename: 'Médecin.jpg'
+  filename: 'Médecins spécialistes.jpg'
 }
 
 cat_13 = {
   name: "Opticien",
   description: "L’opticien - lunetier / l'opticienne - lunetière vend des montures et verres correcteurs, les lentilles de contact et autres accessoires (lunettes de soleil, produits d'entretien, étuis, cordons...).",
   color_code:"#c0e218",
-  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957124/nonsap-visuals-z65bg9SI-9I-unsplash_mazenb.jpg',
-  filename: 'Médecin.jpg'
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1610008984/hush-naidoo-rcP7T6MPEIc-unsplash_wg0vqf.jpg',
+  filename: 'Opticien.jpg'
 }
 
 cat_14 = {
@@ -135,7 +135,7 @@ cat_14 = {
   description: "Le pharmacien vend des médicaments, prescrits ou non par un médecin. Son rôle de conseil est très important. La plupart travaillent en officine, les autres dans la biologie médicale, l'industrie ou la distribution pharmaceutique.",
   color_code:"#a4b787",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957030/national-cancer-institute-byGTytEGjBo-unsplash_vlublk.jpg',
-  filename: 'Médecin.jpg'
+  filename: 'Pharmaciens.jpg'
 }
 
 def seed_category(cat)
