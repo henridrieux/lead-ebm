@@ -29,7 +29,7 @@ class APIPapers
     # p Company.find_by(siret: siret.to_i)
   end
 
-  def papers_all(number, date_string)
+  def papers_all(number, date_string, date_end_string)
     url = "https://api.pappers.fr/v1/recherche?"
     body_request = {
     }
@@ -39,7 +39,9 @@ class APIPapers
         par_page: number,
         entreprise_cessee: false,
         code_naf: "69.10Z",
-        date_creation_min: date_string
+        date_creation_min: date_string,
+        date_creation_max: date_end_string
+
       },
        headers: {
         pragma: "no-cache",
@@ -152,7 +154,7 @@ class APIPapers
     input2.category = Category.find_by(name: cat)
     # p input2.category
     input2.website = http(input2["siren"], cat)
-    input2.email = email(input2["siren"], cat)
+    # input2.email = email(input2["siren"], cat)
     # if input2.email == "N.C."
     #   p "clearbit test"
     #   input2.email = clearbit(input2.website)
