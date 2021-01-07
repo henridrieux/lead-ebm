@@ -147,8 +147,8 @@ def papers_all(number, date_string)
 
     cat = "Architecte"
     input2.category = Category.find_by(name: cat)
-    input2.website = http(input2["siren"], cat)
-    input2.email = email(input2["siren"], cat)
+    #input2.website = http(input2["siren"], cat)
+    #input2.email = email(input2["siren"], cat)
     input2.save
   end
 
