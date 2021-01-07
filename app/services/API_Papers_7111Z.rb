@@ -110,7 +110,13 @@ def papers_all(number, date_string, date_end_string)
     response = https.request(request)
     return_array = response.read_body
     result = JSON.parse(return_array)
-    return result["etablissements"].count
+
+    if result["etablissements"].blank?
+      result = 1
+    else
+      result = result["etablissements"].count
+    end
+    return result
   end
 
   # def check_company_siret_counter(company)
