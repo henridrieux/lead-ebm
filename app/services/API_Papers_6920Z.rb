@@ -84,7 +84,7 @@ class APIPapers6920z
   end
 
   def check_company(company)
-    if company["siege"]["siret"].blank?
+    if company["siren"].nil?
       p 'error'
     elsif Company.find_by(siren: company["siren"].to_i)
       update_company_adress(company)
