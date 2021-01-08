@@ -99,6 +99,8 @@ class APIPapers
       check_company_manager_name(company)
       # check_company_website(company)
       @nb_update += 1
+    elsif company["siren"].nil?
+      p 'no company'
     else
       create_company(company)
       sleep 1.5
