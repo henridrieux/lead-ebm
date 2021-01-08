@@ -315,7 +315,7 @@ class APIPapers
     if result.blank?
       result = "entreprise"
     else
-      result = result["nom_entreprise"] + " " + result["siege"]["ville"].parameterize.upcase
+      result = result["nom_entreprise"] + " - " + result["siege"]["ville"].parameterize.upcase
     end
     return result
   end
