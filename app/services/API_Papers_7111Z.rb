@@ -289,12 +289,11 @@ def papers_all(number, date_string, date_end_string)
     response = https.request(request)
     return_array = response.read_body
     result = JSON.parse(return_array)
-    if result["siege"]["ville"].blank?
-      result = result["nom_entreprise"]
+    if result["nom_entreprise"].nil? || result["siege"].nil? || result["siege"]["ville"].nil?
+      result = "entreprise"
     else
-    result = result["nom_entreprise"] + " " + result["siege"]["ville"].parameterize.upcase
+      result = result["nom_entreprise"] + " " + result["siege"]["ville"].parameterize
     end
-    # p result
     return result
   end
 
