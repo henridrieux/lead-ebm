@@ -11,7 +11,9 @@ class ScrapVj
       # p recruit_offer[:siret]
       if recruit_offer[:siret] == "N.C"
         p "cabinet de recrutment"
-        @nb_update += 1
+      elsif Recruitment.find_by(job_title: recruit_offer[:job_title]) && Recruitment.find_by(employer: recruit_offer[:company_name])
+        p "emploi updated"
+        @nb_update +=1
       else
         create_company(recruit_offer)
         create_recruitment(recruit_offer)
