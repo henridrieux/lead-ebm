@@ -128,7 +128,7 @@ class APIPapers
   def create_company(company)
     input2 = Company.new(
       siren: company["siren"].to_i,
-      siret: company["siege"]["siret"].to_i,
+      siret: company["siege"]["siret"].to_i.blank? ? nil : company["siren"],
       siret_count: headquarter_count(company["siren"].to_i),
       company_name: company["nom_entreprise"],
       social_purpose: company["objet_social"],
