@@ -92,12 +92,12 @@ class APIPapers
   end
 
   def check_company(company)
-    #Company.find_by(siret: company["siege"]["siret"].to_i)
+    # Company.find_by(siret: company["siege"]["siret"].to_i)
     if Company.find_by(siret: company["siege"]["siret"].to_i)
       update_company_adress(company)
       update_company_siret_counter(company)
       check_company_manager_name(company)
-      #check_company_website(company)
+      # check_company_website(company)
       @nb_update += 1
     else
       create_company(company)
@@ -117,8 +117,7 @@ class APIPapers
     response = https.request(request)
     return_array = response.read_body
     result = JSON.parse(return_array)
-
-    if result["etablissements"] == nil
+    if result["etablissements"].nil?
       result = 1
     else
       result = result["etablissements"].count
@@ -312,7 +311,7 @@ class APIPapers
     response = https.request(request)
     return_array = response.read_body
     result = JSON.parse(return_array)
-    if result["siege"]["ville"].blank?
+    if result["siege"]["ville"].nil?
       result = result["nom_entreprise"]
     else
       result = result["nom_entreprise"] + " " + result["siege"]["ville"].parameterize.upcase
