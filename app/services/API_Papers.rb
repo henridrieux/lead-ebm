@@ -195,7 +195,7 @@ class APIPapers
   end
 
   def update_company(company)
-    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    input2 = Company.find_by(siren: company["siren"].to_i)
     input2.update(
       siren: company["siren"].to_i,
       siret: company["siege"]["siret"].to_i,
