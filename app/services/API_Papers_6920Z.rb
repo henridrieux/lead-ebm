@@ -295,6 +295,11 @@ class APIPapers6920z
 
   def check_google(siren, category)
     query = website(siren)
+    if query == "{\"statusCode\"=>400, \"error\"=>\"Requ\u00EAte mal format\u00E9e\", \"message\"=>\"Veuillez indiquer un num\u00E9ro SIREN ou SIRET valide\"}"
+      query = "entreprise"
+    else
+      query = website(siren)
+    end
     cat = category
     url = URI("https://www.google.com/search?q=#{query} #{cat}&aqs=chrome..69i57j33i160.30487j0j7&sourceid=chrome&ie=UTF-8")
     # p url
