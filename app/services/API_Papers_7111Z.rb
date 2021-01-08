@@ -111,7 +111,7 @@ def papers_all(number, date_string, date_end_string)
     return_array = response.read_body
     result = JSON.parse(return_array)
 
-    if result["etablissements"].blank?
+    if result["etablissements"] == nil
       result = 1
     else
       result = result["etablissements"].count

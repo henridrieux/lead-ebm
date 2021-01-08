@@ -118,7 +118,7 @@ class APIPapers
     return_array = response.read_body
     result = JSON.parse(return_array)
 
-    if result["etablissements"].blank?
+    if result["etablissements"] == nil
       result = 1
     else
       result = result["etablissements"].count
