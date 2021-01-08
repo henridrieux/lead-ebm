@@ -312,10 +312,10 @@ class APIPapers
     return_array = response.read_body
     result = JSON.parse(return_array)
 
-    if result.blank?
+    if result["nom_entreprise"].nil? || result["siege"].nil? || result["siege"]["ville"].nil?
       result = "entreprise"
     else
-      result = result["nom_entreprise"] + " - " + result["siege"]["ville"].parameterize.upcase
+      result = result["nom_entreprise"] + " " + result["siege"]["ville"].parameterize
     end
     return result
   end
