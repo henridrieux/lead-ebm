@@ -92,6 +92,8 @@ def papers_all(number, date_string, date_end_string)
       check_company_manager_name(company)
       # check_company_website(company)
       @nb_update += 1
+    elsif company["siren"].nil?
+      p 'no company'
     else
       create_company(company)
       @nb_create += 1
@@ -289,6 +291,7 @@ def papers_all(number, date_string, date_end_string)
     response = https.request(request)
     return_array = response.read_body
     result = JSON.parse(return_array)
+
     if result["nom_entreprise"].nil? || result["siege"].nil? || result["siege"]["ville"].nil?
       result = "entreprise"
     else

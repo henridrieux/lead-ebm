@@ -93,6 +93,8 @@ class APIPapers6920z
       check_company_manager_name(company)
       # check_company_website(company)
       @nb_update += 1
+    elsif company["siren"].nil?
+      p 'no company'
     else
       create_company(company)
       @nb_create += 1
@@ -282,13 +284,10 @@ class APIPapers6920z
     return_array = response.read_body
     result = JSON.parse(return_array)
 
-    if result.empty?
+    if result["nom_entreprise"].nil? || result["siege"].nil? || result["siege"]["ville"].nil?
       result = "entreprise"
-      if result["nom_entreprise"].nil? || result["siege"].nil? || result["siege"]["ville"].nil?
-        result = "entreprise"
-      else
-        result = result["nom_entreprise"] + " " + result["siege"]["ville"].parameterize
-      end
+    else
+      result = result["nom_entreprise"] + " " + result["siege"]["ville"].parameterize
     end
     return result
   end
