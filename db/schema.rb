@@ -47,14 +47,14 @@ ActiveRecord::Schema.define(version: 2020_12_16_142953) do
   create_table "companies", force: :cascade do |t|
     t.bigint "category_id", null: false
     t.string "company_name"
-    t.string "siret"
+    t.string "zip_code"
     t.string "siren"
     t.date "creation_date"
+    t.string "siret"
     t.integer "registered_capital"
     t.string "legal_structure"
     t.string "naf_code"
     t.text "activities"
-    t.string "zip_code"
     t.string "address"
     t.string "manager_name"
     t.string "head_count"
