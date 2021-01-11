@@ -94,6 +94,7 @@ class APIPapers
   def check_company(company)
     # Company.find_by(siret: company["siege"]["siret"].to_i)
     if Company.find_by(siren: company["siren"].to_i)
+      p 'existing'
       #update_company_adress(company)
       #update_company_siret_counter(company)
       #check_company_manager_name(company)
@@ -130,7 +131,7 @@ class APIPapers
   def create_company(company)
     input2 = Company.new(
       siren: company["siren"].to_i,
-      siret: company["siege"]["siret"].to_i.blank? ? nil : company["siren"],
+      siret: company["siege"]["siret"].to_i,
       siret_count: headquarter_count(company["siren"].to_i),
       company_name: company["nom_entreprise"],
       social_purpose: company["objet_social"],
