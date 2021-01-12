@@ -19,7 +19,8 @@ class APIPapers6920z
     }
     @options = {
       query: {
-        api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
+        # api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
+         api_token: ENV['PAPPERS_API_KEY'],
         par_page: number,
         entreprise_cessee: false,
         code_naf: "69.20Z",
