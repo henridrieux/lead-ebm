@@ -19,8 +19,7 @@ class APIPapers6920z
     }
     @options = {
       query: {
-        # api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
-         api_token: ENV['PAPPERS_API_KEY'],
+        api_token: ENV['PAPPERS_API_KEY'],
         par_page: number,
         entreprise_cessee: false,
         code_naf: "69.20Z",
@@ -67,7 +66,7 @@ class APIPapers6920z
     }
     @options = {
       query: {
-        api_token: "3e10f34b388926a0e4030180829391e02b3155bef5f069d5",
+        api_token: ENV['PAPPERS_API_KEY'],
         siret: "#{siret}"
       },
       headers: {
@@ -105,7 +104,7 @@ class APIPapers6920z
   end
 
   def headquarter_count(siren)
-    apitoken = "3e10f34b388926a0e4030180829391e02b3155bef5f069d5"
+    apitoken = ENV['PAPPERS_API_KEY'],
     url = URI("https://api.pappers.fr/v1/entreprise?api_token=#{apitoken}&siren=#{siren}&entreprise_cessee=false")
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
@@ -275,7 +274,8 @@ class APIPapers6920z
   end
 
   def website(siren)
-    apitoken = "3e10f34b388926a0e4030180829391e02b3155bef5f069d5"
+    apitoken = ENV['PAPPERS_API_KEY'],
+
     url = URI("https://api.pappers.fr/v1/entreprise?api_token=#{apitoken}&siren=#{siren}&entreprise_cessee=false")
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
