@@ -48,86 +48,136 @@ class EventCategory < ApplicationRecord
       lead_slack = {
         "blocks": [
 
+      #     {
+      #       "type": "header",
+      #       "text": {
+      #         "type": "plain_text",
+      #         "text": "#{lead.company_name}"
+      #       }
+      #     },
+      #     {
+      #       "type": "divider"
+      #     },
+      #     {
+      #       "type": "section",
+      #       "fields": [
+      #         {
+      #           "type": "mrkdwn",
+      #           "text": "*Company legal*\n📆Créé le #{lead.creation_date}\n🌇#{lead.zip_code} #{lead.city}\n🏢#{lead.legal_structure}\n🧑‍🤝‍🧑#{lead.head_count}"
+      #         },
+      #         {
+      #           "type": "mrkdwn",
+      #           "text": "*Company info*\n#{lead.recruitments.count}🤝 recrutements en cours\n💻#{lead.website}\n💌#{lead.email}"
+      #         }
+      #       ]
+      #     },
+      #     {
+      #       "type": "header",
+      #       "text": {
+      #         "type": "plain_text",
+      #         "text": "*#{self.category.name} - #{self.event.title} 🤑"
+      #       }
+      #     },
+      #     {
+      #       "type": "input",
+      #       "element": {
+      #         "type": "multi_users_select",
+      #         "placeholder": {
+      #           "type": "plain_text",
+      #           "text": "Select users",
+      #           "emoji": true
+      #         },
+      #         "action_id": "multi_users_select-action"
+      #       },
+      #       "label": {
+      #         "type": "plain_text",
+      #         "text": "Label",
+      #         "emoji": true
+      #       }
+      #     },
+      #     {
+      #       "type": "actions",
+      #       "elements": [
+      #         {
+      #           "type": "button",
+      #           "text": {
+      #             "type": "plain_text",
+      #             "text": "Traité",
+      #             "emoji": true
+      #           },
+      #           "style": "primary",
+      #           "value": "approve"
+      #         },
+      #         {
+      #           "type": "button",
+      #           "text": {
+      #             "type": "plain_text",
+      #             "text": "Refusé",
+      #             "emoji": true
+      #           },
+      #           "style": "danger",
+      #           "value": "decline"
+      #         },
+      #         {
+      #           "type": "button",
+      #           "text": {
+      #             "type": "plain_text",
+      #             "text": "View Details",
+      #             "emoji": true
+      #           },
+      #           "value": "click_me_123",
+      #           "url": "https://www.leadseventdata.club/dashboard",
+      #           "action_id": "button-action"
+      #         }
+      #       ]
+      #     },
+      #     {
+      #       "type": "divider"
+      #     }
+      #   ]
+      # }
+
+         # _____________________
+
           {
-            "type": "header",
+            "type": "section",
             "text": {
-              "type": "plain_text",
-              "text": "#{lead.company_name}"
+              "type": "mrkdwn",
+              "text": "*#{self.category.name} - #{self.event.title} 🤑"
             }
-          },
-          {
-            "type": "divider"
           },
           {
             "type": "section",
             "fields": [
               {
-                "type": "mrkdwn",
-                "text": "*Company legal*\n📆Créé le #{lead.creation_date}\n🌇#{lead.zip_code} #{lead.city}\n🏢#{lead.legal_structure}\n🧑‍🤝‍🧑#{lead.head_count}"
-              },
-              {
-                "type": "mrkdwn",
-                "text": "*Company info*\n#{lead.recruitments.count}🤝 recrutements en cours\n💻#{lead.website}\n💌#{lead.email}"
-              }
-            ]
-          },
-          {
-            "type": "header",
-            "text": {
-              "type": "plain_text",
-              "text": "*#{self.category.name} - #{self.event.title} 🤑"
-            }
-          },
-          {
-            "type": "input",
-            "element": {
-              "type": "multi_users_select",
-              "placeholder": {
                 "type": "plain_text",
-                "text": "Select users",
+                "text": "#{lead.company_name}",
                 "emoji": true
               },
-              "action_id": "multi_users_select-action"
-            },
-            "label": {
-              "type": "plain_text",
-              "text": "Label",
-              "emoji": true
-            }
-          },
-          {
-            "type": "actions",
-            "elements": [
               {
-                "type": "button",
-                "text": {
-                  "type": "plain_text",
-                  "text": "Traité",
-                  "emoji": true
-                },
-                "style": "primary",
-                "value": "approve"
+                "type": "plain_text",
+                "text": "📆créé le #{lead.creation_date}",
+                "emoji": true
               },
               {
-                "type": "button",
-                "text": {
-                  "type": "plain_text",
-                  "text": "Refusé",
-                  "emoji": true
-                },
-                "style": "danger",
-                "value": "decline"
+                "type": "plain_text",
+                "text": "🏢#{lead.address} - #{lead.zip_code} #{lead.city}",
+                "emoji": true
               },
               {
-                "type": "button",
-                "text": {
-                  "type": "plain_text",
-                  "text": "View Details",
-                  "emoji": true
-                },
-                "value": "click_me_123",
-                "url": "https://www.leadseventdata.club/dashboard",
-                "action_id": "button-action"
+                "type": "plain_text",
+                "text": "#{lead.recruitments.count}🤝 recrutements en cours",
+                "emoji": true
+              },
+              {
+                "type": "plain_text",
+                "text": "🧑‍🤝‍🧑#{lead.head_count} - #{lead.legal_structure}",
+                "emoji": true
+              },
+              {
+                "type": "plain_text",
+                "text": "💻#{lead.website} - 💌#{lead.email}",
+                "emoji": true
               }
             ]
           },
@@ -136,56 +186,6 @@ class EventCategory < ApplicationRecord
           }
         ]
       }
-
-         # _____________________
-
-          # {
-          #   "type": "section",
-          #   "text": {
-          #     "type": "mrkdwn",
-          #     "text": "*#{self.category.name} - #{self.event.title} 🤑"
-          #   }
-          # },
-          # {
-          #   "type": "section",
-          #   "fields": [
-          #     {
-          #       "type": "plain_text",
-          #       "text": "#{lead.company_name}",
-          #       "emoji": true
-          #     },
-          #     {
-          #       "type": "plain_text",
-          #       "text": "📆créé le #{lead.creation_date}",
-          #       "emoji": true
-          #     },
-          #     {
-          #       "type": "plain_text",
-          #       "text": "🏢#{lead.address} - #{lead.zip_code} #{lead.city}",
-          #       "emoji": true
-          #     },
-          #     {
-          #       "type": "plain_text",
-          #       "text": "#{lead.recruitments.count}🤝 recrutements en cours",
-          #       "emoji": true
-          #     },
-          #     {
-          #       "type": "plain_text",
-          #       "text": "🧑‍🤝‍🧑#{lead.head_count} - #{lead.legal_structure}",
-          #       "emoji": true
-          #     },
-          #     {
-          #       "type": "plain_text",
-          #       "text": "💻#{lead.website} - 💌#{lead.email}",
-          #       "emoji": true
-          #     }
-          #   ]
-          # },
-          # {
-          #   "type": "divider"
-          # }
-      #   ]
-      # }
       slack_leads << lead_slack
     end
     return slack_leads
