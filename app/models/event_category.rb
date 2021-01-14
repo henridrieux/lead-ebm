@@ -143,7 +143,7 @@ class EventCategory < ApplicationRecord
             "type": "section",
             "text": {
               "type": "mrkdwn",
-              "text": "*#{self.category.name} - #{self.event.title}*🤑"
+              "text": "*#{self.category.name} - #{self.event.title} - #{lead.company_name}*🤑"
             }
           },
           # {
@@ -230,6 +230,33 @@ class EventCategory < ApplicationRecord
                 "value": "click_me_123",
                 "url": "https://www.leadseventdata.club/dashboard",
                 "action_id": "button-action"
+              }
+            ]
+          },
+          {
+            "type": "actions",
+            "elements": [
+              {
+                "type": "radio_buttons",
+                "options": [
+                  {
+                    "text": {
+                      "type": "plain_text",
+                      "text": "*this is plain_text text*",
+                      "emoji": true
+                    },
+                    "value": "value-0"
+                  },
+                  {
+                    "text": {
+                      "type": "plain_text",
+                      "text": "*this is plain_text text*",
+                      "emoji": true
+                    },
+                    "value": "value-1"
+                  }
+                ],
+                "action_id": "actionId-0"
               }
             ]
           },
