@@ -87,7 +87,7 @@ class EventCategory < ApplicationRecord
             "type": "section",
             "text": {
               "type": "mrkdwn",
-              "text": "En savoir plus sur google."
+              "text": "Retrouver #{lead.company_name} plus sur google."
             },
             "accessory": {
               "type": "button",
@@ -97,7 +97,7 @@ class EventCategory < ApplicationRecord
                 "emoji": true
               },
               "value": "click_me_123",
-              "url": "https://www.google.com/search?source=hp&ei=a4IAYMf4JIHYaKDMq_gM&q=#{lead.company_name} #{category.name}",
+              "url": "https://www.google.com/search?source=hp&q=#{lead.company_name}",
               "action_id": "button-action"
             }
           },
