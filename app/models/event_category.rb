@@ -143,7 +143,7 @@ class EventCategory < ApplicationRecord
             "type": "section",
             "text": {
               "type": "mrkdwn",
-              "text": "*#{self.category.name} - #{self.event.title} - #{lead.company_name}*🤑"
+              "text": "*#{self.category.name} - #{self.event.title} : #{lead.company_name}*"
             }
           },
           # {
@@ -234,6 +234,22 @@ class EventCategory < ApplicationRecord
             ]
           },
           {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": "Test block with users select"
+            },
+            "accessory": {
+              "type": "users_select",
+              "placeholder": {
+                "type": "plain_text",
+                "text": "Select a user",
+                "emoji": true
+              },
+              "action_id": "users_select-action"
+            }
+          },
+          {
             "type": "actions",
             "elements": [
               {
@@ -242,7 +258,7 @@ class EventCategory < ApplicationRecord
                   {
                     "text": {
                       "type": "plain_text",
-                      "text": "*this is plain_text text*",
+                      "text": "*Traité*",
                       "emoji": true
                     },
                     "value": "value-0"
@@ -250,7 +266,7 @@ class EventCategory < ApplicationRecord
                   {
                     "text": {
                       "type": "plain_text",
-                      "text": "*this is plain_text text*",
+                      "text": "*Non traité*",
                       "emoji": true
                     },
                     "value": "value-1"
