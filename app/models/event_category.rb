@@ -143,7 +143,7 @@ class EventCategory < ApplicationRecord
             "type": "section",
             "text": {
               "type": "mrkdwn",
-              "text": "*#{self.category.name} - #{self.event.title} 🤑"
+              "text": "*#{self.category.name} - #{self.event.title}*🤑"
             }
           },
           {
@@ -183,6 +183,19 @@ class EventCategory < ApplicationRecord
           },
           {
             "type": "divider"
+          },
+          {
+            "type": "section",
+            "fields": [
+              {
+                "type": "mrkdwn",
+                "text": "*Company legal*\n📆Créé le #{lead.creation_date}\n🌇#{lead.zip_code} #{lead.city}\n🏢#{lead.legal_structure}\n🧑‍🤝‍🧑#{lead.head_count}"
+              },
+              {
+                "type": "mrkdwn",
+                "text": "*Company info*\n#{lead.recruitments.count}🤝 recrutements en cours\n💻#{lead.website}\n💌#{lead.email}"
+              }
+            ]
           }
         ]
       }
