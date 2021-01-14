@@ -146,44 +146,44 @@ class EventCategory < ApplicationRecord
               "text": "*#{self.category.name} - #{self.event.title}*🤑"
             }
           },
-          {
-            "type": "section",
-            "fields": [
-              {
-                "type": "plain_text",
-                "text": "#{lead.company_name}",
-                "emoji": true
-              },
-              {
-                "type": "plain_text",
-                "text": "📆créé le #{lead.creation_date}",
-                "emoji": true
-              },
-              {
-                "type": "plain_text",
-                "text": "🏢#{lead.address} - #{lead.zip_code} #{lead.city}",
-                "emoji": true
-              },
-              {
-                "type": "plain_text",
-                "text": "#{lead.recruitments.count}🤝 recrutements en cours",
-                "emoji": true
-              },
-              {
-                "type": "plain_text",
-                "text": "🧑‍🤝‍🧑#{lead.head_count} - #{lead.legal_structure}",
-                "emoji": true
-              },
-              {
-                "type": "plain_text",
-                "text": "💻#{lead.website} - 💌#{lead.email}",
-                "emoji": true
-              }
-            ]
-          },
-          {
-            "type": "divider"
-          },
+          # {
+          #   "type": "section",
+          #   "fields": [
+          #     {
+          #       "type": "plain_text",
+          #       "text": "#{lead.company_name}",
+          #       "emoji": true
+          #     },
+          #     {
+          #       "type": "plain_text",
+          #       "text": "📆créé le #{lead.creation_date}",
+          #       "emoji": true
+          #     },
+          #     {
+          #       "type": "plain_text",
+          #       "text": "🏢#{lead.address} - #{lead.zip_code} #{lead.city}",
+          #       "emoji": true
+          #     },
+          #     {
+          #       "type": "plain_text",
+          #       "text": "#{lead.recruitments.count}🤝 recrutements en cours",
+          #       "emoji": true
+          #     },
+          #     {
+          #       "type": "plain_text",
+          #       "text": "🧑‍🤝‍🧑#{lead.head_count} - #{lead.legal_structure}",
+          #       "emoji": true
+          #     },
+          #     {
+          #       "type": "plain_text",
+          #       "text": "💻#{lead.website} - 💌#{lead.email}",
+          #       "emoji": true
+          #     }
+          #   ]
+          # },
+          # {
+          #   "type": "divider"
+          # },
           {
             "type": "section",
             "fields": [
@@ -196,6 +196,45 @@ class EventCategory < ApplicationRecord
                 "text": "*Company info*\n#{lead.recruitments.count}🤝 recrutements en cours\n💻#{lead.website}\n💌#{lead.email}"
               }
             ]
+          },
+          {
+            "type": "actions",
+            "elements": [
+              {
+                "type": "button",
+                "text": {
+                  "type": "plain_text",
+                  "text": "Traité",
+                  "emoji": true
+                },
+                "style": "primary",
+                "value": "approve"
+              },
+              {
+                "type": "button",
+                "text": {
+                  "type": "plain_text",
+                  "text": "Refusé",
+                  "emoji": true
+                },
+                "style": "danger",
+                "value": "decline"
+              },
+              {
+                "type": "button",
+                "text": {
+                  "type": "plain_text",
+                  "text": "View Details",
+                  "emoji": true
+                },
+                "value": "click_me_123",
+                "url": "https://www.leadseventdata.club/dashboard",
+                "action_id": "button-action"
+              }
+            ]
+          },
+          {
+            "type": "divider"
           }
         ]
       }
