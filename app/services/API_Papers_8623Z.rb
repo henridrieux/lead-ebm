@@ -1,4 +1,4 @@
-# _________ PROFESSIONS JURIDIQUES ___________
+# # _________ DENTISTES ___________
 
 require "uri"
 require "net/http"
@@ -10,24 +10,8 @@ require "uri"
 require 'httparty'
 require "net/http"
 
-class APIPapers
-# Pour populer la partie recruitmnet = papersone
-
-  def papers_one(siret)
-    @nb_create = 0
-    @nb_update = 0
-    company = transform_json(siret)
-    companyfull = update_company(company)
-
-    # if Company.find_by(siret: siret.to_i)
-    #   update_company_adress(company)
-    #   update_company_siret_counter(company)
-    #   check_company_manager_name(company)
-    #   check_company_website(company)
-    # end
-    #puts "#{@nb_create} création et #{@nb_update} update"
-    # p Company.find_by(siret: siret.to_i)
-  end
+class APIPapers8623z
+# Or wrap things up in your own class
 
   def papers_all(number, date_string, date_end_string)
     url = "https://api.pappers.fr/v1/recherche?"
@@ -38,10 +22,9 @@ class APIPapers
         api_token: ENV['PAPPERS_API_KEY'],
         par_page: number,
         entreprise_cessee: false,
-        code_naf: "69.10Z",
+        code_naf: "86.23Z",
         date_creation_min: date_string,
         date_creation_max: date_end_string
-
       },
        headers: {
         pragma: "no-cache",
@@ -52,9 +35,10 @@ class APIPapers
       },
       body: body_request.to_json
     }
+
+    body_request
     return_body = HTTParty.get(url, @options).body
     result = JSON.parse(return_body)
-    result["entreprises"].count
     @nb_create = 0
     @nb_update = 0
     nb_request = result["entreprises"].count
@@ -65,6 +49,15 @@ class APIPapers
       puts " #{nb_treated} / #{nb_request} - #{((nb_treated / nb_request.to_f)*100).round}%"
     end
     puts "#{@nb_create} créations et #{@nb_update} updates"
+  end
+
+  def papers_one(siret)
+    @nb_create = 0
+    @nb_update = 0
+    company = transform_json(siret)
+    check_company(company)
+    # puts "#{@nb_create} création et #{@nb_update} update"
+    Company.find_by(siret: siret.to_i)
   end
 
   def transform_json(siret)
@@ -87,14 +80,14 @@ class APIPapers
     }
     return_body_siret = HTTParty.get(url2, @options).read_body
     result2 = JSON.parse(return_body_siret)
-    #p result2
+    # p result2
     return result2
   end
 
   def check_company(company)
-    # Company.find_by(siret: company["siege"]["siret"].to_i)
-    if Company.find_by(siren: company["siren"].to_i)
-      p 'existing'
+    if company["siren"].nil?
+      p 'error'
+    elsif Company.find_by(siren: company["siren"].to_i)
       #update_company_adress(company)
       #update_company_siret_counter(company)
       #check_company_manager_name(company)
@@ -104,15 +97,14 @@ class APIPapers
       p 'no company'
     else
       create_company(company)
-      sleep 1.5
       @nb_create += 1
+      sleep 1.5
     end
-    # sleep 1.5
+    # sleep 2
   end
 
   def headquarter_count(siren)
     apitoken = ENV['PAPPERS_API_KEY'],
-
     url = URI("https://api.pappers.fr/v1/entreprise?api_token=#{apitoken}&siren=#{siren}&entreprise_cessee=false")
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
@@ -121,6 +113,7 @@ class APIPapers
     response = https.request(request)
     return_array = response.read_body
     result = JSON.parse(return_array)
+
     if result["etablissements"].nil?
       result = 1
     else
@@ -152,53 +145,24 @@ class APIPapers
     else
       input2.manager_name = company["representants"].first["nom_complet"]
     end
-    cat = check_category(input2)
-    # p cat
+
+    cat = "Dentiste"
     input2.category = Category.find_by(name: cat)
-    # p input2.category
     input2.website = http(input2["siren"], cat)
     # input2.email = email(input2["siren"], cat)
-    # if input2.email == "N.C."
-    #   p "clearbit test"
-    #   input2.email = clearbit(input2.website)
-    # end
     input2.save
   end
 
-  def test_category(input, keyword, cat_name)
-    test = false
-    test1 = input.company_name.match?(/.*#{keyword}.*/i)
-    test2 = input.activities.match?(/.*#{keyword}.*/i) if input.activities
-    test3 = input.social_purpose.match?(/.*#{keyword}.*/i) if input.social_purpose
-    test = test1 || test2 || test3
-  end
-
-  def check_category(input)
-    cat = "Greffier"
-    if input.category && input.category == Category.find_by(name: "Notaire")
-      cat = "Notaire"
-    end
-    prof_test = {
-      "Administrateur judiciaire" => "administrateur",
-      "Commissaire-priseur" => "commissaire",
-      "Greffier" => "greffier",
-      "Huissier" => "huissier",
-      "Avocat" => "avocat",
-      "Notaire" => "nota"
-    }
-    prof_test.each do |k, v|
-      cat = k if test_category(input, v, k)
-    end
-
-    if cat == "Greffier"
-      cat = check_category_greffier(input.siren, input.city)
-    end
-    #p cat
-    return cat
-  end
-
   def update_company(company)
-    input2 = Company.find_by(siren: company["siren"].to_i)
+    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    address_old = input2[:address]
+    address_new = company["siege"]["adresse_ligne_1"]
+    if address_old != address_new && !address_old.nil?
+      last_moving_date = Date.today
+      puts "1 address has changed"
+    else
+      last_moving_date = input2[:last_moving_date]
+    end
     input2.update(
       siren: company["siren"].to_i,
       siret: company["siege"]["siret"].to_i,
@@ -209,13 +173,16 @@ class APIPapers
       address: company["siege"]["adresse_ligne_1"],
       zip_code: company["siege"]["code_postal"],
       city: company["siege"]["ville"],
+      last_moving_date: last_moving_date,
       legal_structure: company["forme_juridique"],
+      # manager_name: company["representants"].first["nom_complet"],
+      # manager_birth_year: company["representants"].first["date_de_naissance_formate"].last(4).to_i
       head_count: company["effectif"],
       naf_code: company["siege"]["code_naf"],
       activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
     )
-    # cat = "Comptable"
-    # input2.category = Category.find_by(name: cat)
+    cat = "Dentiste"
+    input2.category = Category.find_by(name: cat)
     input2.save
   end
 
@@ -288,7 +255,8 @@ class APIPapers
   def check_company_website(company)
     input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
     website_old = input2[:website]
-    cat = check_category(input2)
+    cat = "Dentiste"
+    # input2.category = Category.find_by(name: cat)
     website_new = http(company["siren"], cat)
 
     if website_old != website_new && !website_old.nil?
@@ -321,14 +289,20 @@ class APIPapers
     else
       result = result["nom_entreprise"] + " " + result["siege"]["ville"].parameterize
     end
+    #p result
     return result
   end
 
   def check_google(siren, category)
-    query = website(siren).parameterize
-    cat = category.parameterize
+    query = website(siren)
+    if query == "\"statusCode\"=>400, \"error\"=>\"Requ\u00EAte mal format\u00E9e\", \"message\"=>\"Veuillez indiquer un num\u00E9ro SIREN ou SIRET valide\""
+      query = "entreprise"
+    else
+      query = website(siren)
+    end
+    cat = category
     url = URI("https://www.google.com/search?q=#{query} #{cat}&aqs=chrome..69i57j33i160.30487j0j7&sourceid=chrome&ie=UTF-8")
-    # p url
+    #p url
     html_file = open(url).read
     html_doc = Nokogiri::HTML(html_file)
     links = html_doc.search('a')
@@ -349,16 +323,14 @@ class APIPapers
       end
     end
 
-    array2 = array.first(6)
+    array2 = array.first(5)
     bin2 = []
     array3 = []
     array2.each do |url|
-
       # URL GOOGLE
 
       domain_map = /(https)\:\/\/maps[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_google = /(https)\:\/\/www\.googl[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_scholar = /(https)\:\/\/scholar.goog[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
       # URL CLASSIQUE
 
@@ -370,16 +342,8 @@ class APIPapers
       domain_facebook2 = /(\/url\?q=)(https)\:\/\/www\.face[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_verif = /(\/url\?q=)(https)\:\/\/www\.veri[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_lefi = /(\/url\?q=)(http)\:\/\/entreprises\.lefiga[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_info = /(\/url\?q=)(http)\:\/\/www\.greffe[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_info2 = /(\/url\?q=)(https)\:\/\/www\.infogreff[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_actu = /(\/url\?q=)(https)\:\/\/actulegale[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_irish = /(\/url\?q=)(https)\:\/\/www\.irishtim[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_dnb = /(\/url\?q=)(https)\:\/\/www\.dn[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_fr = /(\/url\?q=)(https)\:\/\/fr\.[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_novaeavoca = /(\/url\?q=)(https)\:\/\/www\.novaeavoca[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-
       # URL AVOCAT
-      domain_lille = /(\/url\?q=)(https)\:\/\/www\.avocats-lill[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+
       domain_consultation = /(\/url\?q=)(https)\:\/\/consultation[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_doctrine = /(\/url\?q=)(https)\:\/\/www\.doctri[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_annuaireacte = /(\/url\?q=)(http)\:\/\/annuaire[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
@@ -389,16 +353,17 @@ class APIPapers
       # domain_notaire = /(\/url\?q=)(https)\:\/\/www\.notair[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_immo = /(\/url\?q=)(https)\:\/\/www\.immono[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_immonot = /(\/url\?q=)(https)\:\/\/www\.immobilier\.notai[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+
       # URL MEDECIN
 
-      domain_docto = /(\/url\?q=)(http)\:\/\/doctoli[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_docto2 = /(\/url\?q=)(https)\:\/\/www\.docto[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      # domain_docto = /(\/url\?q=)(http)\:\/\/doctoli[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      # domain_docto2 = /(\/url\?q=)(https)\:\/\/www\.docto[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_rdvmedi = /(\/url\?q=)(https)\:\/\/www.rdvmedi[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_docave = /(\/url\?q=)(https)\:\/\/www.docave[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_keldoc = /(\/url\?q=)(https)\:\/\/www.keldo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_lemedecin = /(\/url\?q=)(https)\:\/\/lemedeci[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
-      if url.match(domain_novaeavoca) || url.match(domain_fr) || url.match(domain_dnb) || url.match(domain_scholar) || url.match(domain_irish) || url.match(domain_actu) || url.match(domain_lille) || url.match(domain_info2) || url.match(domain_info) || url.match(domain_immonot) || url.match(domain_lefi) || url.match(domain_immo) || url.match(domain_mappy) || url.match(domain_verif) || url.match(domain_lemedecin) || url.match(domain_docto2) || url.match(domain_docto) || url.match(domain_rdvmedi) || url.match(domain_docave) || url.match(domain_keldoc) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_annuaireacte) || url.match(domain_google) || url.match(domain_map) || url.match(domain_societe) || url.match(domain_pagesjaunes) || url.match(domain_linkedin) || url.match(domain_consultation) || url.match(domain_doctrine)
+      if url.match(domain_immonot) || url.match(domain_lefi) || url.match(domain_immo) || url.match(domain_mappy) || url.match(domain_verif) || url.match(domain_lemedecin) || url.match(domain_rdvmedi) || url.match(domain_docave) || url.match(domain_keldoc) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_annuaireacte) || url.match(domain_google) || url.match(domain_map) || url.match(domain_societe) || url.match(domain_pagesjaunes) || url.match(domain_linkedin) || url.match(domain_consultation) || url.match(domain_doctrine)
         bin2 << url
       else
         array3 << url
@@ -410,12 +375,11 @@ class APIPapers
     else
       url = array3.first.to_s.delete_prefix('/url?q=').split('&').first
     end
-    #p url
+
     return url
   end
 
   def email(siren, category)
-    #p 'la'
     if http(siren, category).nil?
       email_address = "N.C."
     else
@@ -450,7 +414,6 @@ class APIPapers
     #p email_address
     return email_address
   end
-
   # def clearbit(website)
 
   #   url = URI("https://company.clearbit.com/v2/companies/find?domain=#{website}")
@@ -463,33 +426,8 @@ class APIPapers
   #   puts response.read_body["site"]["emailAddresses"]
   # end
 
-  def check_category_greffier(siren, city)
-    query = website(siren).parameterize
-    cityquery = city.parameterize
-    url = URI("https://www.google.com/search?q=#{query} #{cityquery}&aqs=chrome..69i57j33i160.30487j0j7&sourceid=chrome&ie=UTF-8")
-    html_file = open(url).read
 
-    # if html_file.match?(/[a-zA-Z0-9\-\.]dministrateu[a-zA-Z0-9\-\.](\/\S*)?/i).nil? || html_file.match?(/[a-zA-Z0-9\-\.]ommissair[a-zA-Z0-9\-\.](\/\S*)?/i).nil? || html_file.match?(/[a-zA-Z0-9\-\.]uissie[a-zA-Z0-9\-\.](\/\S*)?/i).nil? || html_file.match?(/[a-zA-Z0-9\-\.]otaire[a-zA-Z0-9\-\.](\/\S*)?/i).nil? || html_file.match?(/[a-zA-Z0-9\-\.]voca[a-zA-Z0-9\-\.](\/\S*)?/i).nil?
-    if html_file.match?(/[a-zA-Z0-9\-\.]dministrateu[a-zA-Z0-9\-\.](\/\S*)?/i)
-      cat = "Administrateur judiciaire"
-    elsif html_file.match?(/[a-zA-Z0-9\-\.]ommissair[a-zA-Z0-9\-\.](\/\S*)?/i)
-      cat = "Commissaire-priseur"
-    elsif html_file.match?(/[a-zA-Z0-9\-\.]uissie[a-zA-Z0-9\-\.](\/\S*)?/i)
-      cat = "Huissier"
-    elsif html_file.match?(/[a-zA-Z0-9\-\.]otaire[a-zA-Z0-9\-\.](\/\S*)?/i)
-      cat = "Notaire"
-    elsif html_file.match?(/[a-zA-Z0-9\-\.]voca[a-zA-Z0-9\-\.](\/\S*)?/i)
-      cat = "Avocat"
-    elsif html_file.match?(/[a-zA-Z0-9\-\.]arrea[a-zA-Z0-9\-\.](\/\S*)?/i)
-      cat = "Avocat"
-    elsif html_file.match?(/[a-zA-Z0-9\-\.]octrin[a-zA-Z0-9\-\.](\/\S*)?/i)
-      cat = "Avocat"
-    else
-      cat = "Greffier"
-    end
-    #p cat
-    return cat
-  end
 end
 
-#APIPapers.new.check_category_greffier("844813923", "LYON 2EME")
+# APIPapers6920Z.new.papers_all(20, "01-01-2020")
+

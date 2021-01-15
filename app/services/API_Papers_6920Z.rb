@@ -274,8 +274,7 @@ class APIPapers6920z
   end
 
   def website(siren)
-    apitoken = ENV['PAPPERS_API_KEY'],
-
+    apitoken = ENV['PAPPERS_API_KEY']
     url = URI("https://api.pappers.fr/v1/entreprise?api_token=#{apitoken}&siren=#{siren}&entreprise_cessee=false")
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true

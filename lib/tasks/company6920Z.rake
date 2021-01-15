@@ -1,3 +1,5 @@
+# # _________ COMPTABLES ___________
+
 namespace :company6920Z do
   desc "récupérer les company sur Papers.com et les écrire en base"
   # rails company6920Z:fetch_compagnies

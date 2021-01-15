@@ -115,7 +115,7 @@ cat_11 = {
 }
 
 cat_12 = {
-  name: "Médecins spécialistes",
+  name: "Médecin spécialiste",
   description: "Le médecin spécialiste examine les malades, établit un diagnostic et met en place un traitement adapté. De la dermatologie à la pédiatrie, la profession compte une trentaine de disciplines.",
   color_code:"#9088d4",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957269/bofu-shaw-QTjR-fCtGCg-unsplash_foiybh.jpg',
@@ -131,7 +131,7 @@ cat_13 = {
 }
 
 cat_14 = {
-  name: "Pharmaciens",
+  name: "Pharmacien",
   description: "Le pharmacien vend des médicaments, prescrits ou non par un médecin. Son rôle de conseil est très important. La plupart travaillent en officine, les autres dans la biologie médicale, l'industrie ou la distribution pharmaceutique.",
   color_code:"#a4b787",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957030/national-cancer-institute-byGTytEGjBo-unsplash_vlublk.jpg',

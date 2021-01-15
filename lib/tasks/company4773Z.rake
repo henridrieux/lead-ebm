@@ -1,12 +1,12 @@
-# ------ MEDECINS GENERALISTE---------
+# ----------- PHARMACIENS ------------
 
-namespace :company8621z do
+namespace :company4773z do
   desc "récupérer les company sur Papers.com et les écrire en base"
-  # rails company8621z:fetch_compagnies
+  # rails company4773z:fetch_compagnies
   task fetch_compagnies: :environment do
 
     def run_papers(number, date_string, date_end_string)
-      APIPapers8621z.new.papers_all(number, date_string, date_end_string)
+      APIPapers4773z.new.papers_all(number, date_string, date_end_string)
     end
     run_papers(9000, "01-01-1900", "31-12-1950")
     p "1950 ok"
@@ -14,7 +14,7 @@ namespace :company8621z do
     p "1965 ok"
     run_papers(9000, "01-01-1966", "31-12-1970")
     p "1970 ok"
-    run_papers(9000, "01-01-1971", "31-12-1980")
+    # run_papers(9000, "01-01-1971", "31-12-1980")
     p "1980 ok"
     run_papers(9000, "01-01-1981", "31-12-1982")
     run_papers(9000, "01-01-1983", "31-12-1984")
@@ -58,32 +58,9 @@ namespace :company8621z do
     p "2020 ok"
     run_papers(9000, "01-01-2021", "31-12-2021")
   end
-
-  # rails company:fetch_one_company
-  task fetch_one_company: :environment do
-
-    def run_one_paper(siret_string)
-      APIPapers8621z.new.papers_one(siret_string)
-    end
-
-    run_one_paper("89061007400019")
-  end
-
-  # rails company:push_leads_to_slack
-  task push_leads_to_slack: :environment do
-    # cat = Category.find_by(name: "Avocat")
-    # event = Event.find_by(title: "Créations de société ")
-    # EventCategory.where(category: cat, event: event).each do |event_cat|
-    User.all.each do |user|
-      if user.webhook_slack?
-        p user.event_categories.count
-        user.event_categories.each do |event_cat|
-          NotifySlack.new.perform(event_cat, user.webhook_slack)
-        end
-      end
-    end
-  end
-
 end
+
+
+
 
 
