@@ -84,24 +84,6 @@ class EventCategory < ApplicationRecord
             }
           },
           {
-            "type": "section",
-            "text": {
-              "type": "mrkdwn",
-              "text": "Retrouver #{lead.company_name} plus sur google."
-            },
-            "accessory": {
-              "type": "button",
-              "text": {
-                "type": "plain_text",
-                "text": "Click Me",
-                "emoji": true
-              },
-              "value": "click_me_123",
-              "url": "https://www.google.com/search?source=hp&q=#{lead.company_name}",
-              "action_id": "button-action"
-            }
-          },
-          {
             "type": "actions",
             "elements": [
               {
