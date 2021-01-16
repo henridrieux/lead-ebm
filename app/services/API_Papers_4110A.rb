@@ -1,4 +1,5 @@
-# _________ ARCHITECTES ___________
+# # _________ PROMOTION IMMO ___________
+
 require "uri"
 require "net/http"
 require "json"
@@ -9,10 +10,10 @@ require "uri"
 require 'httparty'
 require "net/http"
 
-class APIPapers7111z
+class APIPapers4110a
 # Or wrap things up in your own class
 
-def papers_all(number, date_string, date_end_string)
+  def papers_all(number, date_string, date_end_string)
     url = "https://api.pappers.fr/v1/recherche?"
     body_request = {
     }
@@ -21,9 +22,11 @@ def papers_all(number, date_string, date_end_string)
         api_token: ENV['PAPPERS_API_KEY'],
         par_page: number,
         entreprise_cessee: false,
-        code_naf: "71.11Z",
+        code_naf: "41.10A",
         date_creation_min: date_string,
-        date_creation_max: date_end_string
+        date_creation_max: date_end_string,
+        departement: 75,
+        tranche_effectif_min: 4
       },
        headers: {
         pragma: "no-cache",
@@ -103,8 +106,7 @@ def papers_all(number, date_string, date_end_string)
   end
 
   def headquarter_count(siren)
-    apitoken = ENV['PAPPERS_API_KEY']
-
+    apitoken = ENV['PAPPERS_API_KEY'],
     url = URI("https://api.pappers.fr/v1/entreprise?api_token=#{apitoken}&siren=#{siren}&entreprise_cessee=false")
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
@@ -114,22 +116,13 @@ def papers_all(number, date_string, date_end_string)
     return_array = response.read_body
     result = JSON.parse(return_array)
 
-    if result["etablissements"] == nil
+    if result["etablissements"].nil?
       result = 1
     else
       result = result["etablissements"].count
     end
     return result
   end
-
-  # def check_company_siret_counter(company)
-  #   Company.find_by(siret: company["siege"]["siret"].to_i)
-  #   if Company.find_by(siret: company["siege"]["siret"].to_i)
-  #     update_company_siret_counter(company)
-  #   else
-  #     create_company(company)
-  #   end
-  # end
 
   def create_company(company)
     input2 = Company.new(
@@ -155,10 +148,10 @@ def papers_all(number, date_string, date_end_string)
       input2.manager_name = company["representants"].first["nom_complet"]
     end
 
-    cat = "Architecte"
+    cat = "promotion immobiliere"
     input2.category = Category.find_by(name: cat)
     input2.website = http(input2["siren"], cat)
-    #input2.email = email(input2["siren"], cat)
+    input2.email = email(input2["siren"], cat)
     input2.save
   end
 
@@ -190,7 +183,7 @@ def papers_all(number, date_string, date_end_string)
       naf_code: company["siege"]["code_naf"],
       activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
     )
-    cat = "Architecte"
+    cat = "promotion immobiliere"
     input2.category = Category.find_by(name: cat)
     input2.save
   end
@@ -264,7 +257,7 @@ def papers_all(number, date_string, date_end_string)
   def check_company_website(company)
     input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
     website_old = input2[:website]
-    cat = "Architecte"
+    cat = "promotion immobiliere"
     # input2.category = Category.find_by(name: cat)
     website_new = http(company["siren"], cat)
 
@@ -303,8 +296,13 @@ def papers_all(number, date_string, date_end_string)
 
   def check_google(siren, category)
     query = website(siren)
+    if query == "\"statusCode\"=>400, \"error\"=>\"Requ\u00EAte mal format\u00E9e\", \"message\"=>\"Veuillez indiquer un num\u00E9ro SIREN ou SIRET valide\""
+      query = "entreprise"
+    else
+      query = website(siren)
+    end
     cat = category
-    url = URI("https://www.google.com/search?q=#{query} #{cat}&aqs=chrome..69i57.12838j0j1&sourceid=chrome&ie=UTF-8&google_abuse=GOOGLE_ABUSE_EXEMPTION%3DID%3Dd631c880f8324646:TM%3D1610015596:C%3Dr:IP%3D195.158.249.10-:S%3DAPGng0ugFk3mv3CQOcglO8dStCd4-zNsAg%3B+path%3D/%3B+domain%3Dgoogle.com%3B+expires%3DThu,+07-Jan-2021+13:33:16+GMT")
+    url = URI("https://www.google.com/search?q=#{query} #{cat}&aqs=chrome..69i57j33i160.30487j0j7&sourceid=chrome&ie=UTF-8")
     #p url
     html_file = open(url).read
     html_doc = Nokogiri::HTML(html_file)
@@ -318,7 +316,7 @@ def papers_all(number, date_string, date_end_string)
     bin = []
     domain_regex = /(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
     check_google(siren, category).each do |url|
-      # p url
+      #p url
       if url.match(domain_regex)
         array << url
       else
@@ -326,29 +324,31 @@ def papers_all(number, date_string, date_end_string)
       end
     end
 
-    array2 = array.first(12)
+    array2 = array.first(5)
     bin2 = []
     array3 = []
     array2.each do |url|
       # URL GOOGLE
+
       domain_map = /(https)\:\/\/maps[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
       domain_google = /(https)\:\/\/www\.googl[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_google2 = /(http)\:\/\/www\.googl[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      # URL CLASSIQUE
-      domain_societe = /(\/url\?q=)(https)\:\/\/www\.soci[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_img2 = /(\/imgres\?imgurl=)(http)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_img = /(\/imgres\?imgurl=)(https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_linkedin = /(\/url\?q=)(https)\:\/\/fr\.linked[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_linke = /(\/url\?q=)(https)\:\/\/www\.linked[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_linkedines = /(\/url\?q=)(https)\:\/\/es\.linked[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_mappy = /(\/url\?q=)(https)\:\/\/fr\.map[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_facebook = /(\/url\?q=)(https)\:\/\/fr-fr\.faceboo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_facebook2 = /(\/url\?q=)(https)\:\/\/www\.face[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_info = /(\/url\?q=)(https)\:\/\/www\.infogreff[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_kompas = /(\/url\?q=)(https)\:\/\/fr\.kompas[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
-      domain_filam = /(\/url\?q=)(http)\:\/\/www\.filham[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
 
-      if url.match(domain_filam) || url.match(domain_societe) || url.match(domain_linke) || url.match(domain_linkedines) || url.match(domain_kompas) || url.match(domain_img2) || url.match(domain_img) || url.match(domain_info) || url.match(domain_google2) || url.match(domain_mappy) || url.match(domain_facebook2) || url.match(domain_facebook) || url.match(domain_google) || url.match(domain_map) || url.match(domain_linkedin)
+      # URL CLASSIQUE
+
+      domain_1 = /(\/url\?q=)(https)\:\/\/www\.soci[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_2 = /(\/url\?q=)(https)\:\/\/www\.pages[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_3 = /(\/url\?q=)(https)\:\/\/fr\.linked[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_4 = /(\/url\?q=)(https)\:\/\/fr\.map[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_5 = /(\/url\?q=)(https)\:\/\/fr-fr\.faceboo[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_6 = /(\/url\?q=)(https)\:\/\/www\.face[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_7 = /(\/url\?q=)(https)\:\/\/www\.veri[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_8 = /(\/url\?q=)(http)\:\/\/entreprises\.lefiga[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_9 = /(\/url\?q=)(https)\:\/\/www\.infogre[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_10 = /(\/url\?q=)(https)\:\/\/www\.sirensire[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+      domain_11 = /(\/url\?q=)(https)\:\/\/solution[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/
+
+
+      if url.match(domain_map) || url.match(domain_google) || url.match(domain_1) || url.match(domain_2) || url.match(domain_3) || url.match(domain_4) || url.match(domain_5) || url.match(domain_6) || url.match(domain_7) || url.match(domain_8) || url.match(domain_9) || url.match(domain_10) || url.match(domain_11)
         bin2 << url
       else
         array3 << url
@@ -360,12 +360,11 @@ def papers_all(number, date_string, date_end_string)
     else
       url = array3.first.to_s.delete_prefix('/url?q=').split('&').first
     end
-
+    p url
     return url
   end
 
   def email(siren, category)
-    #p 'la'
     if http(siren, category).nil?
       email_address = "N.C."
     else
@@ -376,24 +375,25 @@ def papers_all(number, date_string, date_end_string)
 
   def check_url_validity(siren, category)
     url = http(siren, category)
+    html_file = open(url).read
+    email_address = check_email_adress(html_file)
 
-    url = URI.parse("#{url}")
-    req = Net::HTTP.new(url.host, url.port)
-    #http.use_ssl = true
-    res = req.request_head(url.path)
+    # url = URI.parse("#{url}")
+    # req = Net::HTTP.new(url.host, url.port)
+    # res = req.request_head(url.path)
 
-    if res
-      html_file = open(url).read
-      email_address = check_email_adress(html_file)
-    else
-      email_address = "N.C."
-    end
+    # if res
+    #   html_file = open(url).read
+    #   email_address = check_email_adress(html_file)
+    # else
+    #   email_address = "N.C."
+    # end
 
     return email_address
   end
 
   def check_email_adress(html_file)
-    if html_file.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i).nil? || html_file.match(/[A-Z0-9._%+-]+@sentry.wixpress.com/i)
+    if html_file.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i).nil?
       email_address = "N.C."
     else
       email_address = html_file.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i)[0].to_s
@@ -401,22 +401,19 @@ def papers_all(number, date_string, date_end_string)
     #p email_address
     return email_address
   end
+  # def clearbit(website)
 
-    # def clearbit(email, website)
-    #   if email == "N.C"
-    #     url = URI("https://company.clearbit.com/v2/companies/find?domain=#{website}")
+  #   url = URI("https://company.clearbit.com/v2/companies/find?domain=#{website}")
 
-    #     https = Net::HTTP.new(url.host, url.port)
-    #     https.use_ssl = true
-    #     request = Net::HTTP::Get.new(url)
-    #     request["Authorization"] = ENV['CLEARBIT_KEY']
-    #     response = https.request(request)
-    #     puts response.read_body
+  #   https = Net::HTTP.new(url.host, url.port)
+  #   https.use_ssl = true
+  #   request = Net::HTTP::Get.new(url)
+  #   request["Authorization"] = ENV['CLEARBIT_KEY']
+  #   response = https.request(request)
+  #   puts response.read_body["site"]["emailAddresses"]
+  # end
 
-    #   else
-    #     email = "N.C"
-    #   end
-    #   return email
-    # end
-  end
 
+end
+
+# APIPapers6920Z.new.papers_all(20, "01-01-2020")
