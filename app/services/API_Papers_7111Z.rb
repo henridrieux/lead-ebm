@@ -302,7 +302,7 @@ def papers_all(number, date_string, date_end_string)
   end
 
   def check_google(siren, category)
-    query = website(siren)
+    query = website(siren).parameterize
     cat = category
     url = URI("https://www.google.com/search?q=#{query} #{cat}&aqs=chrome..69i57.12838j0j1&sourceid=chrome&ie=UTF-8&google_abuse=GOOGLE_ABUSE_EXEMPTION%3DID%3Dd631c880f8324646:TM%3D1610015596:C%3Dr:IP%3D195.158.249.10-:S%3DAPGng0ugFk3mv3CQOcglO8dStCd4-zNsAg%3B+path%3D/%3B+domain%3Dgoogle.com%3B+expires%3DThu,+07-Jan-2021+13:33:16+GMT")
     #p url
