@@ -87,9 +87,9 @@ def papers_all(number, date_string, date_end_string)
     if company["siren"].nil?
       p 'error'
     elsif Company.find_by(siren: company["siren"].to_i)
-      #update_company_adress(company)
-      #update_company_siret_counter(company)
-      #check_company_manager_name(company)
+      update_company_adress(company)
+      update_company_siret_counter(company)
+      check_company_manager_name(company)
       # check_company_website(company)
       @nb_update += 1
     elsif company["siren"].nil?

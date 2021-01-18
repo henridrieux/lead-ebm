@@ -95,9 +95,9 @@ class APIPapers
     # Company.find_by(siret: company["siege"]["siret"].to_i)
     if Company.find_by(siren: company["siren"].to_i)
       p 'existing'
-      #update_company_adress(company)
-      #update_company_siret_counter(company)
-      #check_company_manager_name(company)
+      update_company_adress(company)
+      update_company_siret_counter(company)
+      check_company_manager_name(company)
       # check_company_website(company)
       @nb_update += 1
     elsif company["siren"].nil?
