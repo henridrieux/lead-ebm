@@ -86,8 +86,8 @@ class APIPapers8030z
   end
 
   def check_company_adress(company)
-    Company.find_by(siret: company["siren"].to_i)
-    if Company.find_by(siret: company["siren"].to_i)
+    Company.find_by(siren: company["siren"].to_i)
+    if Company.find_by(siren: company["siren"].to_i)
       update_company_adress(company)
       @nb_update += 1
     else
@@ -97,8 +97,8 @@ class APIPapers8030z
   end
 
   def check_company_siret_counter(company)
-    Company.find_by(siret: company["siren"].to_i)
-    if Company.find_by(siret: company["siren"].to_i)
+    Company.find_by(siren: company["siren"].to_i)
+    if Company.find_by(siren: company["siren"].to_i)
       update_company_siret_counter(company)
     else
       create_company(company)
@@ -176,7 +176,7 @@ class APIPapers8030z
   end
 
   def update_company_adress(company)
-    input2 = Company.find_by(siret: company["siren"].to_i)
+    input2 = Company.find_by(siren: company["siren"].to_i)
     address_old = input2[:address]
     address_new = company["siege"]["adresse_ligne_1"]
     if address_old != address_new && !address_old.nil?
@@ -215,7 +215,7 @@ class APIPapers8030z
   end
 
   def update_company_siret_counter(company)
-    input2 = Company.find_by(siret: company["siren"].to_i)
+    input2 = Company.find_by(siren: company["siren"].to_i)
     siret_count_old = input2[:siret_count]
     siret_count_new = company["siege"]["siret_count"]
     if siret_count_old != siret_count_new && !siret_count_old.nil?
