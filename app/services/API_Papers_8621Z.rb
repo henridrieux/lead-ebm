@@ -86,8 +86,8 @@ def papers_all(number, date_string, date_end_string)
 
   def check_company(company)
     #p company["siege"]["siret"]
-    #Company.find_by(siret: company["siege"]["siret"].to_i)
-    if Company.find_by(siret: company["siege"]["siret"].to_i)
+    #Company.find_by(siret: company["siren"].to_i)
+    if Company.find_by(siret: company["siren"].to_i)
       #update_company_adress(company)
       #update_company_siret_counter(company)
       #check_company_manager_name(company)
@@ -124,8 +124,8 @@ def papers_all(number, date_string, date_end_string)
   end
 
   # def check_company_siret_counter(company)
-  #   Company.find_by(siret: company["siege"]["siret"].to_i)
-  #   if Company.find_by(siret: company["siege"]["siret"].to_i)
+  #   Company.find_by(siret: company["siren"].to_i)
+  #   if Company.find_by(siret: company["siren"].to_i)
   #     update_company_siret_counter(company)
   #   else
   #     create_company(company)
@@ -164,7 +164,7 @@ def papers_all(number, date_string, date_end_string)
   end
 
   def update_company(company)
-    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    input2 = Company.find_by(siret: company["siren"].to_i)
     address_old = input2[:address]
     address_new = company["siege"]["adresse_ligne_1"]
     if address_old != address_new && !address_old.nil?
@@ -197,7 +197,7 @@ def papers_all(number, date_string, date_end_string)
   end
 
   def update_company_adress(company)
-    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    input2 = Company.find_by(siret: company["siren"].to_i)
     address_old = input2[:address]
     address_new = company["siege"]["adresse_ligne_1"]
     if address_old != address_new && !address_old.nil?
@@ -217,7 +217,7 @@ def papers_all(number, date_string, date_end_string)
   end
 
   def update_company_siret_counter(company)
-    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    input2 = Company.find_by(siret: company["siren"].to_i)
     siret_count_old = input2[:siret_count]
     siret_count_new = headquarter_count(company["siren"])
 
@@ -235,7 +235,7 @@ def papers_all(number, date_string, date_end_string)
   end
 
   def check_company_manager_name(company)
-    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    input2 = Company.find_by(siret: company["siren"].to_i)
     manager_name_old = input2[:manager_name]
 
     if company["representants"].count == 0
@@ -263,7 +263,7 @@ def papers_all(number, date_string, date_end_string)
   end
 
   def check_company_website(company)
-    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    input2 = Company.find_by(siret: company["siren"].to_i)
     website_old = input2[:website]
     cat = "Médecin Généraliste"
     # input2.category = Category.find_by(name: cat)

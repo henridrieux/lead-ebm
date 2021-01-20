@@ -154,7 +154,7 @@ class APIPapers8623z
   end
 
   def update_company(company)
-    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    input2 = Company.find_by(siret: company["siren"].to_i)
     address_old = input2[:address]
     address_new = company["siege"]["adresse_ligne_1"]
     if address_old != address_new && !address_old.nil?
@@ -187,7 +187,7 @@ class APIPapers8623z
   end
 
   def update_company_adress(company)
-    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    input2 = Company.find_by(siret: company["siren"].to_i)
     address_old = input2[:address]
     address_new = company["siege"]["adresse_ligne_1"]
     if address_old != address_new && !address_old.nil?
@@ -207,7 +207,7 @@ class APIPapers8623z
   end
 
   def update_company_siret_counter(company)
-    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    input2 = Company.find_by(siret: company["siren"].to_i)
     siret_count_old = input2[:siret_count]
     siret_count_new = headquarter_count(company["siren"])
 
@@ -225,7 +225,7 @@ class APIPapers8623z
   end
 
   def check_company_manager_name(company)
-    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    input2 = Company.find_by(siret: company["siren"].to_i)
     manager_name_old = input2[:manager_name]
 
     if company["representants"].count == 0
@@ -253,7 +253,7 @@ class APIPapers8623z
   end
 
   def check_company_website(company)
-    input2 = Company.find_by(siret: company["siege"]["siret"].to_i)
+    input2 = Company.find_by(siret: company["siren"].to_i)
     website_old = input2[:website]
     cat = "Dentiste"
     # input2.category = Category.find_by(name: cat)
