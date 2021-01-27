@@ -2,7 +2,7 @@
 # require "open-uri"
 # require 'nokogiri'
 
-class ScrapCommi
+class ScrapCommissaire
 
 # ______ EMAIL _____
 
