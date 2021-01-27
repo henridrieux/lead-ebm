@@ -2,6 +2,8 @@
 # require "open-uri"
 # require 'nokogiri'
 
+class ScrapCommi
+
 # ______ EMAIL _____
 
 # def scrap(numP)
@@ -137,4 +139,6 @@
 #     end
 #   end
 # end
+
+end
 
