@@ -94,7 +94,7 @@ cat_9 = {
   description: "Construction d'un immeuble, réaménagement d'une cafétéria, réhabilitation d'une maison, etc. Le maître d'oeuvre de tous ces chantiers, c'est l'architecte. Il suit le projet de construction, de la commande à la livraison. Très créatif, surtout en phase de conception,
   l'architecte n'a rien d'un artiste qui travaillerait seul face à l'ordinateur.",
   color_code:"#FF7B54",
-  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1607764870/Medecin-geriatre-850x523_ivvnjb.jpg',
+  url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1612204053/te%CC%81le%CC%81chargement_vomxbb.jpg',
   filename: 'Architecte.jpg'
 }
 
