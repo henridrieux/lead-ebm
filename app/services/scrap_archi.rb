@@ -144,7 +144,7 @@ class ScrapArchi
   def papers_name(company_name)
     company_name1 = company_name.parameterize
     #p company_name1
-    url = URI("https://api.pappers.fr/v1recherche?nom_entreprise=#{company_name1}&code_naf=69.20Z&api_token=c8c26742dc2e31f8ad0059a0d4069c4c66addf1cdddfea7a&par_page=1&entreprice_cessee=false")
+    url = URI("https://api.pappers.fr/v1recherche?nom_entreprise=#{company_name1}&code_naf=71.11Z&api_token=c8c26742dc2e31f8ad0059a0d4069c4c66addf1cdddfea7a&par_page=1&entreprice_cessee=false")
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
     request = Net::HTTP::Get.new(url)
