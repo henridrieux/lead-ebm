@@ -287,7 +287,7 @@ class APIPapers8622c
     if result["nom_entreprise"].nil? || result["siege"].nil? || result["siege"]["ville"].nil?
       result = "entreprise"
     else
-      result = result["nom_entreprise"] + " " + result["siege"]["ville"].parameterize
+      result = result["nom_entreprise"].parameterize  + " " + result["siege"]["ville"].parameterize
     end
     #p result
     return result
