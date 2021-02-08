@@ -8,7 +8,7 @@
 
 require "open-uri"
 
-CAT_LIST = ["Opticien", "Pharmaciens", "Avocat", "Huissier", "Notaire", "Administrateur judiciaire", "Commissaire-priseur", "Comptable", "Médecin Généraliste", "Architecte", "Radiologue", "Dentitste", "Médecins spécialistes"]
+CAT_LIST = ["Opticien", "Pharmaciens", "Avocat", "Huissier", "Notaire", "Administrateur judiciaire", "Commissaire-priseur", "Comptable", "Médecin Généraliste", "Architecte", "Radiologue", "Dentitste", "Médecin spécialiste"]
 
 cat_1 = {
   name: "Avocat",
@@ -119,7 +119,7 @@ cat_12 = {
   description: "Le médecin spécialiste examine les malades, établit un diagnostic et met en place un traitement adapté. De la dermatologie à la pédiatrie, la profession compte une trentaine de disciplines.",
   color_code:"#9088d4",
   url: 'https://res.cloudinary.com/dpco9ylg1/image/upload/v1609957269/bofu-shaw-QTjR-fCtGCg-unsplash_foiybh.jpg',
-  filename: 'Médecins spécialistes.jpg'
+  filename: 'Médecin spécialiste.jpg'
 }
 
 cat_13 = {

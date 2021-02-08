@@ -146,7 +146,7 @@ class APIPapers8622c
       input2.manager_name = company["representants"].first["nom_complet"]
     end
 
-    cat = "Médecins spécialistes"
+    cat = "Médecin spécialiste"
     input2.category = Category.find_by(name: cat)
     input2.website = http(input2["siren"], cat)
     # input2.email = email(input2["siren"], cat)
@@ -181,7 +181,7 @@ class APIPapers8622c
       naf_code: company["siege"]["code_naf"],
       activities: company["publications_bodacc"].blank? ? nil : company["publications_bodacc"][0]["activite"]
     )
-    cat = "Médecins spécialistes"
+    cat = "Médecin spécialiste"
     input2.category = Category.find_by(name: cat)
     input2.save
   end
@@ -255,7 +255,7 @@ class APIPapers8622c
   def check_company_website(company)
     input2 = Company.find_by(siren: company["siren"].to_i)
     website_old = input2[:website]
-    cat = "Médecins spécialistes"
+    cat = "Médecin spécialiste"
     # input2.category = Category.find_by(name: cat)
     website_new = http(company["siren"], cat)
 
